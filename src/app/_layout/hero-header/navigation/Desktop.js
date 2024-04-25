@@ -49,7 +49,7 @@ export default function Desktop() {
           )}
         </Box>
         <NavLink href="/page/about" label='About' />
-        <NavLink href="/" label='Contact Us' />
+        <NavLink href="/form/submit-card" label='Contact Us' />
       </Box>
 
 

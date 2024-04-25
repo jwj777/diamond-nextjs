@@ -15,7 +15,6 @@ export default async function Page({ params }) {
     <PageContainerGeneral data={data}>
 
         <Box position='relative' bottom='40'>
-          <BodyLarge>askldfhj</BodyLarge>
           {
             data.attributes.Sections.map((item, index) => {
               return(
@@ -35,7 +34,7 @@ async function getPageBySlug(params) {
   try {
     const slug = params.slug;
     const response =
-      await fetch(process.env.BASE_URL + `/api/general-pages?populate[Sections][populate]=*&populate[HeroImage][populate]=*
+      await fetch(process.env.BASE_URL + `/api/general-pages?filters[slug][$eq]=${slug}&populate[Sections][populate]=*&populate[HeroImage][populate]=*
       &populate[Sections][on][section.card-list][populate][Cards][populate]=*`);
 
     if (!response.ok) {
