@@ -1,12 +1,12 @@
+import Sections from "@/app/_components/sections/sections-array/Sections";
 import BodyLarge from "@/app/_components/typography/BodyLarge";
 import PageContainer from "@/app/_layout/PageContainer";
 import PageContainerGeneral from "@/app/_layout/PageContainerGeneral";
 import { Box, Image } from "@chakra-ui/react";
 
 
-
-
 export default async function Page({ params }) {
+
   const pageBySlug = await getPageBySlug(params);
   const data = pageBySlug?.[0];
 
