@@ -1,0 +1,41 @@
+/* @font-face { font-family: 'Fracktif'; src: url('./fonts/fracktif-regular.woff2'); }  */
+/* /* @font-face { font-family: 'Alliance'; src: url('./fonts/alliance-no2-regular.woff2'); }  */
+/* @font-face { font-family: 'Alliance'; src: url('./fonts/alliance-no2-light.woff2'); }  */
+
+/* @font-face {
+font-family: 'Alliance';
+font-style: normal;
+font-weight: '400';
+src: 
+  url('./fonts/AllianceNo2Regular/font.woff') format('woff'), 
+  url('./fonts/AllianceNo2Regular/font.woff2') format('woff2');
+} */
+
+
+
+.bodyContent2 p {
+  margin-bottom: 1.6rem;
+}
+
+.bodyContent2 h2 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-top: 3rem;
+  margin-bottom: 1.2rem;
+}
+
+.bodyContent2 h3 {
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-top: 2.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.bodyContent2 ul {
+  padding-left: 1.4rem;
+  margin-bottom: 1.4rem;
+}
+
+.alliance400 {
+  font-weight: 400 !important;
+}

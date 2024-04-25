@@ -1,7 +1,17 @@
-import { Inter } from "next/font/google";
+import { Figtree, Alegreya_SC } from "next/font/google";
 import "./globals.css";
+import { Providers } from "./providers";
 
-const inter = Inter({ subsets: ["latin"] });
+const alegreya = Alegreya_SC({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  display: 'swap',
+})
+
+const figtree = Figtree({
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata = {
   title: "Create Next App",
@@ -11,7 +21,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${alegreya.className} ${figtree.className}`}>
+      {/* <body className={alegreya.className}> */}
+        <Providers>
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }

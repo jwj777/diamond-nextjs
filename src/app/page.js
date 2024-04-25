@@ -1,95 +1,50 @@
-import Image from "next/image";
 import styles from "./page.module.css";
+import { Box, Image } from "@chakra-ui/react";
+import PageContainerHome from "./_layout/PageContainerHome";
+import XlContainer from "./_layout/containers/XlContainer";
+import HeadlineLargeAlt from "./_components/typography/HeadlineLargeAlt";
+import Sections from "./_components/sections/sections-array/Sections";
+import BodySuper from "./_components/typography/BodySuper";
+import BodyLarge from "./_components/typography/BodyLarge";
+import HeadlineLarge from "./_components/typography/HeadlineLarge";
 
-export default function Home() {
+export default async function Home() {
+
+  let data = await getData()
+  data = data.data
+
+  console.log('Home')
+  console.log(data)
+  
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+      <PageContainerHome data={data}>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        <Box position='relative' bottom='40'>
+          {
+            data.attributes.Sections.map((item, index) => {
+              return(
+                <Sections key={index} data={item} />
+              )
+            })
+          }
+        </Box>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      </PageContainerHome>
     </main>
   );
+}
+
+
+async function getData() {
+  const res = await fetch(process.env.BASE_URL + `/api/homepages/1?populate[Sections][populate]=*&populate[HeroImage][populate]=*
+  &populate[Sections][on][section.card-list][populate][Cards][populate]=*`, { 
+    next: { revalidate: 30 }
+  })
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+ 
+  return res.json()
 }
