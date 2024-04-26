@@ -14,7 +14,7 @@ export default async function Home() {
   data = data.data
 
   console.log('Home')
-  console.log(data)
+  console.log(data.attributes.Sections)
   
   return (
     <main className={styles.main}>
@@ -38,7 +38,8 @@ export default async function Home() {
 
 async function getData() {
   const res = await fetch(process.env.BASE_URL + `/api/homepages/1?populate[Sections][populate]=*&populate[HeroImage][populate]=*
-  &populate[Sections][on][section.card-list][populate][Cards][populate]=*`, { 
+  &populate[Sections][on][section.card-list][populate][Cards][populate]=*
+  &populate[Sections][on][section.section-basic-cards-2][populate][Cards][populate]=*`, { 
     next: { revalidate: 30 }
   })
 

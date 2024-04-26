@@ -37,7 +37,8 @@ export default function Header({ data, children, contentType }) {
           <Box mr='16'>
             <Desktop />
           </Box>
-          <Link href='/form/submit-card' variant='neutralDark'>Submit a Card</Link>
+          <Link href='/form/submit-card' variant='neutralDark'>Sign Up Today</Link>
+          {/* <Link href='/form/submit-card' variant='neutralDark'>Submit a Card</Link> */}
         </Box>
 
       </Box>

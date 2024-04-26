@@ -35,7 +35,8 @@ async function getPageBySlug(params) {
     const slug = params.slug;
     const response =
       await fetch(process.env.BASE_URL + `/api/general-pages?filters[slug][$eq]=${slug}&populate[Sections][populate]=*&populate[HeroImage][populate]=*
-      &populate[Sections][on][section.card-list][populate][Cards][populate]=*`);
+      &populate[Sections][on][section.card-list][populate][Cards][populate]=
+      &populate[Sections][on][section.two-column-image-text-edge][populate]=*`);
 
     if (!response.ok) {
       throw new Error("Failed to fetch data");

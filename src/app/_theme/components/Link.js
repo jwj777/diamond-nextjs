@@ -91,7 +91,7 @@ const neutralDark = defineStyle({
   borderRadius: '10rem',
     _hover: {
       bg: 'primary.95',
-      color: 'primary.100',
+      color: 'primary.10',
       textDecor: 'none',
   }
 })

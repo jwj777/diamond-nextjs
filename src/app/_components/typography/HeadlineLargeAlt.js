@@ -11,7 +11,6 @@ export default function HeadlineLargeAlt({ children, color }) {
       fontSize={{ base: '2.4rem', md: '2.8rem', lg: '3rem' }}
       lineHeight={{ base: '108%', md: '104%', lg: '112%' }}
       fontWeight='300'
-      font-family="Alegreya sc"
       letterSpacing='-1px' 
       mt={{ base: '1rem', md: '0' }}
       mb={{ base: '1rem', md: '1rem' }}

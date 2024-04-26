@@ -16,14 +16,14 @@ export default function BodyMedium({ text, textColor, color, children }) {
       <Box 
         dangerouslySetInnerHTML={{ __html: text }} 
         fontFamily='figtree'
-        fontSize={{ base: '1rem', md: '1.1rem' }}
+        fontSize={{ base: '1rem', md: '1.05rem' }}
         lineHeight={{ base: '152%', md: '154%' }}
         fontWeight='400'
         color={color}
       ></Box> :
       <Box 
         fontFamily='figtree'
-        fontSize={{ base: '1rem', md: '1.1rem' }}
+        fontSize={{ base: '1rem', md: '1.05rem' }}
         lineHeight={{ base: '152%', md: '154%' }}
         color={color}
         fontWeight='400'
