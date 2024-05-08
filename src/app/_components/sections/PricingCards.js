@@ -12,12 +12,12 @@ export default function PricingCards({ data }) {
 
     <Box display='flex' flexWrap='wrap' mx='2'>
       <Box>
-        <PricingCard title='Free' price='Free' >
+        <PricingCard title='Standard' price='Free' >
           <Text as='span' color='neutral.95'>Nunc vulputate libero et velit interdum, ac aliquet odio mattis. </Text>
         </PricingCard>
       </Box>
       <Box>
-        <PricingCard title='Diamond' price='$39.99' >
+        <PricingCard title='Diamond Club' price='$39.99' >
           <Text as='span' color='neutral.95'>Nunc vulputate libero et velit interdum, ac aliquet odio mattis. </Text>
         </PricingCard>
       </Box>

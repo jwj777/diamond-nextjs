@@ -1,6 +1,5 @@
+import GradeAccordion from "@/app/_components/sections/grading-standards/GradeAccordion";
 import Sections from "@/app/_components/sections/sections-array/Sections";
-import BodyLarge from "@/app/_components/typography/BodyLarge";
-import PageContainer from "@/app/_layout/PageContainer";
 import PageContainerGeneral from "@/app/_layout/PageContainerGeneral";
 import { Box, Image } from "@chakra-ui/react";
 
@@ -13,6 +12,12 @@ export default async function Page({ params }) {
   return (
  
     <PageContainerGeneral data={data}>
+
+      {
+        data.attributes.slug == 'grading-standards' ?
+        <GradeAccordion data={data} />
+        : null
+      }
 
         <Box position='relative' bottom='40'>
           {
@@ -28,7 +33,6 @@ export default async function Page({ params }) {
 
   );
 }
-
 
 async function getPageBySlug(params) {
   try {

@@ -13,7 +13,7 @@ export default function PricingCard({ data, title, price, children }) {
 
     <Box maxW='280px' mt='24' mx='2' bg='neutral.20' p='8' borderRadius='20'>
       <TitleLarge color='neutral.90'>{title}</TitleLarge>
-      <HeadlineLarge color='neutral.100'>{price}</HeadlineLarge>
+      <HeadlineLarge color='primary.90'>{price}</HeadlineLarge>
       {children}
     </Box>
 

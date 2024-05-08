@@ -1,5 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
-// import { Button } from "./components/button";
+import { Button } from "./components/Button";
 import { Input } from "./components/Input";
 import { Link } from "./components/Link";
 
@@ -16,7 +16,7 @@ const breakpoints = {
 const theme = extendTheme({
   breakpoints,
   components: {
-    // Button, 
+    Button, 
     Input, 
     Link,
   },
@@ -51,23 +51,25 @@ const theme = extendTheme({
     },
     neutral: {
       0: '#000000',
-      4: '#100E09',
-      10: '#1e1b16',
-      20: '#33302a',
-      25: '#3e3b35',
-      30: '#4a4640',
-      35: '#56524b',
-      40: '#625e57',
-      50: '#7b766f',
-      60: '#959088',
-      70: '#b0aaa2',
-      80: '#ccc6bd',
-      90: '#e8e2d9',
-      95: '#f7f0e7',
-      98: '#fff8f0',
-      99: '#fffbff',
-      100: '#ffffff',
-      },
+      4: "#12110D",
+      5: "#12110D",
+      10: "#1D1B17",
+      15: "#282521",
+      20: "#32302C",
+      25: "#3E3B36",
+      30: "#494642",
+      35: "#55524D",
+      40: "#615E59",
+      50: "#7A7671",
+      60: "#94908A",
+      70: "#AFAAA4",
+      80: "#CBC6BF",
+      90: "#E7E2DB",
+      95: "#F6F0E9",
+      98: "#FFF8F1",
+      99: "#FFFBFF",
+      100: "#FFFFFF"
+    },
     neutralWhite: {
       'background': 'var(--chakra-colors-neutral-100)',
       'on-background': 'var(--chakra-colors-neutral-10)',

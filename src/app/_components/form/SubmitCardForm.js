@@ -76,6 +76,7 @@ export default function SubmitCardForm({ data }) {
                 <option value='option3'>Fleer</option>
                 <option value='option3'>Donruss</option>
                 <option value='option3'>Score</option>
+                <option value='option3'>Other - conditional field</option>
               </Select>
             </Box>
        
@@ -87,22 +88,20 @@ export default function SubmitCardForm({ data }) {
             </Box>
           
           </Box>
-          
-          <Box mb='4' mr='4' minW='200px' h='16'>
-            <Select placeholder='Declared Value' bg='neutral.100' fontSize='1.2rem' h='16' borderRadius='8'>
-              <option value='option1'>Less Than $500</option>
-              <option value='option2'>$501 to $1,499</option>
-              <option value='option3'>$1,500 to $2,499 </option>
-              <option value='option3'>$2,500 to $4,999</option>
-              <option value='option3'>$5,000 to $7,499</option>
-              <option value='option3'>$7,500 to $9,999</option>
-              <option value='option3'>More Than $10,000</option>
-            </Select>
+
+          <Box mr='4' minW='160px'>
+            <InputFloat label="Description/Parallel/Variation" id={"cardnumber"} type={"text"} pattern={"^[A-Za-z]+$"} required={true} />
+          </Box>
+
+          <Box mr='4' minW='160px'>
+            <InputFloat label="Declared Value" id={"declaredValue"} type={"text"} pattern={"^[A-Za-z]+$"} required={true} />
           </Box>
 
           <Box mr='4' maxW='320px'>
             <InputFloat label="Quantity" id={"quantity"} type={"text"} pattern={"^[A-Za-z]+$"} required={true} />
           </Box>
+
+
 
 
         </Box>
@@ -120,7 +119,7 @@ export default function SubmitCardForm({ data }) {
             bg: 'neutral.20',
           }}
         >
-          {'Let\'s Get Started'}
+          {'Add to Order'}
         </Button>
       
       </form>
