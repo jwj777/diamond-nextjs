@@ -15,7 +15,7 @@ export default function MemberPlans({ plans }) {
         {
           plans.map((plan, index) => {
             return(
-              <MemberPlan plan={plan} />
+              <MemberPlan key={index} plan={plan} />
             )
           })
         }
