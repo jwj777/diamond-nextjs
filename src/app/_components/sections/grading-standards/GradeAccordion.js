@@ -38,7 +38,7 @@ export default function GradeAccordion({ gradeData }) {
               {
                 gradeData.map((item, index) => {
                   return(
-                    <GradeItems data={item} filter={filter} />
+                    <GradeItems key={index} data={item} filter={filter} />
                   )
                 })
               }
