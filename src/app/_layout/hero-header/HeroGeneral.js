@@ -17,7 +17,7 @@ export default function HeroGeneral({ data, children }) {
 
     <Box 
       display='flex'
-      pt='24' pb='44' 
+      pt='20' pb='28' 
       // background={'neutral.4'}
     >
 

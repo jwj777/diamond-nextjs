@@ -50,18 +50,12 @@ const primaryLight = defineStyle({
 })
 
 const primaryDark = defineStyle({
-  bg: 'rgba(255,255,255,.12)',
-  color: 'neutral.90',
+  bg: 'primary.90',
+  color: 'neutral.10',
   borderRadius: '10rem',
-  py: '14px',
-  px: '24px',
-  fontSize: '1.3rem',
-  lineHeight: '1rem',
-  fontVariationSettings: '"wdth" 65, "wght" 600, "slnt" -12',
-  textTransform: 'uppercase',
     _hover: {
-    bg: 'rgba(255,255,255,.24)',
-    color: 'neutral.100',
+    bg: 'primary.80',
+    color: 'neutral.0',
     textDecor: 'none',
   }
 })
