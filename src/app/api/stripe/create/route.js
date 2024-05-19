@@ -16,8 +16,8 @@ export const POST = async (req) => {
         },
       ],
       customer: customerId,
-      success_url: `https://www.typingmind.com/profile`,
-      cancel_url: `https://www.typingmind.com/cancel`,
+      success_url: `${process.env.AUTH0_BASE_URL}/account`,
+      cancel_url: `${process.env.AUTH0_BASE_URL}`,
     });
 
     return new Response(JSON.stringify({ sessionId: session.id }), {
