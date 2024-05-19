@@ -3,7 +3,6 @@ import Sections from "@/app/_components/sections/sections-array/Sections";
 import PageContainerGeneral from "@/app/_layout/PageContainerGeneral";
 import { Box, Image } from "@chakra-ui/react";
 
-
 export default async function Page({ params }) {
 
   const pageBySlug = await getPageBySlug(params);
