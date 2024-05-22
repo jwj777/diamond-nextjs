@@ -2,7 +2,7 @@ import { FormErrorMessage, FormHelperText, FormLabel, Input, FormControl } from 
 import { useState } from "react";
 import LabelActive from "./LabelActive";
 
-export default function InputFloat({ label, id, type, pattern, errorMsg, width, required, inputValue }) {
+export default function InputFloat({ label, id, type, pattern, errorMsg, width, required, value, onChange }) {
 
   const [inputState, setInputState] = useState('empty')
 
@@ -35,8 +35,10 @@ export default function InputFloat({ label, id, type, pattern, errorMsg, width, 
           variant='lightInput'
           width={inputWidth}
           pattern={pattern}
+          value={value}
           onBlur={(e) => handleOnBlur(e)} 
           onFocus={e => handleOnFocus(e)} 
+          onChange={onChange}
           isRequired={required}
         />
 
