@@ -51,6 +51,7 @@ export default function InputFloat({ label, id, type, pattern, errorMsg, width, 
               color='neutral.90'
               fontSize={{ base: '1rem', sm: '1.15rem', md: '1.15rem' }}
               position='absolute'
+              borderColor='neutral.40'
               bottom={{ base: '8px', sm: '10px', md: '10px' }}
               pl={{ base: '1rem', sm: '1.4rem' }}
               zIndex='2'
