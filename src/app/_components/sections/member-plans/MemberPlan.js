@@ -47,8 +47,8 @@ export default function MemberPlan({ plan }) {
         {
           plan.attributes.Features.map((feature, index) => {
             return(
-              <Box mb='4'>
-                <BodySmall key={index} color='neutral.90'>{feature.Text}</BodySmall>
+              <Box key={index} mb='4'>
+                <BodySmall color='neutral.90'>{feature.Text}</BodySmall>
               </Box>
             )
           })
