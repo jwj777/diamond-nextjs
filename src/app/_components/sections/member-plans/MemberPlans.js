@@ -11,7 +11,7 @@ export default function MemberPlans({ plans }) {
   return(
 
     <XlContainer>
-      <Box display='flex' ml='-4'>
+      <Box display='flex' ml='-4' pb='16'>
         {
           plans.map((plan, index) => {
             return(

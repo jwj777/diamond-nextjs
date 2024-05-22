@@ -23,9 +23,6 @@ export default function Sections({ data }) {
         : data.__component == 'section.section-basic-cards-2' ?
         <BasicCardList data={data} />
         : null
-
-
-        
       }
     </Box>
 

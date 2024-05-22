@@ -12,7 +12,11 @@ export default function HeroHeaderHome({ data, children, contentType }) {
 
   return (
 
-    <Box bg='url(https://diamondgrade.s3.us-east-1.amazonaws.com/homepage_bg_image_45ae0d8842.png)'>
+    <Box 
+      bg='url(https://diamondgrade.s3.us-east-1.amazonaws.com/homepage_bg_image_45ae0d8842.png)'
+      backgroundPosition='50% 50%'
+      backgroundSize='cover'
+    >
 
       <Box>
         <Header />

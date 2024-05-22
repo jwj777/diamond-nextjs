@@ -6,15 +6,15 @@ export default function LabelActive({ label, id }) {
  
     <FormLabel 
       htmlFor={id} 
-      color='tertiary.60'
-      background='white'
+      color='neutral.95'
+      background='neutral.20'
       fontWeight='500'
       fontSize={{ base: '0.75rem', sm: '0.85rem' }}
       ml='0.8rem'
       pt={{ base: '2px', sm: '3px' }}
       px='12px'
       position='absolute'
-      bottom={{ base: '2.4rem', sm: '3.3rem', md: '3.3rem' }}
+      bottom={{ base: '2.4rem', sm: '46px', md: '46px' }}
       left={{ base: '-7px', sm: '0' }}
       borderRadius='4px'
       transitionDuration='0.3s'

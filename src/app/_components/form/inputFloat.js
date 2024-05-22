@@ -29,10 +29,12 @@ export default function InputFloat({ label, id, type, pattern, errorMsg, width, 
         <Input 
           type={type} id={id} 
           name={id} 
-          bg='white'
+          bg='neutral.20'
           minLength="1"
           size={{ base: 'lg', sm: 'xl', md: 'xl' }}
           variant='lightInput'
+          borderColor='neutral.30'
+          color='neutral.90'
           width={inputWidth}
           pattern={pattern}
           onBlur={(e) => handleOnBlur(e)} 
@@ -42,13 +44,14 @@ export default function InputFloat({ label, id, type, pattern, errorMsg, width, 
 
         {
           inputState == 'has-value' || inputState == 'focus' ?
-          <LabelActive label={label} /> :  
+            <LabelActive label={label} /> 
+          :  
             <FormLabel 
               htmlFor={id} 
-              color='neutralVariant.50'
+              color='neutral.90'
               fontSize={{ base: '1rem', sm: '1.15rem', md: '1.15rem' }}
               position='absolute'
-              bottom={{ base: '0.8rem', sm: '1.2rem', md: '1.2rem' }}
+              bottom={{ base: '8px', sm: '10px', md: '10px' }}
               pl={{ base: '1rem', sm: '1.4rem' }}
               zIndex='2'
               onClick={e => handleOnClick(e, id)} 

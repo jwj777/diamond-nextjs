@@ -4,7 +4,9 @@ import Desktop from "./navigation/Desktop";
 import FullContainer from "../containers/FullContainer";
 
 
-export default function Header({ data, children, contentType }) {
+export default function Header({ colorScheme }) {
+
+  colorScheme = colorScheme ? colorScheme : 'neutralDark';
 
   return (
 
@@ -37,8 +39,7 @@ export default function Header({ data, children, contentType }) {
           <Box mr='16'>
             <Desktop />
           </Box>
-          <Link href='/form/submit-card' variant='neutralDark'>Sign Up Today</Link>
-          {/* <Link href='/form/submit-card' variant='neutralDark'>Submit a Card</Link> */}
+          <Link href='#' variant='neutralDark'>Sign Up Today</Link>
         </Box>
 
       </Box>

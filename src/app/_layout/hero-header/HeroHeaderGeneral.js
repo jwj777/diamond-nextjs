@@ -4,21 +4,23 @@ import Header from "./Header";
 import HeroGeneral from "./HeroGeneral";
 
 
-export default function HeroHeaderGeneral({ data, children, contentType }) {
+export default function HeroHeaderGeneral({ data, colorScheme }) {
 
   // console.log('HeaderHeroGeneral')
   // console.log(data)
+
+  colorScheme = colorScheme ? colorScheme : 'neutralDark';
 
   return (
 
     <Box bg='neutral.4'>
 
       <Box>
-        <Header />
+        <Header colorScheme={colorScheme} />
       </Box>
 
       <Box>
-        <HeroGeneral data={data} />
+        <HeroGeneral data={data} colorScheme={colorScheme} />
       </Box>
 
     </Box>

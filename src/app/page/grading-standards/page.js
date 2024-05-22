@@ -19,14 +19,16 @@ export default async function GradingStandards({ params }) {
   return (
  
     <PageContainerGeneral data={data}>
-
-      <XlContainer>
-        <Box pt='16' maxW='4xl'>
-          <BodyLarge color='primary.40'>Qorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc 
-            vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti 
-            sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</BodyLarge>
-        </Box>
-      </XlContainer>
+      
+      <Box pt='8'>
+        <XlContainer>
+          {/* <Box pt='16' maxW='4xl'>
+            <BodyLarge color='primary.40'>Qorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc 
+              vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti 
+              sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</BodyLarge>
+          </Box> */}
+        </XlContainer>
+      </Box>
 
       {
         data.attributes.slug == 'grading-standards' ?
