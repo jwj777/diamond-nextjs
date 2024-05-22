@@ -13,12 +13,13 @@ export const POST = async (req) => {
       product_data: {
         name: cartDetails[item].name,
         description: cartDetails[item].description,
-        metadata: cartDetails[item].product_metadata
+        metadata: cartDetails[item].product_data
       },
       unit_amount: cartDetails[item].price, // Stripe expects the amount in cents
     },
     quantity: cartDetails[item].quantity,
   }));
+  console.log(JSON.stringify(line_items))
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
