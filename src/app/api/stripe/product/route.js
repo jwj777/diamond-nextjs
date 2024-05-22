@@ -13,6 +13,7 @@ export const POST = async (req) => {
       product_data: {
         name: cartDetails[item].name,
         description: cartDetails[item].description,
+        metadata: cartDetails[item].product_metadata
       },
       unit_amount: cartDetails[item].price, // Stripe expects the amount in cents
     },
