@@ -8,17 +8,15 @@ import {
   AccordionIcon, 
 } from "@chakra-ui/react";
 import TitleMedium from "../../typography/TitleMedium";
-import BodyMedium from "../../typography/BodyMedium";
 import GradeElement from "./GradeElement";
 import { useEffect, useState } from "react";
-import TitleSmall from "../../typography/TitleSmall";
 import BodySmall from "../../typography/BodySmall";
+import TitleSmall from "../../typography/TitleSmall";
 
 
 export default function GradeItems({ data, filter }) {
 
   console.log('GradeItems')
-  // console.log(filter)
 
   let filterFormated
 
@@ -68,22 +66,26 @@ export default function GradeItems({ data, filter }) {
             <AccordionIcon w='8' h='8' />
           </AccordionButton>
         </h2>
-        <AccordionPanel pt='2' pb='4' px='8'>
-          <Box maxW='580px'>
-            <Box mb='6'>
+        <AccordionPanel pt='4' pb='4' px='8'>
+          <Box maxW='700px'>
+            <Box mb='8' maxW='lg'>
               <BodySmall>{data.attributes.Description}</BodySmall>
             </Box>
-            <Box display='flex'>
-              <Box mr='16'>
-                <GradeElement name={'Centering Front'} attribute={data.attributes.Centering_Front} />
-              </Box>  
-              <GradeElement name={'Centering Back'} attribute={data.attributes.Centering_Back} />
+            <Box display='flex' flexWrap='wrap'>
+              <GradeElement name={'Centering'} attribute={data.attributes.Centering} />
+              <GradeElement name={'Corners'} attribute={data.attributes.Corners} />
+              <GradeElement name={'Edging'} attribute={data.attributes.Edging} />
+              <GradeElement name={'Surface'} attribute={data.attributes.Surface} />
+              <GradeElement name={'Printing'} attribute={data.attributes.Printing} />
+              <GradeElement name={'Imaging'} attribute={data.attributes.Imaging} />
             </Box>
-            <GradeElement name={'Corners'} attribute={data.attributes.Corners} />
-            <GradeElement name={'Edging'} attribute={data.attributes.Edging} />
-            <GradeElement name={'Surface'} attribute={data.attributes.Surface} />
-            <GradeElement name={'Printing'} attribute={data.attributes.Printing} />
- 
+            {
+              data.attributes.Supplemental &&
+              <Box mb='6' mr={{ base: '0', md: '12' }}>
+                <TitleSmall mr='6px' mb='2px'>Supplemental</TitleSmall>
+                <BodySmall color='neutral.40'>{data.attributes.Supplemental}</BodySmall>
+            </Box>
+            }  
           </Box>
         </AccordionPanel>
       </AccordionItem> 

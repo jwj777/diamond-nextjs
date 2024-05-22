@@ -14,8 +14,8 @@ export default function GradeElement({ name, attribute }) {
 
   return (
 
-    <Box mb='5'>
-      <TitleSmall mr='6px' mb='2px'>{name} </TitleSmall>
+    <Box mb='6' mr={{ base: '0', md: '12' }} maxW='300px'>
+      <TitleSmall mr='6px' mb='2px'>{name}</TitleSmall>
       <BodySmall color='neutral.40'>{attribute}</BodySmall>
     </Box>
    

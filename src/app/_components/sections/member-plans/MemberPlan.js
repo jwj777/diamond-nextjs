@@ -15,14 +15,14 @@ export default function MemberPlan({ plan }) {
   return(
 
     <Box 
-      width='280px'
+      width='294px'
       bg='neutral.15' 
       pt='8'
       pb='10'
       px='6' 
       borderRadius='1.3rem' 
       textAlign='center'
-      mx='3'
+      mx='2'
     >
 
       <Box mb='4'>
@@ -33,8 +33,11 @@ export default function MemberPlan({ plan }) {
         <HeadlineLarge color='primary.90'>{plan.attributes.Price}</HeadlineLarge>
       </Box>
 
+      <BodyMedium color='neutral.90'>
+        Estimated Turnaround Time: 
+      </BodyMedium>
       <BodyMedium color='neutral.95'>
-        <Text as='span' fontWeight='600'>
+        <Text fontWeight='600'>
           {plan.attributes.Highlight}
         </Text>
       </BodyMedium>
@@ -48,7 +51,7 @@ export default function MemberPlan({ plan }) {
           plan.attributes.Features.map((feature, index) => {
             return(
               <Box key={index} mb='4'>
-                <BodySmall color='neutral.90'>{feature.Text}</BodySmall>
+                <BodySmall color='neutral.100'>{feature.Text}</BodySmall>
               </Box>
             )
           })

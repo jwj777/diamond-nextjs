@@ -58,8 +58,7 @@ export default function GradeAccordion({ gradeData }) {
             </Box>
             <Box display='flex' flexWrap='wrap'>
               <FilterButton label='All / Reset' updateFilter={updateFilter} />
-              <FilterButton label='Centering Front' updateFilter={updateFilter} />
-              <FilterButton label='Centering Back' updateFilter={updateFilter} />
+              <FilterButton label='Centering' updateFilter={updateFilter} />
               <FilterButton label='Corners' updateFilter={updateFilter} />
               <FilterButton label='Edging' updateFilter={updateFilter} />
               <FilterButton label='Surface' updateFilter={updateFilter} />
