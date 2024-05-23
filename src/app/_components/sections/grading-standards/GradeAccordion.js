@@ -1,50 +1,34 @@
 'use client'
 import XlContainer from "@/app/_layout/containers/XlContainer";
-import { 
-  Box, 
-  Button,
-  Accordion
-} from "@chakra-ui/react";
+import { Box, Button, Accordion } from "@chakra-ui/react";
 import GradeItems from "./GradeItems";
 import FilterButton from "./FilterButton";
 import TitleMedium from "../../typography/TitleMedium";
 import { useState } from "react";
 
-
 export default function GradeAccordion({ gradeData }) {
-
-  // console.log('GradeAccordion')
-  // console.log(gradeData)
-
-  const [filter, setFilter] = useState(null)
+  const [filter, setFilter] = useState(null);
 
   const updateFilter = (attribute) => {
-    console.log('updateFilter', attribute)
-    setFilter(attribute)
-  }
+    setFilter(attribute);
+  };
 
+  // Sorting the gradeData array using parseFloat for accurate sorting of both integer and decimal values
   gradeData.sort((a, b) => {
-    return parseInt(b.attributes.Grade_Number) - parseInt(a.attributes.Grade_Number);
+    return parseFloat(b.attributes.Grade_Number) - parseFloat(a.attributes.Grade_Number);
   });
 
   return (
-
     <Box pt='16' pb='24'>
       <XlContainer>
         <Box display='flex' alignItems='flex-start'>
-
           <Box width='100%'>
             <Accordion allowToggle maxW='3xl' borderRadius='2.5rem' border='0px'>
-              {
-                gradeData.map((item, index) => {
-                  return(
-                    <GradeItems key={index} data={item} filter={filter} />
-                  )
-                })
-              }
+              {gradeData.map((item, index) => (
+                <GradeItems key={index} data={item} filter={filter} />
+              ))}
             </Accordion>
           </Box>
-          
 
           <Box 
             maxW='400px'
@@ -66,11 +50,8 @@ export default function GradeAccordion({ gradeData }) {
               <FilterButton label='Supplemental' updateFilter={updateFilter} />
             </Box>
           </Box>
-
         </Box>
       </XlContainer>
     </Box>
-
-  )
-
+  );
 }
