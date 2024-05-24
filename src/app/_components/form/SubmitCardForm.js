@@ -55,6 +55,7 @@ export default function SubmitCardForm({ data }) {
         );
         const data = await response.json();
         setSubscriptions(data);
+
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -65,7 +66,11 @@ export default function SubmitCardForm({ data }) {
   }, [user, isLoading]);
 
   const addToCart = async () => {
-    if (!name || !brand || !year || !number || !desc || !value || !quantity) {
+    if(!subscriptions.length) {
+      alert("Please subscribe the membership first.");
+      return;
+    }
+    if (!name || !brand || !year || !number || !value || !quantity) {
       alert("Please input all fields.");
       return;
     }
