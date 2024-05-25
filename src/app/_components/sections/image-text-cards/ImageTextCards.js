@@ -14,7 +14,7 @@ export default function ImageTextCards({ data }) {
 
   return (
 
-    <Box py='40'>
+    <Box py='28'>
       <Box 
         display='flex'
         justifyContent={{ base: 'center', xl: 'flex-start' }}
@@ -38,7 +38,7 @@ export default function ImageTextCards({ data }) {
         </Box>
         <Box 
           maxW='4xl'
-          mt='16' 
+          mt={{ base: '0', xl: '16' }} 
           pr={{ base: '0', xl: '20' }}
           px={{ base: '8', lg: '0' }}
         >  

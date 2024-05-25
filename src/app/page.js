@@ -15,7 +15,7 @@ export default async function Home() {
     <main className={styles.main}>
       <PageContainerHome data={data}>
 
-        <Box position='relative' bottom='40' mb='-40'>
+        <Box position='relative' bottom={{ base: '0', xl: '40' }} mb={{ base: '0', xl: '-40' }}>
           {
             data.attributes.Sections.map((item, index) => {
               return(

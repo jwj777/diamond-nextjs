@@ -12,7 +12,7 @@ export default function TradingCardList({ data }) {
   return (
 
     <XlContainer>
-      <Box display='flex' justifyContent='center'>
+      <Box display={{ base: 'none', xl: 'flex' }} justifyContent='center'>
       {
         data.Cards.map((card, index) => {
           return(

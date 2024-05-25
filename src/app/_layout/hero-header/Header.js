@@ -36,7 +36,7 @@ export default function Header({ colorScheme }) {
         </Box>
 
         <Box display='flex' alignItems='center'>
-          <Box mr='16'>
+          <Box mr='16' display={{ base: 'none', xl: 'block' }}>
             <Desktop />
           </Box>
           <Link href='#' variant='neutralDark'>Sign Up Today</Link>
