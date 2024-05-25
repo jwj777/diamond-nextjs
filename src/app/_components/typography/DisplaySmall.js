@@ -13,7 +13,7 @@ export default function DisplaySmall({ children, color, type }) {
       color={color}
       fontSize={{ base: '2.5rem', md: '2.9rem', lg: '3.2rem' }}
       lineHeight={{ base: '108%', md: '116%', lg: '118%' }}
-      fontWeight='400'
+      fontWeight='300'
       fontFamily='figtree'
       letterSpacing='-0.5px' 
       mt={{ base: '1rem', md: '0' }}

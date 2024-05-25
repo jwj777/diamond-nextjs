@@ -1,12 +1,7 @@
 import styles from "./page.module.css";
 import { Box, Image } from "@chakra-ui/react";
 import PageContainerHome from "./_layout/PageContainerHome";
-import XlContainer from "./_layout/containers/XlContainer";
-import HeadlineLargeAlt from "./_components/typography/HeadlineLargeAlt";
 import Sections from "./_components/sections/sections-array/Sections";
-import BodySuper from "./_components/typography/BodySuper";
-import BodyLarge from "./_components/typography/BodyLarge";
-import HeadlineLarge from "./_components/typography/HeadlineLarge";
 
 export default async function Home() {
 
@@ -20,7 +15,7 @@ export default async function Home() {
     <main className={styles.main}>
       <PageContainerHome data={data}>
 
-        <Box position='relative' bottom='40'>
+        <Box position='relative' bottom='40' mb='-40'>
           {
             data.attributes.Sections.map((item, index) => {
               return(
@@ -39,7 +34,8 @@ export default async function Home() {
 async function getData() {
   const res = await fetch(process.env.BASE_URL + `/api/homepages/1?populate[Sections][populate]=*&populate[HeroImage][populate]=*
   &populate[Sections][on][section.card-list][populate][Cards][populate]=*
-  &populate[Sections][on][section.section-basic-cards-2][populate][Cards][populate]=*`, { 
+  &populate[Sections][on][section.section-basic-cards-2][populate][Cards][populate]=*
+  &populate[Sections][on][section.image-and-text-cards][populate]=*`, { 
     next: { revalidate: 30 }
   })
 

@@ -9,7 +9,7 @@ export default function NavLinkFooter({ href, label, onClick, isSubMenuVisible, 
 
   return (
 
-    <Box mr='4px'>
+    <Box mr='4px' mb='12px'>
 
         <Link 
           href={href}

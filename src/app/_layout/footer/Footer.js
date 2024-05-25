@@ -21,13 +21,18 @@ export default function Footer({ colorScheme }) {
 
         <Box
           display='flex'
-          alignItems='center'
+          alignItems={{ base: 'flex-start', lg: 'center' }}
           justifyContent='space-between'
+          flexDirection={{
+            base: 'column',
+            lg: 'row'
+          }}
           pt='8'
           pb='8'
         >    
           <Box
             display='flex'
+
             alignItems='center'
             flexGrow='2'
           >
@@ -44,7 +49,12 @@ export default function Footer({ colorScheme }) {
               <Box
                 display='flex'
                 flexWrap='wrap'
+                flexDirection={{
+                  base: 'column',
+                  md: 'row'
+                }}
                 ml='-4'
+                mb='8'
               >
                 <NavLinkFooter href="/page/pricing" label='Services & Prices' />
                 <NavLinkFooter href="#" label='Resources' />

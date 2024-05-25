@@ -24,7 +24,7 @@ export default async function Page({ params }) {
         : null
       }
 
-      <Box bg='neutral.4' pt='0' pb='16'>
+      <Box bg='neutral.4' pt='0'>
           <XlContainer>
             {
               data.attributes.slug == 'pricing' ?
@@ -34,7 +34,7 @@ export default async function Page({ params }) {
         </XlContainer>
       </Box>
 
-      <Box position='relative' bottom='40'>
+      <Box position='relative'>
         {
           data.attributes.Sections.map((item, index) => {
             return(
