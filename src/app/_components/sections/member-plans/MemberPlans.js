@@ -6,19 +6,18 @@ import MemberPlan from "./MemberPlan";
 
 export default function MemberPlans({ plans }) {
 
-  // console.log(plans)
+  console.log('MemberPlans')
+  console.log(plans)
 
   return(
 
     <XlContainer>
       <Box display='flex' ml='-4' pb='32'>
-        {
-          plans.map((plan, index) => {
-            return(
-              <MemberPlan key={index} plan={plan} />
-            )
-          })
-        }
+        {plans
+          .sort((a, b) => a.id - b.id)
+          .map((plan, index) => (
+            <MemberPlan key={index} plan={plan} />
+          ))}
       </Box>
     </XlContainer>
   )

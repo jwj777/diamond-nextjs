@@ -54,14 +54,13 @@ export default function Footer({ colorScheme }) {
                   md: 'row'
                 }}
                 ml='-4'
-                mb='8'
+                mb={{ base: '8', xl: '0' }}
               >
                 <NavLinkFooter href="/page/pricing" label='Services & Prices' />
-                <NavLinkFooter href="#" label='Resources' />
                 <NavLinkFooter href="/page/grading-standards" label='Grading Standards' />
                 <NavLinkFooter href="/page/faq" label='FAQs' />
                 <NavLinkFooter href="/page/about" label='About' />
-                <NavLinkFooter href="/form/contact" label='Contact Us' />
+                <NavLinkFooter href="/page/contact" label='Contact Us' />
               </Box>
             </Box>
             
@@ -80,7 +79,7 @@ export default function Footer({ colorScheme }) {
           pt='4'
           pb='12'
         >
-          <BodyMedium color={colorScheme + '.outline'}>©2024 Diamond Grading. All rights reserved.</BodyMedium>
+          <BodyMedium color={colorScheme + '.outline'}>©2024 Diamond Grade Cards LLC. All rights reserved</BodyMedium>
         </Box>
 
       </FullContainer>
