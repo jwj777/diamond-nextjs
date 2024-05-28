@@ -47,6 +47,7 @@ export default function GradeAccordion({ gradeData }) {
               <FilterButton label='Edging' updateFilter={updateFilter} />
               <FilterButton label='Surface' updateFilter={updateFilter} />
               <FilterButton label='Printing' updateFilter={updateFilter} />
+              <FilterButton label='Imaging' updateFilter={updateFilter} />
               <FilterButton label='Supplemental' updateFilter={updateFilter} />
             </Box>
           </Box>
