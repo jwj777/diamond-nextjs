@@ -1,0 +1,737 @@
+<script>
+  const holeIcon = `
+    <svg width="20px" height="20px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#000000"
+        d="M256 151c-62.9 0-119.9 10.8-161.94 28.8-21.03 9.1-38.38 19.9-50.86 32.5C30.71 225 23 239.9 23 256s7.71 31 20.2 43.7c12.48 12.6 29.83 23.4 50.86 32.5C136.1 350.2 193.1 361 256 361c62.9 0 119.9-10.8 161.9-28.8 21.1-9.1 38.4-19.9 50.9-32.5C481.3 287 489 272.1 489 256s-7.7-31-20.2-43.7c-12.5-12.6-29.8-23.4-50.9-32.5-42-18-99-28.8-161.9-28.8zm0 43c82.7 0 165.5 21.2 215 63.6-.5 9.9-5.3 19.6-15 29.4-10.2 10.4-25.6 20.2-45.2 28.6-39 16.7-94 27.4-154.8 27.4-60.8 0-115.8-10.7-154.8-27.4-19.55-8.4-35.01-18.2-45.19-28.6-9.65-9.8-14.48-19.5-14.96-29.4C90.54 215.2 173.3 194 256 194z" />
+    </svg>
+    `;
+
+  const roofTopIcon = `
+    <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+         width="20px" height="20px" viewBox="0 0 573.75 573.75"
+         xml:space="preserve">
+    <g>
+        <g>
+            <path d="M541.496,170.872c24.279,93.636-2.229,195.572-2.602,197.141c0.067-0.497,0.66-7.822,0.66-7.822
+                c7.784-62.902-11.188-98.379-11.188-98.379c12.805,54.42-10.824,85.45-24.681,98.379c-5.192,4.839-9.056,8.97-9.056,8.97
+                c-0.401,0-0.755-6.531-1.052-8.97c-9.313-76.806,34.779-174.64,34.779-174.64c-28.21,25.073-45.298,106.669-52.814,151.565
+                c8.961-75.659-5.852-110.504-5.852-110.504c5.852,63.275-8.846,115.209-15.014,133.579c-1.549,4.628-2.582,8.97-2.582,8.97
+                c-0.717,0-1.357-6.34-1.97-8.97c-10.595-45.737-5.364-158.518-5.364-158.518c-10.519,26.307-16.85,80.363-20.234,119.599
+                c0.02-66.517-20.837-106.402-20.837-106.402c22.004,85.068-7.334,140.798-7.334,140.798c5.861-76.261-14.669-95.328-14.669-95.328
+                c15.166,31.565-19.067,93.875-19.067,93.875c-13.196-82.132,19.067-198.011,19.067-198.011
+                c-19.536,27.53-31.002,96.438-37.007,146.536c-0.641-63.639-27.215-87.87-27.215-87.87c26.708,64.537-0.307,143.734-0.307,143.734
+                c2.937-76.262-16.141-112.943-16.141-112.943c2.399,33.67-24.739,93.885-34.607,114.521c-2.171,4.523-3.529,8.97-3.529,8.97
+                c-0.564,0-1.042-6.436-1.482-8.97c-9.859-56.648,10.28-177.585,10.28-177.585c-23.084,17.958-37.198,145.675-40.383,177.595
+                c-0.459,4.6-0.688,8.97-0.688,8.97c-0.134,0-0.287-6.541-0.43-8.97c-3.041-49.581-2.706-104.595-2.706-104.595
+                c-9.706,10.653-17.356,113.555-17.404,113.555l0.258-8.97c6.311-128.128-16.39-170.241-16.39-170.241
+                c11.111,62.95-8.951,145.637-15.568,170.241c-1.243,4.638-2.027,8.97-2.027,8.97c-1.454,0-2.697-6.302-3.787-8.97
+                c-15.405-37.771,3.787-124.781,3.787-124.781c-17.71,22.759-23.763,62.94-25.733,93.014
+                c1.626-154.119-10.939-204.484-10.939-204.484c9.037,55.577-10.375,202.151-15.118,236.251c-0.277,2.009-0.249,1.798,0,0h-0.382
+                c3.509-51.886-13.837-145.312-13.837-145.312c0,40.727-9.352,120.918-12.307,145.312c-0.555,4.59-0.889,8.97-0.889,8.97
+                c-1.501-2.993-2.228-6.502-3.223-8.97c-22.348-66.393,3.223-177.585,3.223-177.585C63.075,228.018,59.393,332,59.039,360.181
+                c-0.029,2.171-0.038,2.764,0,0c0,0,1.74,10.787-3.031,0c-16.361-35.353,3.93-145.312,3.93-145.312
+                c-20.101,21.363-28.276,118.068-30.083,145.312c-0.296,4.542-0.669,8.97-0.669,8.97c-0.498,0-1.042-6.55-1.454-8.97
+                c-15.96-93.588,31.336-197.246,31.336-197.246C12.145,192.273,0,369.141,0,369.141v80.68h573.75v-89.64l0,0
+                C573.836,196.012,541.496,170.872,541.496,170.872z"/>
+        </g>
+    </g>
+    </svg>
+    `;
+
+  const addIcon = `
+    <svg height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 309.059 309.059" xml:space="preserve">
+    <g>
+      <g>
+        <path style="fill:#010002;" d="M280.71,126.181h-97.822V28.338C182.889,12.711,170.172,0,154.529,0S126.17,12.711,126.17,28.338
+          v97.843H28.359C12.722,126.181,0,138.903,0,154.529c0,15.621,12.717,28.338,28.359,28.338h97.811v97.843
+          c0,15.632,12.711,28.348,28.359,28.348c15.643,0,28.359-12.717,28.359-28.348v-97.843h97.822
+          c15.632,0,28.348-12.717,28.348-28.338C309.059,138.903,296.342,126.181,280.71,126.181z"/>
+      </g>
+    </g>
+    </svg>
+    `;
+
+  const backIcon = `
+      <svg fill="#000000" hei ght="20px" width="20px" version="1.1" id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 26.676 26.676" xml:space="preserve">
+        <g>
+          <path d="M26.105,21.891c-0.229,0-0.439-0.131-0.529-0.346l0,0c-0.066-0.156-1.716-3.857-7.885-4.59
+            c-1.285-0.156-2.824-0.236-4.693-0.25v4.613c0,0.213-0.115,0.406-0.304,0.508c-0.188,0.098-0.413,0.084-0.588-0.033L0.254,13.815
+            C0.094,13.708,0,13.528,0,13.339c0-0.191,0.094-0.365,0.254-0.477l11.857-7.979c0.175-0.121,0.398-0.129,0.588-0.029
+            c0.19,0.102,0.303,0.295,0.303,0.502v4.293c2.578,0.336,13.674,2.33,13.674,11.674c0,0.271-0.191,0.508-0.459,0.562
+            C26.18,21.891,26.141,21.891,26.105,21.891z"/>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>        
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+        </g>
+      </svg>
+    `;
+
+  const resetIcon = `
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      version="1.1"
+      width="20px"
+      height="20px"
+      viewBox="0 0 256 256"
+      xml:space="preserve"
+    >
+      <defs></defs>
+      <g
+        style="
+          stroke: none;
+          stroke-width: 0;
+          stroke-dasharray: none;
+          stroke-linecap: butt;
+          stroke-linejoin: miter;
+          stroke-miterlimit: 10;
+          fill: none;
+          fill-rule: nonzero;
+          opacity: 1;
+        "
+        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+      >
+        <path
+          d="M 75.702 53.014 c -2.142 7.995 -7.27 14.678 -14.439 18.816 c -7.168 4.138 -15.519 5.239 -23.514 3.095 c -16.505 -4.423 -26.335 -21.448 -21.913 -37.953 C 20.258 20.467 37.286 10.64 53.79 15.06 c 4.213 1.129 8.076 3.118 11.413 5.809 l -8.349 8.35 h 26.654 V 2.565 l -8.354 8.354 c -5.1 -4.405 -11.133 -7.61 -17.74 -9.381 C 33.451 -4.882 8.735 9.389 2.314 33.35 c -6.42 23.961 7.851 48.678 31.811 55.098 C 38.001 89.486 41.934 90 45.842 90 c 7.795 0 15.488 -2.044 22.42 -6.046 c 10.407 -6.008 17.851 -15.709 20.962 -27.317 L 75.702 53.014 z"
+          style="
+            stroke: none;
+            stroke-width: 1;
+            stroke-dasharray: none;
+            stroke-linecap: butt;
+            stroke-linejoin: miter;
+            stroke-miterlimit: 10;
+            fill: rgb(0, 0, 0);
+            fill-rule: nonzero;
+            opacity: 1;
+          "
+          transform=" matrix(1 0 0 1 0 0) "
+          stroke-linecap="round"
+        />
+      </g>
+    </svg>
+    `;
+
+  function init() {
+    const style = document.createElement("style");
+    style.innerHTML = `
+        .gm-style-cc{
+          display: none;
+        }
+        a[aria-label="Open this area in Google Maps (opens a new window)"]{
+          display: none !important;
+        }
+        a[aria-label="Öppna detta område i Google Maps (i ett nytt fönster)"]{
+          display: none !important;
+        }
+    
+        .gm-style div{
+          cursor: url("https://svenskbyggstandard.se/wp-content/uploads/2024/04/pen_6048975-1.svg") 0 24, default;
+        }
+        .map-button {
+          padding: 5px;
+          background-color: white;
+          border-radius: 5px;
+          font-size: 14px;
+          color: rgb(19, 23, 31);
+          margin-left: 10px;
+          margin-bottom: 10px;
+        }
+        .map-button:hover {
+          cursor: pointer;
+        }
+        
+        .map-control-tooltip {
+          position: relative;
+          display: inline-block;
+          border-bottom: 1px dotted black;
+        }
+    
+        .map-control-tooltip .map-control-tooltiptext {
+          visibility: hidden;
+          width: 120px;
+          background-color: #555;
+          color: #fff;
+          text-align: center;
+          border-radius: 6px;
+          padding: 5px 0;
+          position: absolute;
+          z-index: 1;
+          bottom: 50%;
+          left: 120%;
+          margin-bottom: -12.5px;
+          opacity: 0;
+          transition: opacity 0.3s;
+        }
+    
+        .map-control-tooltip .map-control-tooltiptext::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          right: 100%;
+          margin-top: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: transparent #555 transparent transparent;
+        }
+    
+        .map-control-tooltip:hover .map-control-tooltiptext {
+          visibility: visible;
+          opacity: 1;
+        }
+         /*style the box which holds the text of the information window*/  
+        .gm-style .gm-style-iw {
+          background-color: #252525 !important;
+          top: 0 !important;
+          left: 0 !important;
+          padding: 5px !important;
+          display: block !important;
+        }
+        .gm-style .gm-style-iw-d{
+          overflow: hidden !important;
+          display: flex !important;
+          justify-content: center;
+        }
+        .gm-style .gm-style-iw button{
+          padding: 0 !important;
+        }
+    
+        /*style the paragraph tag*/
+        .gm-style .gm-style-iw #google-popup p{
+          padding: 10px;
+        }
+    
+    
+      /*style the annoying little arrow at the bottom*/
+      .gm-style>div>div>div>div>div>div>div>div {
+          margin: 0;
+          padding: 0;
+          top: 0;
+          color: #fff;
+          font-size: 16px;
+      }
+    
+      /*style the link*/
+      .gm-style div div div div div div div div a {
+          color: #f1f1f1;
+          font-weight: bold;
+      }
+      .gm-style .gm-style-iw-tc::after{
+        background-color: #252525 !important;
+      }
+      .gm-style .gm-style-iw-t button{
+        display: none !important;
+      }
+      `;
+
+    document.head.appendChild(style);
+
+    const polygonScript = document.createElement("script");
+    polygonScript.src =
+      "https://polyfill.io/v3/polyfill.min.js?features=default";
+    document.head.appendChild(polygonScript);
+
+    const mapScript = document.createElement("script");
+    mapScript.src = `https://maps.googleapis.com/maps/api/js?key=${window.apikey}&callback=initAutocomplete&libraries=places&v=weekly`;
+    mapScript.defer = true;
+    document.body.appendChild(mapScript);
+  }
+
+  init();
+
+  async function initAutocomplete() {
+    let rooftopCoords = [[]];
+    let holesCoords = [[]];
+    let roofTopPolygon;
+    let roofToplines = [];
+    let holelines = [];
+    let holePolygon;
+    let infoWindow;
+    let mode = true;
+    let totalArea = 0;
+
+    function onChangeMode() {
+      mode = !mode;
+      const modeButton = document.getElementById("mode-button");
+      if (mode) {
+        modeButton.innerHTML =
+          roofTopIcon +
+          '<span class="map-control-tooltiptext">Change Mode</span>';
+        holesCoords.push([]);
+      } else {
+        rooftopCoords.push([]);
+        modeButton.innerHTML =
+          holeIcon + '<span class="map-control-tooltiptext">Change Mode</span>';
+      }
+    }
+
+    function onAddFunc() {
+      if (mode) {
+        if (rooftopCoords[rooftopCoords.length - 1].length > 2)
+          rooftopCoords.push([]);
+      } else {
+        if (holesCoords[holesCoords.length - 1].length > 2)
+          holesCoords.push([]);
+      }
+    }
+
+    function backFunc() {
+      if (mode) {
+        if (rooftopCoords[rooftopCoords.length - 1].length > 0) {
+          rooftopCoords[rooftopCoords.length - 1].splice(-1);
+        }
+      } else {
+        if (holesCoords[holesCoords.length - 1].length > 0) {
+          holesCoords[holesCoords.length - 1].splice(-1);
+        }
+      }
+      drawPolygon();
+    }
+
+    function resetPolygon() {
+      if (roofTopPolygon) {
+        roofTopPolygon.setMap(null);
+      }
+      if (holePolygon) {
+        holePolygon.setMap(null);
+      }
+      if (infoWindow) {
+        infoWindow.setMap(null);
+      }
+      if (roofToplines.length > 0) {
+        for (let i = 0; i < roofToplines.length; i++) {
+          roofToplines[i].setMap(null);
+        }
+        roofToplines = [];
+      }
+      if (holelines.length > 0) {
+        for (let i = 0; i < holelines.length; i++) {
+          holelines[i].setMap(null);
+        }
+        holelines = [];
+      }
+      rooftopCoords = [[]];
+      holesCoords = [[]];
+      totalArea = 0;
+      if (typeof window.getAreaResult === "function")
+        getAreaResult(totalArea, rooftopCoords, holesCoords);
+    }
+
+    const map = new google.maps.Map(
+      document.getElementById("solublescience-map"),
+      {
+        center: { lat: -33.8688, lng: 151.2195 },
+        // center: { lat: 59.32831872105382, lng: 18.056087880078916 },
+        zoom: 13,
+        mapTypeId: "roadmap",
+        mapTypeControl: false, // Disable map type control
+        mapTypeControlOptions: {
+          style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+          position: google.maps.ControlPosition.TOP_RIGHT,
+          // mapTypeIds: ["roadmap", "satellite", "hybrid", "terrain"],
+        },
+        mapTypeId: "satellite",
+
+        zoomControl: false,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_CENTER,
+        },
+        fullscreenControl: false,
+        fullscreenControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_BOTTOM,
+        },
+        streetViewControl: false,
+        streetViewControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_CENTER,
+        },
+        rotateControl: false,
+      }
+    );
+    map.setTilt(0);
+
+    function clickMapFunc(event) {
+      const coordinateClicked = {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      };
+      if (mode) {
+        rooftopCoords[rooftopCoords.length - 1].push(coordinateClicked);
+      } else {
+        holesCoords[holesCoords.length - 1].push(coordinateClicked);
+      }
+      drawPolygon();
+    }
+
+    function drawPolygon() {
+      if (roofTopPolygon) {
+        roofTopPolygon.setMap(null);
+      }
+      if (holePolygon) {
+        holePolygon.setMap(null);
+      }
+      if (roofToplines.length > 0) {
+        for (let i = 0; i < roofToplines.length; i++) {
+          roofToplines[i].setMap(null);
+        }
+        roofToplines = [];
+      }
+      if (holelines.length > 0) {
+        for (let i = 0; i < holelines.length; i++) {
+          holelines[i].setMap(null);
+        }
+        holelines = [];
+      }
+
+      let currentTotalarea = 0;
+
+      for (let i = 0; i < rooftopCoords.length; i++) {
+        if (rooftopCoords[i].length < 3) continue;
+        let area = 0;
+        area = google.maps.geometry.spherical?.computeArea(rooftopCoords[i]);
+        currentTotalarea += area;
+      }
+      for (let j = 0; j < holesCoords.length; j++) {
+        if (holesCoords[j].length < 3) continue;
+        let area = 0;
+        area = google.maps.geometry.spherical?.computeArea(holesCoords[j]);
+        currentTotalarea -= area;
+      }
+      console.log("Area: " + currentTotalarea.toFixed(2) + " square meters");
+      totalArea = currentTotalarea * 10.7639;
+
+      if (typeof window.getAreaResult === "function")
+        getAreaResult(totalArea, rooftopCoords, holesCoords);
+
+      roofTopPolygon = new google.maps.Polygon({
+        paths: rooftopCoords,
+        strokeColor: "#8cfc03",
+        strokeOpacity: 0,
+        strokeWeight: 1,
+        fillColor: "#8cfc03",
+        fillOpacity: 0.35,
+      });
+
+      holePolygon = new google.maps.Polygon({
+        paths: holesCoords,
+        strokeColor: "#FF0000",
+        strokeOpacity: 0,
+        strokeWeight: 1,
+        fillColor: "#FF0000",
+        fillOpacity: 0.5,
+      });
+
+      roofTopPolygon.addListener("click", clickMapFunc);
+      roofTopPolygon.setMap(map);
+
+      holePolygon.addListener("click", clickMapFunc);
+      holePolygon.setMap(map);
+
+      for (let i = 0; i < rooftopCoords.length; i++) {
+        let coods = [...rooftopCoords[i]];
+        coods.length > 2 && coods.push(rooftopCoords[i][0]);
+        const roofTopline = new google.maps.Polyline({
+          path: coods,
+          strokeOpacity: 0,
+          icons: [
+            {
+              icon: {
+                path: "M 0,-1 0,1",
+                strokeOpacity: 1,
+                strokeColor: "#f5f542",
+                scale: 1.5,
+              },
+              offset: "0",
+              repeat: "10px",
+            },
+          ],
+          map: map,
+        });
+        roofTopline.addListener("click", clickMapFunc);
+        roofToplines.push(roofTopline);
+      }
+      for (let i = 0; i < holesCoords.length; i++) {
+        let coods = [...holesCoords[i]];
+        coods.length > 2 && coods.push(holesCoords[i][0]);
+        const holeline = new google.maps.Polyline({
+          path: coods,
+          strokeOpacity: 0,
+          icons: [
+            {
+              icon: {
+                path: "M 0,-1 0,1",
+                strokeOpacity: 1,
+                strokeColor: "#FF0000",
+                scale: 1.5,
+              },
+              offset: "0",
+              repeat: "10px",
+            },
+          ],
+          map: map,
+        });
+        holeline.addListener("click", clickMapFunc);
+        holelines.push(holeline);
+      }
+
+      const bounds = new google.maps.LatLngBounds();
+      const paths = roofTopPolygon.getPaths();
+
+      if (rooftopCoords[0].length < 3) return false;
+      // Iterate over all the paths of the polygon
+      paths.forEach(function (path) {
+        path.forEach(function (point) {
+          bounds.extend(point);
+        });
+      });
+
+      // Get the center of the bounds
+      const centerLatLng = bounds.getCenter();
+      // if (infoWindow) {
+      //   infoWindow.setMap(null);
+      // }
+
+      // infoWindow = new google.maps.InfoWindow({
+      //   content: totalArea.toFixed(2).toString() + " m²",
+      // });
+      // infoWindow.setPosition(centerLatLng);
+      // infoWindow.open(map);
+      // infoWindow.addListener("click", clickMapFunc);
+    }
+
+    //   map.addListener("click", clickMapFunc);
+
+    const buttons = [
+      {
+        id: "mode-button",
+        icon: roofTopIcon,
+        handleFunc: onChangeMode,
+        tooltip: "Change mode",
+      },
+      {
+        id: "add-button",
+        icon: addIcon,
+        handleFunc: onAddFunc,
+        tooltip: "Add area",
+      },
+      {
+        id: "back-button",
+        icon: backIcon,
+        handleFunc: backFunc,
+        tooltip: "Back",
+      },
+      {
+        id: "reset-button",
+        icon: resetIcon,
+        handleFunc: resetPolygon,
+        tooltip: "Reset",
+      },
+    ];
+    //   for (let i = 0; i < buttons.length; i++) {
+    //     const controlButton = document.createElement("div");
+    //     controlButton.id = buttons[i].id;
+    //     controlButton.className = "map-button map-control-tooltip";
+    //     controlButton.innerHTML =
+    //       buttons[i].icon +
+    //       `<span class="map-control-tooltiptext">${buttons[i].tooltip}</span>`;
+    //     controlButton.addEventListener("click", buttons[i].handleFunc);
+    //     map.controls[google.maps.ControlPosition.LEFT_CENTER].push(controlButton);
+    //   }
+
+    // Create the search box and link it to the UI element.
+    const input = document.getElementById("solublescience-address-input");
+    const searchBox = new google.maps.places.SearchBox(input);
+
+    map.addListener("bounds_changed", () => {
+      searchBox.setBounds(map.getBounds());
+    });
+
+    let markers = [];
+
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener("places_changed", async () => {
+      if (window.onChangeAddress) {
+        onChangeAddress(input.value);
+      }
+      resetPolygon();
+      const places = searchBox.getPlaces();
+
+      if (places.length == 0) {
+        return;
+      }
+
+      // Clear out the old markers.
+      markers.forEach((marker) => {
+        marker.setMap(null);
+      });
+      markers = [];
+
+      // For each place, get the icon, name and location.
+      const bounds = new google.maps.LatLngBounds();
+
+      const place = places[0];
+      if (!place.geometry || !place.geometry.location) {
+        console.log("Returned place contains no geometry");
+        return;
+      }
+
+      const { lat, lng } = place.geometry.location;
+      const apiData = {
+        line1: place.formatted_address.split(",")[0],
+        line2: "",
+        city: place.address_components.find((ac) =>
+          ac.types.includes("locality")
+        ).long_name,
+        stateCode: place.address_components.find((ac) =>
+          ac.types.includes("administrative_area_level_1")
+        ).short_name,
+        postalCode: place.address_components.find((ac) =>
+          ac.types.includes("postal_code")
+        ).long_name,
+        countryCode: place.address_components.find((ac) =>
+          ac.types.includes("country")
+        ).short_name,
+        latitude: lat(),
+        longitude: lng(),
+      };
+      const proxyUrl = "https://proxy-server-xi-six.vercel.app/";
+      const targetUrl = "https://api-prod.getsunday.com/api/lawns/";
+
+      try {
+        const response = await fetch(proxyUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(apiData),
+        });
+        const data = await response.json();
+        console.log("API Response:", data);
+        window.getAreaResult(data.size.sqFt);
+        // Move the map to the location with the aerial view of 50ft
+        map.setCenter({
+          lat: data.address.latitude,
+          lng: data.address.longitude,
+        });
+        aerialCircle = new google.maps.Circle({
+          strokeColor: "#FFFFFF",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          fillOpacity: 0,
+          map,
+          center: { lat: data.address.latitude, lng: data.address.longitude },
+          radius: 20,
+        });
+      } catch (error) {
+        console.error("Error calling the API:", error);
+      }
+
+      places.forEach((place) => {
+        if (!place.geometry || !place.geometry.location) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+
+        const icon = {
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25),
+        };
+
+        // Create a marker for each place.
+        // markers.push(
+        //   new google.maps.Marker({
+        //     map,
+        //     icon,
+        //     title: place.name,
+        //     position: place.geometry.location,
+        //   })
+        // );
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport.
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+      const zoomLevel = getZoomLevel(bounds);
+      // Set the center and zoom level of the map
+      map.setCenter(bounds.getCenter());
+      map.setZoom(21);
+    });
+
+    const GLOBE_WIDTH = 256; // Width of the entire world in pixels at zoom level 0
+    const ZOOM_MAX = 21; // Maximum zoom level supported by Google Maps
+
+    // Function to calculate zoom level based on the bounds
+    function getZoomLevel(bounds) {
+      const ne = bounds.getNorthEast();
+      const sw = bounds.getSouthWest();
+
+      const latFraction =
+        (getRadians(ne.lat()) - getRadians(sw.lat())) / Math.PI;
+
+      // Longitude difference (east-west)
+      let lngDiff = ne.lng() - sw.lng();
+      if (lngDiff < 0) {
+        lngDiff += 360; // Adjust for world wrap
+      }
+      const lngFraction = lngDiff / 360;
+
+      const latZoom = zoomScale(latFraction);
+      const lngZoom = zoomScale(
+        lngFraction,
+        Math.cos(getRadians((ne.lat() + sw.lat()) / 2))
+      );
+
+      const zoom = Math.min(latZoom, lngZoom, ZOOM_MAX);
+
+      return zoom;
+    }
+
+    // Function to calculate zoom scale
+    function zoomScale(fraction, cosineFactor = 1) {
+      return Math.floor(Math.log2(GLOBE_WIDTH / 256 / fraction / cosineFactor));
+    }
+
+    // Function to convert degrees to radians
+    function getRadians(degrees) {
+      return (degrees * Math.PI) / 180;
+    }
+  }
+
+  window.initAutocomplete = initAutocomplete;
+</script>
