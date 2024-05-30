@@ -55,7 +55,7 @@ export default function ContactForm({ data }) {
 
   return (
 
-    <Box maxW='600px' mt='8' mb='24' mx='2' bg='neutral.15' p='10' pb='16' borderRadius='20'>
+    <Box maxW='600px' mb='32' mx='2' bg='neutral.15' p='10' pb='16' borderRadius='20'>
 
       <Box mb='8'>
         <TitleLarge color='neutral.95'>Contact Diamond Grade Today</TitleLarge>
