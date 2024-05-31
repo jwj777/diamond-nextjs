@@ -40,6 +40,12 @@ export default function HeroGeneral({ data, colorScheme, children }) {
 
       </Box>
 
+      {
+        data.attributes.slug == 'pricing' ?
+          <PricingCards />
+        : null
+      }      
+
       </XlContainer>
 
     </Box>
