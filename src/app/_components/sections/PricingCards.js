@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 
 async function getPlans() {
   try {
-    const url = process.env.NEXT_PUBLIC_BASE_URL + '/api/member-plans?[populate]=*';
+    const url = process.env.BASE_URL + '/api/member-plans?[populate]=*';
     console.log("Fetching plans from URL:", url);
     const response = await fetch(url);
     if (!response.ok) {
