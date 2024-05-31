@@ -6,8 +6,8 @@ import MemberPlan from "./MemberPlan";
 
 export default function MemberPlans({ plans }) {
 
-  console.log('MemberPlans')
-  console.log(plans)
+  // console.log('MemberPlans')
+  // console.log(plans)
 
   return(
 

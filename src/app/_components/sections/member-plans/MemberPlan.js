@@ -10,7 +10,7 @@ import BodySmall from "../../typography/BodySmall";
 
 export default function MemberPlan({ plan }) {
 
-  console.log(plan)
+  // console.log(plan)
 
   return(
 

@@ -25,11 +25,16 @@ export default async function Page({ params }) {
 
       <Box bg='neutral.4' pt='0'>
           <XlContainer>
-            {
+            {/* {
               data.attributes.slug == 'pricing' ?
                 <MemberPlans plans={plansData} />
               : null
-            }
+            } */}
+            {
+              data.attributes.slug == 'pricing' ?
+                <PricingCards />
+              : null
+            }  
         </XlContainer>
       </Box>
 
@@ -81,10 +86,6 @@ async function getPlans() {
     }
 
     const plans = await response.json();
-
-    console.log('plans')
-    console.log(plans)
-
 
     return plans?.data;
   } catch (error) {

@@ -4,8 +4,8 @@ import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons'
 
 export default function NavLink({ href, label, onClick, isSubMenuVisible, dropDown }) {
 
-  console.log('NavLink')
-  console.log(isSubMenuVisible)
+  // console.log('NavLink')
+  // console.log(isSubMenuVisible)
 
   return (
 
