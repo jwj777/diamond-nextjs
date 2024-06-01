@@ -60,10 +60,11 @@ export default function ProfileClient() {
               <Box 
                 display='inline-block' 
                 position="relative" 
-                marginTop='12' 
+                mt='12' 
                 width='fit-content'
                 bg='neutral.20' 
                 p='8' 
+                pr='12'
                 borderRadius='1rem'
               >
                 <BodyMedium color={"white"}>
@@ -79,9 +80,10 @@ export default function ProfileClient() {
                 display='inline-block' 
                 position="relative" 
                 width='fit-content'
-                marginTop='16' 
+                mt='8' 
                 bg='neutral.20' 
                 p='8' 
+                pr='12'
                 borderRadius='1rem'
               >
                 <TitleLarge color='neutral.90'>Membership Details</TitleLarge>
