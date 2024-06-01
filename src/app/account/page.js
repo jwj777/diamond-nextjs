@@ -9,6 +9,7 @@ import BodyMedium from "../_components/typography/BodyMedium";
 import Footer from "../_layout/footer/Footer";
 import HeadlineSmall from "../_components/typography/HeadlineSmall";
 import XlContainer from "../_layout/containers/XlContainer";
+import TitleMedium from "../_components/typography/TitleMedium";
 
 export default function ProfileClient() {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -50,6 +51,7 @@ export default function ProfileClient() {
           <Box 
             display='flex'
             flexDir={'column'}
+            mt='8'
             pb='24'
             position="relative" 
             bg='neutral.10' 
@@ -92,9 +94,9 @@ export default function ProfileClient() {
                   pr='12'
                   borderRadius='1rem'
                 >
-                  <HeadlineSmall color='neutral.90'>Membership Details</HeadlineSmall>
+                  <TitleMedium color='neutral.90'>Membership Details</TitleMedium>
                   {subscriptions.length > 0 ? (
-                    <Box>
+                    <Box mt='3'>
                       <Box mb='2'>
                         <BodyMedium color={"white"}>
                           <Text as='span' fontWeight='600' mr='1' mb='3'>Membership Plan:</Text>
@@ -127,8 +129,8 @@ export default function ProfileClient() {
               </>
             )}
           </Box>
-          <Footer />
         </XlContainer>
+        <Footer />
       </PageContainerAccount>
     </main>
   );
