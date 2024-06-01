@@ -7,7 +7,7 @@ export default function PageContainerAccount({ data, children, contentType }) {
 
   return (
 
-    <Box bg={'neutral.0'}>
+    <Box bg={'neutral.10'} pb='16'>
       <HeroHeaderAccount data={data} />
       {children}
     </Box>

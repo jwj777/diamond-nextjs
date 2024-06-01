@@ -12,7 +12,7 @@ export default function HeroHeaderHome({ data, children, contentType }) {
 
   return (
 
-    <Box bg='url(https://diamondgrade.s3.us-east-1.amazonaws.com/homepage_bg_image_45ae0d8842.png)'>
+    <Box bg='neutral.10'>
 
       <Box>
         <Header />

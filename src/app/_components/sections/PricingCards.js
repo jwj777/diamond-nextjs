@@ -45,7 +45,6 @@ export default function PricingCards({ data }) {
         const combinedData = productsData.map(product => {
           const plan = plansData.find(plan => plan.attributes.Stripe_ID === product.id);
           if (plan) {
-            // console.log(`Matching plan found for product ${product.id}:`, plan);
             return {
               ...product,
               highlight: plan.attributes.Highlight,
