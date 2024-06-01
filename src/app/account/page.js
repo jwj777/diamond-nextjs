@@ -49,27 +49,44 @@ export default function ProfileClient() {
           ) : (
             <>
               <TitleLarge color={"white"}>My Account</TitleLarge>
-              <Box position="relative" marginTop={10} flex="right" bg='neutral.15' p='8' borderRadius='1rem'>
-                <BodyMedium color={"white"}><Text as='span' fontWeight='600'>Email: </Text>{user.email}</BodyMedium>
+              <Box 
+                display='inline-block' 
+                position="relative" marginTop={10} 
+                bg='neutral.20' 
+                p='8' 
+                borderRadius='1rem'
+              >
                 <BodyMedium color={"white"}>
-                  <Text as='span' fontWeight='600'>Username: </Text>
-                  {user.nickname}
+                  <Text as='span' fontWeight='600' mr='1'>Email: </Text>
+                  <Text as='span' color='neutral.40'>{user.email}</Text>
+                </BodyMedium>
+                <BodyMedium color={"white"}>
+                  <Text as='span' fontWeight='600' mr='1'>Username: </Text>
+                  <Text as='span' color='neutral.40'>{user.nickname}</Text>
                 </BodyMedium>
               </Box>
-              <Box position="relative" marginTop={20} flex="right" bg='neutral.15' p='8' borderRadius='1rem'>
+              <Box 
+                display='inline-block' 
+                position="relative" 
+                marginTop='16' 
+                bg='neutral.15' 
+                p='8' 
+                borderRadius='1rem'
+              >
                 <TitleLarge color={"white"}>Membership Details</TitleLarge>
                 {subscriptions.length > 0 ? (
                   <>
                     <BodyMedium color={"white"}>
-                      Membership Plan: 
-                      {subscriptions[0].product.name}
+                      <Text as='span' fontWeight='600' mr='1'>Membership Plan:</Text>
+                      <Text as='span' color='neutral.40'>{subscriptions[0].product.name}</Text>
                     </BodyMedium>
                     <BodyMedium color={"white"}>
-                      Membership Fee: ${subscriptions[0].plan.amount / 100}
+                      <Text as='span' fontWeight='600' mr='1'>Membership Fee: </Text>
+                      <Text as='span' color='neutral.40'>${subscriptions[0].plan.amount / 100}</Text>
                     </BodyMedium>
                     <BodyMedium color={"white"}>
-                      Membership Status:{" "}
-                      {subscriptions[0].plan.active ? "Active" : "Deactive"}
+                    <Text as='span' fontWeight='600' mr='1'>Membership Status:{" "}</Text>
+                    <Text as='span' color='neutral.40'>{subscriptions[0].plan.active ? "Active" : "Deactive"}</Text>
                     </BodyMedium>
                   </>
                 ) : (
