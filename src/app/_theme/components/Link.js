@@ -20,6 +20,12 @@ const md = defineStyle({
   pl: '1.1rem',
 })
 
+const mdText = defineStyle({
+  fontSize: '1rem',
+  lineHeight: '1rem',
+  fontWeight: '400',
+})
+
 const lg = defineStyle({
   fontSize: '1rem',
   lineHeight: '1rem',
@@ -113,6 +119,6 @@ export const Link = defineStyleConfig({
     primaryDarkText,
     neutralDark,
   },
-  sizes: { sm, md, lg, xl, xxl },
+  sizes: { sm, md, mdText, lg, xl, xxl },
   defaultProps: { variant: 'primaryLight', size: 'md' }
 })

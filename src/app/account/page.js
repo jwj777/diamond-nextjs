@@ -116,7 +116,7 @@ export default function ProfileClient() {
                         </BodyMedium>
                       </Box>
                       <Box>
-                        <Link href='/page/pricing' variant='primaryDarkText'>Upgrade Plan</Link>
+                        <Link href='/page/pricing' variant='primaryDarkText' size='mdText'>Upgrade Plan</Link>
                       </Box>
                     </Box>
                   
