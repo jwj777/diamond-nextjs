@@ -1,6 +1,6 @@
 "use client";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { Box, Link, Spinner } from "@chakra-ui/react";
+import { Box, Link, Spinner, Text } from "@chakra-ui/react";
 import TitleLarge from "@/app/_components/typography/TitleLarge";
 import PageContainerAccount from "@/app/_layout/PageContainerAccount";
 import { redirect } from "next/navigation";
