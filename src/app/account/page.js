@@ -67,14 +67,18 @@ export default function ProfileClient() {
                 pr='12'
                 borderRadius='1rem'
               >
-                <BodyMedium color={"white"}>
-                  <Text as='span' fontWeight='600' mr='1' mb='3'>Email: </Text>
-                  <Text as='span' color='neutral.90'>{user.email}</Text>
-                </BodyMedium>
-                <BodyMedium color={"white"}>
-                  <Text as='span' fontWeight='600' mr='1' mb='3'>Username: </Text>
-                  <Text as='span' color='neutral.90'>{user.nickname}</Text>
-                </BodyMedium>
+                <Box mb='4'>
+                  <BodyMedium color={"white"}>
+                    <Text as='span' fontWeight='600' mr='1'>Email: </Text>
+                    <Text as='span' color='neutral.90'>{user.email}</Text>
+                  </BodyMedium>
+                </Box>
+                <Box>
+                  <BodyMedium color={"white"}>
+                    <Text as='span' fontWeight='600' mr='1'>Username: </Text>
+                    <Text as='span' color='neutral.90'>{user.nickname}</Text>
+                  </BodyMedium>
+                </Box>
               </Box>
               <Box 
                 display='inline-block' 
