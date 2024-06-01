@@ -64,7 +64,7 @@ export default function ProfileClient() {
                 <Box 
                   display='inline-block' 
                   position="relative" 
-                  mt='12' 
+                  mt='8' 
                   width='fit-content'
                   bg='neutral.20' 
                   p='8' 
@@ -114,6 +114,9 @@ export default function ProfileClient() {
                         <Text as='span' fontWeight='600' mr='1' mb='3'>Status:{" "}</Text>
                         <Text as='span' color='neutral.90'>{subscriptions[0].plan.active ? "Active" : "Deactive"}</Text>
                         </BodyMedium>
+                      </Box>
+                      <Box>
+                        <Link href='/page/pricing' variant='primaryDarkText'>Upgrade Plan</Link>
                       </Box>
                     </Box>
                   
