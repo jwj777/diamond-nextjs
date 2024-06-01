@@ -48,15 +48,15 @@ export default function ProfileClient() {
           display='flex'
           flexDir={'column'}
           padding={10} 
+          pb='24'
           position="relative" 
           bg='neutral.10' 
-          color={"white"}
         >
           {isLoading || loading ? (
             <Spinner size="xl" />
           ) : (
             <>
-              <TitleLarge color={"white"}>My Account</TitleLarge>
+              <TitleLarge color='neutral.90'>My Account</TitleLarge>
               <Box 
                 display='inline-block' 
                 position="relative" 
@@ -84,7 +84,7 @@ export default function ProfileClient() {
                 p='8' 
                 borderRadius='1rem'
               >
-                <TitleLarge color={"white"}>Membership Details</TitleLarge>
+                <TitleLarge color='neutral.90'>Membership Details</TitleLarge>
                 {subscriptions.length > 0 ? (
                   <>
                     <BodyMedium color={"white"}>
@@ -104,7 +104,7 @@ export default function ProfileClient() {
                   <BodyMedium color={"white"}>No Subscription.</BodyMedium>
                 )}
               </Box>
-              <Box position="relative" marginTop='16' flex="right">
+              <Box position="relative" mt='16'>
                 <Link href="/api/auth/logout" variant="neutralDark">
                   Logout
                 </Link>
