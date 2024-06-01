@@ -44,7 +44,14 @@ export default function ProfileClient() {
   return (
     <main>
       <PageContainerAccount data={{ user }}>
-        <Box padding={10} position="relative" bg='neutral.10' color={"white"}>
+        <Box 
+          display='flex'
+          flexDir={'column'}
+          padding={10} 
+          position="relative" 
+          bg='neutral.10' 
+          color={"white"}
+        >
           {isLoading || loading ? (
             <Spinner size="xl" />
           ) : (
