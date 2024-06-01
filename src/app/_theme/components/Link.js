@@ -93,10 +93,9 @@ const primaryDarkText = defineStyle({
   color: 'primary.90',
   fontSize: '1.3rem',
   lineHeight: '1.4rem',
-  textDecoration: 'none',
+  textDecoration: 'underline',
     _hover: {
     color: 'primary.100',
-    textDecor: 'none',
   }
 })
 
