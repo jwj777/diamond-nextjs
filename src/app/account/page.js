@@ -59,23 +59,26 @@ export default function ProfileClient() {
               <TitleLarge color={"white"}>My Account</TitleLarge>
               <Box 
                 display='inline-block' 
-                position="relative" marginTop={10} 
+                position="relative" 
+                marginTop='12' 
+                width='fit-content'
                 bg='neutral.20' 
                 p='8' 
                 borderRadius='1rem'
               >
                 <BodyMedium color={"white"}>
-                  <Text as='span' fontWeight='600' mr='1'>Email: </Text>
+                  <Text as='span' fontWeight='600' mr='1' mb='3'>Email: </Text>
                   <Text as='span' color='neutral.90'>{user.email}</Text>
                 </BodyMedium>
                 <BodyMedium color={"white"}>
-                  <Text as='span' fontWeight='600' mr='1'>Username: </Text>
+                  <Text as='span' fontWeight='600' mr='1' mb='3'>Username: </Text>
                   <Text as='span' color='neutral.90'>{user.nickname}</Text>
                 </BodyMedium>
               </Box>
               <Box 
                 display='inline-block' 
                 position="relative" 
+                width='fit-content'
                 marginTop='16' 
                 bg='neutral.20' 
                 p='8' 
@@ -85,15 +88,15 @@ export default function ProfileClient() {
                 {subscriptions.length > 0 ? (
                   <>
                     <BodyMedium color={"white"}>
-                      <Text as='span' fontWeight='600' mr='1'>Membership Plan:</Text>
+                      <Text as='span' fontWeight='600' mr='1' mb='3'>Membership Plan:</Text>
                       <Text as='span' color='neutral.90'>{subscriptions[0].product.name}</Text>
                     </BodyMedium>
                     <BodyMedium color={"white"}>
-                      <Text as='span' fontWeight='600' mr='1'>Membership Fee: </Text>
+                      <Text as='span' fontWeight='600' mr='1' mb='3'>Membership Fee: </Text>
                       <Text as='span' color='neutral.90'>${subscriptions[0].plan.amount / 100}</Text>
                     </BodyMedium>
                     <BodyMedium color={"white"}>
-                    <Text as='span' fontWeight='600' mr='1'>Membership Status:{" "}</Text>
+                    <Text as='span' fontWeight='600' mr='1' mb='3'>Membership Status:{" "}</Text>
                     <Text as='span' color='neutral.90'>{subscriptions[0].plan.active ? "Active" : "Deactive"}</Text>
                     </BodyMedium>
                   </>
