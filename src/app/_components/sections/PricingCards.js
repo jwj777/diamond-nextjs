@@ -5,7 +5,7 @@ import PricingCard from "../card/PricingCard";
 import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect } from "react";
 
-async function getPlans() {
+async function getPlans() { 
   try {
     const url = 'https://strapi-production-0074.up.railway.app' + '/api/member-plans?[populate]=*';
     console.log("Fetching plans from URL:", url);
@@ -38,7 +38,6 @@ export default function PricingCards({ data }) {
           throw new Error(`Failed to fetch products, status: ${productsResponse.status}`);
         }
         const productsData = await productsResponse.json();
-
         const plansData = await getPlans();
 
         // Combine the data
@@ -78,6 +77,7 @@ export default function PricingCards({ data }) {
 
   console.log("subscriptions", products);
   console.log("plans", plans);
+  
 
   const handleSubscribe = async (priceId) => {
     setLoading(true);
@@ -132,11 +132,6 @@ export default function PricingCards({ data }) {
                     }
                     features={product.features}
                   >
-                    {/* {product.features && product.features.map((feature, idx) => (
-                      <Text key={idx} as="span" color="neutral.95">
-                        {feature.Text}
-                      </Text>
-                    ))} */}
                     <Box display={'flex'} justifyContent={'center'} mb='8'>
                       <Button
                         display="block"

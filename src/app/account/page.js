@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
 import BodyMedium from "../_components/typography/BodyMedium";
 import Footer from "../_layout/footer/Footer";
-import HeadlineSmall from "../_components/typography/HeadlineSmall";
 import XlContainer from "../_layout/containers/XlContainer";
 import TitleMedium from "../_components/typography/TitleMedium";
 
@@ -115,7 +114,7 @@ export default function ProfileClient() {
                         <Text as='span' color='neutral.90'>{subscriptions[0].plan.active ? "Active" : "Deactive"}</Text>
                         </BodyMedium>
                       </Box>
-                      <Box>
+                      <Box mt='4'>
                         <Link href='/page/pricing' variant='primaryDarkText' size='mdText'>Upgrade Plan</Link>
                       </Box>
                     </Box>
