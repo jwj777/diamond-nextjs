@@ -66,6 +66,9 @@ export default function SubmitCardForm({ data }) {
   }, [user, isLoading]);
 
   const addToCart = async () => {
+
+    console.log("Add to cart clicked");
+
     if(!subscriptions.length) {
       alert("Please subscribe the membership first.");
       return;
@@ -98,10 +101,15 @@ export default function SubmitCardForm({ data }) {
       price,
       currency: "USD",
     };
+
+    console.log("Product to be added:", product);
+    console.log("Cart details before adding:", cartDetails);
+
     addItem(product, {
       count: parseInt(quantity),
       product_metadata: { year, brand, number, value },
     });
+    console.log("Cart details after adding:", cartDetails);
   };
 
   const handleCheckout = async () => {
