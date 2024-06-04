@@ -5,7 +5,8 @@ import {
   Text,
   Button,
   Select,
-  Toast,
+  InputGroup,
+  InputLeftElement,
   Grid,
   GridItem,
 } from "@chakra-ui/react";
@@ -17,6 +18,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { useShoppingCart } from "use-shopping-cart";
 import { loadStripe } from "@stripe/stripe-js";
 import InputFloatLight from "./inputFloatLight";
+import InputFloatWithPrefix from "./InputFloatPrefix";
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -188,6 +190,7 @@ export default function SubmitCardForm({ data }) {
                 bg="neutral.90"
                 borderColor='neutral.80'
                 fontSize="1.2rem"
+                fontWeight='600'
                 h="16"
                 borderRadius="8"
                 value={brand}
@@ -238,7 +241,7 @@ export default function SubmitCardForm({ data }) {
           </Box>
 
           <Box mr="4" minW="160px">
-            <InputFloatLight
+            <InputFloatWithPrefix
               label="Declared Value"
               id={"declaredValue"}
               type={"text"}
