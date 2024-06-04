@@ -13,12 +13,18 @@ export default function PricingCard({ data, title, price, children, highlight, f
 
   return (
 
-    <Box maxW='290px' mx='2' bg='neutral.15'  borderRadius='20' textAlign={'center'} height='100%'>
+    <Box maxW='290px' mx='2' bg='neutral.15' pb='8' borderRadius='20' textAlign={'center'} height='100%'>
       <Box px='5' pt='10'>
         <TitleLarge color='neutral.90'>{title}</TitleLarge>
         <Box mt='6'>
           <HeadlineLarge color='primary.90'>{price}</HeadlineLarge>
         </Box>
+        {
+          title === 'Standard' ? null :
+          <Box opacity='0.9' mt='-4'>
+            <BodyMedium color='primary.90'>Per Year</BodyMedium>
+          </Box>
+        }
         <Box mt='7'>
           <BodyMedium color='neutral.90'>
             Estimated Turnaround Time: 

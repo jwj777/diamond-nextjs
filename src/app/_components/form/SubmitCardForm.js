@@ -19,6 +19,7 @@ import { fees, prices } from "@/app/priceData";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useShoppingCart } from "use-shopping-cart";
 import { loadStripe } from "@stripe/stripe-js";
+import InputFloatLight from "./inputFloatLight";
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -39,9 +40,9 @@ export default function SubmitCardForm({ data }) {
   const { user, isLoading } = useUser();
 
   useEffect(() => {
-    if (!isLoading && !user) {
-      return redirect("/");
-    }
+    // if (!isLoading && !user) {
+    //   return redirect("/");
+    // }
     setLoading(true);
     async function fetchSubscriptions() {
       try {
@@ -168,7 +169,7 @@ export default function SubmitCardForm({ data }) {
 
         <Box>
           <Box mr="4" minW="160px">
-            <InputFloat
+            <InputFloatLight
               label="Player Name"
               id={"playername"}
               type={"text"}
@@ -184,10 +185,11 @@ export default function SubmitCardForm({ data }) {
             flexDirection={{ base: "column", md: "row" }}
             required={true}
           >
-            <Box mb="4" mr="4" minW="200px" h="16">
+            <Box mb="4" mr="4" minW="180px" h="16">
               <Select
                 placeholder="Card Brand"
-                bg="neutral.100"
+                bg="neutral.90"
+                borderColor='neutral.80'
                 fontSize="1.2rem"
                 h="16"
                 borderRadius="8"
@@ -206,7 +208,7 @@ export default function SubmitCardForm({ data }) {
             </Box>
 
             <Box mr="4" minW="130px">
-              <InputFloat
+              <InputFloatLight
                 label="Card Year"
                 id={"cardyear"}
                 type={"text"}
@@ -216,8 +218,8 @@ export default function SubmitCardForm({ data }) {
               />
             </Box>
             <Box mr="4" minW="130px">
-              <InputFloat
-                label="Card Number"
+              <InputFloatLight
+                label="Card #"
                 id={"cardnumber"}
                 type={"text"}
                 value={number}
@@ -228,7 +230,7 @@ export default function SubmitCardForm({ data }) {
           </Box>
 
           <Box mr="4" minW="160px">
-            <InputFloat
+            <InputFloatLight
               label="Description/Parallel/Variation"
               id={"description"}
               type={"text"}
@@ -239,7 +241,7 @@ export default function SubmitCardForm({ data }) {
           </Box>
 
           <Box mr="4" minW="160px">
-            <InputFloat
+            <InputFloatLight
               label="Declared Value"
               id={"declaredValue"}
               type={"text"}
@@ -250,7 +252,7 @@ export default function SubmitCardForm({ data }) {
           </Box>
 
           <Box mr="4" maxW="320px">
-            <InputFloat
+            <InputFloatLight
               label="Quantity"
               id={"quantity"}
               type={"text"}
