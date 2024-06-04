@@ -24,18 +24,20 @@ export default function TwoColImgTextEdge({ data }) {
           flexDirection={
             data.Image_Position == 'left' ? 'row-reverse' : 'row'
           }
-          py='32'
+          py='36'
         >
 
           <Box 
             maxW='3xl'
-            pr='20'
+            // pr='20'
+            pr={ data.Image_Position == 'left' ? '24' : '0' }
+            pl={ data.Image_Position == 'right' ? '24' : '0' }
           >
             <Box mb='8'>
               <HeadlineLarge color={data.background + '.on-background'}>{data.Heading}</HeadlineLarge>
             </Box>
             <Box>
-              <BodyMedium color={data.background + '.on-background'}>{data.Body}</BodyMedium>
+              <BodyLarge color={data.background + '.on-background'}>{data.Body}</BodyLarge>
             </Box>
             {
               data.Link ?
@@ -48,14 +50,40 @@ export default function TwoColImgTextEdge({ data }) {
           </Box>
           
           <Box 
-            position="relative"
-            pr='24'
+            // position="relative"
+            pr={ data.Image_Position == 'left' ? '24' : '0' }
+            pl={ data.Image_Position == 'right' ? '24' : '0' }
+            overflow='hidden'       
+            borderTopEndRadius={
+              data.Image_Position == 'left' ? '1.5rem' : '0'
+              }
+            borderBottomEndRadius={
+              data.Image_Position == 'left' ? '1.5rem' : '0'
+              }
+            borderBottomLeftRadius={
+              data.Image_Position == 'left' ? '0' : '1.5rem'
+              }
+            borderTopLeftRadius={
+              data.Image_Position == 'left' ? '0' : '1.5rem'
+              }
           >
             <Image 
               src={'https://diamondgrade.s3.us-east-1.amazonaws.com/' + data.Image.data.attributes.hash + data.Image.data.attributes.ext}
               width='940px'
-              height='580px'
+              height='auto'
               objectFit='contain'
+              borderTopEndRadius={
+                data.Image_Position == 'left' ? '1.5rem' : '0'
+                }
+              borderBottomEndRadius={
+                data.Image_Position == 'left' ? '1.5rem' : '0'
+                }
+              borderBottomLeftRadius={
+                data.Image_Position == 'left' ? '0' : '1.5rem'
+                }
+              borderTopLeftRadius={
+                data.Image_Position == 'left' ? '0' : '1.5rem'
+                }
               alt=""
             />
           </Box>

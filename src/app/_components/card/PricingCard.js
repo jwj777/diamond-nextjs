@@ -2,19 +2,51 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import TitleLarge from "../typography/TitleLarge";
 import HeadlineLarge from "../typography/HeadlineLarge";
+import BodyMedium from "../typography/BodyMedium";
+import BodySmall from "../typography/BodySmall";
 
 
-export default function PricingCard({ data, title, price, children }) {
+export default function PricingCard({ data, title, price, children, highlight, features }) {
   
   // console.log('Trading Card')
   // console.log(data.CardImage.data.attributes.url)
 
   return (
 
-    <Box maxW='280px' mt='24' mx='2' bg='neutral.20' p='8' borderRadius='20'>
-      <TitleLarge color='neutral.90'>{title}</TitleLarge>
-      <HeadlineLarge color='primary.90'>{price}</HeadlineLarge>
-      {children}
+    <Box maxW='290px' mx='2' bg='neutral.15' pb='8' borderRadius='20' textAlign={'center'} height='100%'>
+      <Box px='5' pt='10'>
+        <TitleLarge color='neutral.90'>{title}</TitleLarge>
+        <Box mt='6'>
+          <HeadlineLarge color='primary.90'>{price}</HeadlineLarge>
+        </Box>
+        {
+          title === 'Standard' ? null :
+          <Box opacity='0.9' mt='-4'>
+            <BodyMedium color='primary.90'>Per Year</BodyMedium>
+          </Box>
+        }
+        <Box mt='7'>
+          <BodyMedium color='neutral.90'>
+            Estimated Turnaround Time: 
+          </BodyMedium>
+          <BodyMedium color='neutral.95'>
+            <Text fontWeight='600'>
+              {highlight}
+            </Text>
+          </BodyMedium>
+        </Box>
+        {children}
+
+        {
+          features.map((feature, index) => {
+            return(
+              <Box key={index} mb='4'>
+                <BodySmall color='neutral.100'>{feature.Text}</BodySmall>
+              </Box>
+            )
+          })
+        }
+      </Box>
     </Box>
 
   )

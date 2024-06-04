@@ -32,7 +32,7 @@ export default function HeroHome({ data, children }) {
                 <HeadlineLargeAlt color='neutral.100'>Raising The Standard</HeadlineLargeAlt>
               </Box>
               <Box maxW='3xl' align='center' mx='auto'>
-                <BodyLarge color='neutral.70'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</BodyLarge>
+                <BodyLarge color='neutral.70'>There’s no higher evaluation than a Gem-Mint Diamond 10 graded card through DiamondGrade</BodyLarge>
               </Box>
             </Box>
           </XlContainer>

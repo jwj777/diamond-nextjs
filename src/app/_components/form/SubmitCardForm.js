@@ -5,20 +5,20 @@ import {
   Text,
   Button,
   Select,
-  Toast,
+  InputGroup,
+  InputLeftElement,
   Grid,
   GridItem,
 } from "@chakra-ui/react";
 import TitleLarge from "../typography/TitleLarge";
-import HeadlineLarge from "../typography/HeadlineLarge";
-import BodyLarge from "../typography/BodyLarge";
 import BodyMedium from "../typography/BodyMedium";
-import InputFloat from "./inputFloat";
 import { useState, useEffect } from "react";
 import { fees, prices } from "@/app/priceData";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useShoppingCart } from "use-shopping-cart";
 import { loadStripe } from "@stripe/stripe-js";
+import InputFloatLight from "./inputFloatLight";
+import InputFloatWithPrefix from "./InputFloatPrefix";
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -26,6 +26,7 @@ export default function SubmitCardForm({ data }) {
     useShoppingCart();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [cartUpdated, setCartUpdated] = useState(false);
 
   const [formSubmit, setFormSubmit] = useState(false);
   const [name, setName] = useState("");
@@ -66,7 +67,9 @@ export default function SubmitCardForm({ data }) {
   }, [user, isLoading]);
 
   const addToCart = async () => {
-    if (!subscriptions.length) {
+    console.log("Add to cart clicked");
+
+    if(!subscriptions.length) {
       alert("Please subscribe the membership first.");
       return;
     }
@@ -79,7 +82,6 @@ export default function SubmitCardForm({ data }) {
       levels.findIndex((item) => parseInt(item) > parseInt(value)) - 1;
     const level = levels[levelIdx];
     let price = 0;
-    console.log(level)
     if (levelIdx < 0) {
       price = parseInt(value);
     } else {
@@ -96,11 +98,26 @@ export default function SubmitCardForm({ data }) {
       price,
       currency: "USD",
     };
+
+    console.log("Product to be added:", product);
+    console.log("Cart details before adding:", cartDetails);
+
     addItem(product, {
       count: parseInt(quantity),
       product_metadata: { year, brand, number, value },
     });
+    console.log("Cart details after adding:", cartDetails);
+
+    setCartUpdated(true);
+
   };
+
+  useEffect(() => {
+    if (cartUpdated) {
+      console.log("Cart details after adding:", cartDetails);
+      setCartUpdated(false);
+    }
+  }, [cartUpdated, cartDetails]);
 
   const handleCheckout = async () => {
     setLoading(true);
@@ -166,7 +183,7 @@ export default function SubmitCardForm({ data }) {
 
         <Box>
           <Box mr="4" minW="160px">
-            <InputFloat
+            <InputFloatLight
               label="Player Name"
               id={"playername"}
               type={"text"}
@@ -182,11 +199,13 @@ export default function SubmitCardForm({ data }) {
             flexDirection={{ base: "column", md: "row" }}
             required={true}
           >
-            <Box mb="4" mr="4" minW="200px" h="16">
+            <Box mb="4" mr="4" minW="180px" h="16">
               <Select
                 placeholder="Card Brand"
-                bg="neutral.100"
+                bg="neutral.90"
+                borderColor='neutral.80'
                 fontSize="1.2rem"
+                fontWeight='600'
                 h="16"
                 borderRadius="8"
                 value={brand}
@@ -204,7 +223,7 @@ export default function SubmitCardForm({ data }) {
             </Box>
 
             <Box mr="4" minW="130px">
-              <InputFloat
+              <InputFloatLight
                 label="Card Year"
                 id={"cardyear"}
                 type={"text"}
@@ -214,8 +233,8 @@ export default function SubmitCardForm({ data }) {
               />
             </Box>
             <Box mr="4" minW="130px">
-              <InputFloat
-                label="Card Number"
+              <InputFloatLight
+                label="Card #"
                 id={"cardnumber"}
                 type={"text"}
                 value={number}
@@ -226,7 +245,7 @@ export default function SubmitCardForm({ data }) {
           </Box>
 
           <Box mr="4" minW="160px">
-            <InputFloat
+            <InputFloatLight
               label="Description/Parallel/Variation"
               id={"description"}
               type={"text"}
@@ -237,7 +256,7 @@ export default function SubmitCardForm({ data }) {
           </Box>
 
           <Box mr="4" minW="160px">
-            <InputFloat
+            <InputFloatWithPrefix
               label="Declared Value"
               id={"declaredValue"}
               type={"text"}
@@ -248,7 +267,7 @@ export default function SubmitCardForm({ data }) {
           </Box>
 
           <Box mr="4" maxW="320px">
-            <InputFloat
+            <InputFloatLight
               label="Quantity"
               id={"quantity"}
               type={"text"}

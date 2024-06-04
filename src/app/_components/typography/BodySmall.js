@@ -16,7 +16,7 @@ export default function BodySmall({ textColor, color, children, mb, mr }) {
         fontSize={{ base: '0.9rem', md: '0.95rem' }}
         lineHeight={{ base: '152%', md: '154%' }}
         color={color}
-        fontWeight='400'
+        fontWeight='300'
         mb={mb}
         mr={mr}
       >

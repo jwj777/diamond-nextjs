@@ -43,13 +43,13 @@ export default function Desktop() {
           {isSubMenuVisible && (
             <Box position="absolute" bg="white" boxShadow="md" borderRadius='16' mt='8' p="4" display='flex' flexDirection='column'>
               <Link href="/page/grading-standards" variant='noDeco'>Grading Standards</Link>
-              <Link href="/page/philosophy" variant='noDeco'>Philosophy</Link>
+              {/* <Link href="/page/philosophy" variant='noDeco'>Philosophy</Link> */}
               <Link href="/page/faq" variant='noDeco'>FAQs</Link>
             </Box>
           )}
         </Box>
         <NavLink href="/page/about" label='About' />
-        <NavLink href="/form/submit-card" label='Contact Us' />
+        <NavLink href="/page/contact" label='Contact Us' />
       </Box>
 
 

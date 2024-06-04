@@ -1,17 +1,20 @@
 "use client";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { Box, Link, Spinner } from "@chakra-ui/react";
+import { Box, Link, Spinner, Text } from "@chakra-ui/react";
 import TitleLarge from "@/app/_components/typography/TitleLarge";
 import PageContainerAccount from "@/app/_layout/PageContainerAccount";
 import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
+import BodyMedium from "../_components/typography/BodyMedium";
+import Footer from "../_layout/footer/Footer";
+import XlContainer from "../_layout/containers/XlContainer";
+import TitleMedium from "../_components/typography/TitleMedium";
 
 export default function ProfileClient() {
   const [subscriptions, setSubscriptions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const { user, error, isLoading } = useUser();
-  // const { user } = await getSession();
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -43,45 +46,93 @@ export default function ProfileClient() {
   return (
     <main>
       <PageContainerAccount data={{ user }}>
-        <Box padding={10} position="relative" color={"white"}>
-          {isLoading || loading ? (
-            <Spinner size="xl" />
-          ) : (
-            <>
-              <TitleLarge color={"white"}>My Account</TitleLarge>
-              <Box position="relative" marginTop={10} flex="right">
-                <TitleLarge color={"white"}>Email: {user.email}</TitleLarge>
-                <TitleLarge color={"white"}>
-                  Username: {user.nickname}
-                </TitleLarge>
-              </Box>
-              <Box position="relative" marginTop={20} flex="right">
-                <TitleLarge color={"white"}>Membership Details</TitleLarge>
-                {subscriptions.length > 0 ? (
-                  <>
-                    <TitleLarge color={"white"}>
-                      Membership Plan: {subscriptions[0].product.name}
-                    </TitleLarge>
-                    <TitleLarge color={"white"}>
-                      Membership Fee: ${subscriptions[0].plan.amount / 100}
-                    </TitleLarge>
-                    <TitleLarge color={"white"}>
-                      Membership Status:{" "}
-                      {subscriptions[0].plan.active ? "Active" : "Deactive"}
-                    </TitleLarge>
-                  </>
-                ) : (
-                  <TitleLarge color={"white"}>No Subscription.</TitleLarge>
-                )}
-              </Box>
-              <Box position="relative" marginTop={10} flex="right">
-                <Link href="/api/auth/logout" variant="neutralDark">
-                  Logout
-                </Link>
-              </Box>
-            </>
-          )}
-        </Box>
+        <XlContainer>
+          <Box 
+            display='flex'
+            flexDir={'column'}
+            mt='8'
+            pb='24'
+            position="relative" 
+            bg='neutral.10' 
+          >
+            {isLoading || loading ? (
+              <Spinner size="xl" />
+            ) : (
+              <>
+                <TitleLarge color='neutral.90'>My Account</TitleLarge>
+                <Box 
+                  display='inline-block' 
+                  position="relative" 
+                  mt='8' 
+                  width='fit-content'
+                  bg='neutral.20' 
+                  p='8' 
+                  pr='12'
+                  borderRadius='1rem'
+                >
+                  <Box mb='2'>
+                    <BodyMedium color={"white"}>
+                      <Text as='span' fontWeight='600' mr='1'>Email: </Text>
+                      <Text as='span' color='neutral.90'>{user.email}</Text>
+                    </BodyMedium>
+                  </Box>
+                  <Box>
+                    <BodyMedium color={"white"}>
+                      <Text as='span' fontWeight='600' mr='1'>Username: </Text>
+                      <Text as='span' color='neutral.90'>{user.nickname}</Text>
+                    </BodyMedium>
+                  </Box>
+                </Box>
+                <Box 
+                  display='inline-block' 
+                  position="relative" 
+                  width='fit-content'
+                  mt='8' 
+                  bg='neutral.20' 
+                  p='8' 
+                  pr='12'
+                  borderRadius='1rem'
+                >
+                  <TitleMedium color='neutral.90'>Membership Details</TitleMedium>
+                  {subscriptions.length > 0 ? (
+                    <Box mt='3'>
+                      <Box mb='2'>
+                        <BodyMedium color={"white"}>
+                          <Text as='span' fontWeight='600' mr='1' mb='3'>Membership Plan:</Text>
+                          <Text as='span' color='neutral.90'>{subscriptions[0].product.name}</Text>
+                        </BodyMedium>
+                      </Box>
+                      <Box mb='2'>
+                        <BodyMedium color={"white"}>
+                          <Text as='span' fontWeight='600' mr='1' mb='3'>Monthly Fee: </Text>
+                          <Text as='span' color='neutral.90'>${subscriptions[0].plan.amount / 100}</Text>
+                        </BodyMedium>
+                      </Box>
+                        <Box mb='2'>
+                        <BodyMedium color={"white"}>
+                        <Text as='span' fontWeight='600' mr='1' mb='3'>Status:{" "}</Text>
+                        <Text as='span' color='neutral.90'>{subscriptions[0].plan.active ? "Active" : "Deactive"}</Text>
+                        </BodyMedium>
+                      </Box>
+                      <Box mt='4'>
+                        <Link href='/page/pricing' variant='primaryDarkText' size='mdText'>Upgrade Plan</Link>
+                      </Box>
+                    </Box>
+                  
+                  ) : (
+                    <BodyMedium color={"white"}>No Subscription.</BodyMedium>
+                  )}
+                </Box>
+                <Box position="relative" mt='16'>
+                  <Link href="/api/auth/logout" variant="neutralDark">
+                    Logout
+                  </Link>
+                </Box>
+              </>
+            )}
+          </Box>
+        </XlContainer>
+        <Footer />
       </PageContainerAccount>
     </main>
   );

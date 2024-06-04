@@ -16,20 +16,28 @@ export default function BasicCardList({ data }) {
 
     <Box py='40'>
       <XlContainer>
-        <Box mb='12'>
-          <Box mb='4'>
+        <Box mb='16'>
+          <Box mb='4' textAlign={'center'}>
             <HeadlineLarge color='neutral.10'>{data.Heading}</HeadlineLarge>
           </Box>
-          <BodyLarge>{data.Subheading}</BodyLarge>
+          <Box display={'flex'} justifyContent={'center'}>
+            <Box maxW='4xl' textAlign={'center'}>
+              <BodyLarge>{data.Subheading}</BodyLarge>
+            </Box>
+          </Box>
         </Box>
-        <Box display='flex' justifyContent='space-between'>
-        {
-          data.Cards.map((card, index) => {
-            return(
-              <BasicCard key={index} data={card} />
-            )
-          })
-        }
+        <Box 
+          display='flex' 
+          flexWrap='wrap' 
+          justifyContent={'center'}
+        >
+          {
+            data.Cards.map((card, index) => {
+              return(
+                <BasicCard key={index} data={card} />
+              )
+            })
+          }
         </Box>
       </XlContainer>
     </Box>

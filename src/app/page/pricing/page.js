@@ -17,36 +17,16 @@ export default async function Page({ params }) {
  
     <PageContainerGeneral data={data}>
 
-      {
-        data.attributes.slug == 'grading-standards' ?
-        <GradeAccordion data={data} />
-        : null
-      }
 
       <Box bg='neutral.4' pt='0'>
           <XlContainer>
-            {/* {
-              data.attributes.slug == 'pricing' ?
-                <MemberPlans plans={plansData} />
-              : null
-            } */}
-            {
-              data.attributes.slug == 'pricing' ?
-                <PricingCards />
-              : null
-            }  
+
+            <PricingCards />
+
         </XlContainer>
       </Box>
 
-      <Box position='relative'>
-        {
-          data.attributes.Sections.map((item, index) => {
-            return(
-              <Sections key={index} data={item} />
-            )
-          })
-        }
-      </Box>
+
 
     </PageContainerGeneral>
 
@@ -57,7 +37,7 @@ async function getPageBySlug(params) {
   try {
     const slug = params.slug;
     const response =
-      await fetch(process.env.BASE_URL + `/api/general-pages?filters[slug][$eq]=${slug}&populate[Sections][populate]=*&populate[HeroImage][populate]=*
+      await fetch(process.env.BASE_URL + `/api/general-pages?filters[slug][$eq]=pricing&populate[Sections][populate]=*&populate[HeroImage][populate]=*
       &populate[Sections][on][section.card-list][populate][Cards][populate]=
       &populate[Sections][on][section.two-column-image-text-edge][populate]=*`);
 

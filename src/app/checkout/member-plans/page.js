@@ -19,15 +19,10 @@ export default async function MemberPlansPage() {
         <MemberPlans plans={plans} />
       </Box>
 
-
-    
-
     </PageContainerGeneral>
 
   );
 }
-
-
 
 async function getPage() {
   try {

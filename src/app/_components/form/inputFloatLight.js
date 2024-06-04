@@ -1,8 +1,9 @@
 import { FormErrorMessage, FormHelperText, FormLabel, Input, FormControl } from "@chakra-ui/react";
 import { useState } from "react";
 import LabelActive from "./LabelActive";
+import LabelActiveLight from "./LabelActiveLight";
 
-export default function InputFloat({ label, id, type, pattern, errorMsg, width, required, value, onChange }) {
+export default function InputFloatLight({ label, id, type, pattern, errorMsg, width, required, value, onChange }) {
 
   const [inputState, setInputState] = useState('empty')
 
@@ -29,12 +30,12 @@ export default function InputFloat({ label, id, type, pattern, errorMsg, width, 
         <Input 
           type={type} id={id} 
           name={id} 
-          bg='neutral.20'
+          bg='neutral.90'
           minLength="1"
           size={{ base: 'lg', sm: 'xl', md: 'xl' }}
           variant='lightInput'
-          borderColor='neutral.30'
-          color='neutral.90'
+          borderColor='neutral.80'
+          color='neutral.10'
           width={inputWidth}
           pattern={pattern}
           value={value}
@@ -46,14 +47,14 @@ export default function InputFloat({ label, id, type, pattern, errorMsg, width, 
 
         {
           inputState == 'has-value' || inputState == 'focus' ?
-            <LabelActive label={label} /> 
+            <LabelActiveLight label={label} /> 
           :  
             <FormLabel 
               htmlFor={id} 
-              color='neutral.90'
+              color='neutral.10'
               fontSize={{ base: '1rem', sm: '1.15rem', md: '1.15rem' }}
               position='absolute'
-              borderColor='neutral.40'
+              borderColor='neutral.80'
               bottom={{ base: '8px', sm: '10px', md: '10px' }}
               pl={{ base: '1rem', sm: '1.4rem' }}
               zIndex='2'

@@ -1,13 +1,13 @@
 import { FormLabel} from "@chakra-ui/react";
 
-export default function LabelActive({ label, id }) {
+export default function LabelActiveLight({ label, id }) {
 
   return (
  
     <FormLabel 
       htmlFor={id} 
-      color='neutral.95'
-      background='neutral.20'
+      color='neutral.10'
+      background='neutral.90'
       fontWeight='500'
       fontSize={{ base: '0.75rem', sm: '0.85rem' }}
       ml='0.8rem'
