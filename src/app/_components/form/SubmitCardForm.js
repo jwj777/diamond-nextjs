@@ -26,6 +26,7 @@ export default function SubmitCardForm({ data }) {
     useShoppingCart();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [cartUpdated, setCartUpdated] = useState(false);
 
   const [formSubmit, setFormSubmit] = useState(false);
   const [name, setName] = useState("");
@@ -81,14 +82,8 @@ export default function SubmitCardForm({ data }) {
     const levelIdx =
       levels.findIndex((item) => parseInt(item) > parseInt(value)) - 1;
     const level = levels[levelIdx];
-    console.log(
-      levels,
-      levelIdx,
-      value,
-      level,
-      fees[level],
-      subscriptions[0].product.name
-    );
+
+    console.log(levels, levelIdx, value, level, fees[level], subscriptions[0].product.name);
 
     const fee = fees[level][subscriptions[0].product.name];
     const price =
@@ -110,7 +105,17 @@ export default function SubmitCardForm({ data }) {
       product_metadata: { year, brand, number, value },
     });
     console.log("Cart details after adding:", cartDetails);
+
+    setCartUpdated(true);
+
   };
+
+  useEffect(() => {
+    if (cartUpdated) {
+      console.log("Cart details after adding:", cartDetails);
+      setCartUpdated(false);
+    }
+  }, [cartUpdated, cartDetails]);
 
   const handleCheckout = async () => {
     setLoading(true);
