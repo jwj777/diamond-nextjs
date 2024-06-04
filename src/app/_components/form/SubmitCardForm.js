@@ -10,10 +10,7 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import TitleLarge from "../typography/TitleLarge";
-import HeadlineLarge from "../typography/HeadlineLarge";
-import BodyLarge from "../typography/BodyLarge";
 import BodyMedium from "../typography/BodyMedium";
-import InputFloat from "./inputFloat";
 import { useState, useEffect } from "react";
 import { fees, prices } from "@/app/priceData";
 import { useUser } from "@auth0/nextjs-auth0/client";
@@ -40,9 +37,9 @@ export default function SubmitCardForm({ data }) {
   const { user, isLoading } = useUser();
 
   useEffect(() => {
-    // if (!isLoading && !user) {
-    //   return redirect("/");
-    // }
+    if (!isLoading && !user) {
+      return redirect("/");
+    }
     setLoading(true);
     async function fetchSubscriptions() {
       try {
