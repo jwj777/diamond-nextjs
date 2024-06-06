@@ -339,7 +339,7 @@ export default function SubmitCardForm({ data }) {
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <b>Total Declared Value:</b>
-              <b>{}</b>
+              <b>${calculateTotalDeclaredValue()}</b>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <b>Grading Fees:</b>
