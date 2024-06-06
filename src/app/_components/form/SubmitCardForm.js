@@ -69,7 +69,6 @@ export default function SubmitCardForm({ data }) {
 
 
   const addToCart = async () => {
-
     console.log("Add to cart clicked");
 
     if(!subscriptions.length) {
@@ -84,13 +83,16 @@ export default function SubmitCardForm({ data }) {
     const levelIdx =
       levels.findIndex((item) => parseInt(item) > parseInt(value)) - 1;
     const level = levels[levelIdx];
+    let price = 0;
+    if (levelIdx < 0) {
+      price = parseInt(value);
+    } else {
+      const fee = fees[level][subscriptions[0].product.name];
+      price =
+        prices[level][subscriptions[0].product.name] * 100 +
+        fee * (parseInt(value) - parseInt(level));
+    }
 
-    console.log(levels, levelIdx, value, level, fees[level], subscriptions[0].product.name);
-
-    const fee = fees[level][subscriptions[0].product.name];
-    const price =
-      prices[level][subscriptions[0].product.name] * 100 +
-      fee * (parseInt(value) - parseInt(level));
     const product = {
       name,
       description: desc,
@@ -333,7 +335,7 @@ export default function SubmitCardForm({ data }) {
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <b>Shipping & Insurance:</b>
-              <b>{cartCount}</b>
+              <b>{0}</b>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <b>Order Total:</b>
@@ -398,7 +400,7 @@ export default function SubmitCardForm({ data }) {
                     </Box>
                     <Box display={"flex"} justifyContent={"space-between"}>
                       <b>Shipping & Insurance:</b>
-                      <b>{cartDetails[item].formattedValue}</b>
+                      <b>{0}</b>
                     </Box>
                     <Box display={"flex"} justifyContent={"space-between"}>
                       <b>Total:</b>
