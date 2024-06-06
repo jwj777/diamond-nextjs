@@ -309,11 +309,11 @@ export default function SubmitCardForm({ data }) {
 
         <Box mt="8">
           {ebayUrl ? (
-            <Link href={ebayUrl} isExternal variant='primaryLightText'>
+            <Link href={ebayUrl} isExternal variant='primaryLightText' size='mdText'>
               See {year + ' ' + brand + ' ' + name + ' ' + number} examples on eBay
             </Link>
           ) : (
-            "Ebay link goes here"
+            null
           )}
         </Box>
 
