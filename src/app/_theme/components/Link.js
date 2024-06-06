@@ -74,6 +74,14 @@ const primaryLight = defineStyle({
   }
 })
 
+const primaryLightText = defineStyle({
+  color: 'primary.40',
+  textDecoration: 'underline',
+    _hover: {
+    color: 'primary.10',
+  }
+})
+
 const primaryDark = defineStyle({
   bg: 'primary.90',
   color: 'neutral.10',
@@ -112,6 +120,7 @@ export const Link = defineStyleConfig({
   variants: { 
     noDeco,
     primaryLight,
+    primaryLightText,
     primaryDark,
     primaryDarkText,
     neutralDark,
