@@ -11,7 +11,7 @@ const sm = defineStyle({
 })
 
 const md = defineStyle({
-  fontSize: '1rem',
+  fontSize: '0.9rem',
   lineHeight: '1rem',
   fontWeight: '400',
   pt: '0.8rem',

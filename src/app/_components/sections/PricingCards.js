@@ -1,6 +1,6 @@
 "use client";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { Box, Text, Button } from "@chakra-ui/react";
+import { Box, Text, Button, Link } from "@chakra-ui/react";
 import PricingCard from "../card/PricingCard";
 import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect } from "react";
@@ -27,6 +27,7 @@ export default function PricingCards({ data }) {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [hasMembership, setHasMembership] = useState(false);
 
   const { user, isLoading } = useUser();
 
@@ -67,6 +68,29 @@ export default function PricingCards({ data }) {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (isLoading) return; // Wait until loading is done
+    if (!user) return;
+
+    async function fetchSubscriptions() {
+      try {
+        const customerRes = await fetch(`/api/stripe/customer?email=${user.email}`);
+        const customerData = await customerRes.json();
+
+        const response = await fetch(`/api/stripe/subscriptions?customerId=${customerData.id}`);
+        const data = await response.json();
+
+        // Check if user has any subscriptions
+        if (data && data.length > 0) {
+          setHasMembership(true);
+        }
+      } catch (error) {
+        console.error("Error fetching subscriptions:", error);
+      }
+    }
+    fetchSubscriptions();
+  }, [user, isLoading]);
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -77,7 +101,6 @@ export default function PricingCards({ data }) {
 
   console.log("subscriptions", products);
   console.log("plans", plans);
-  
 
   const handleSubscribe = async (priceId) => {
     setLoading(true);
@@ -133,14 +156,21 @@ export default function PricingCards({ data }) {
                     features={product.features}
                   >
                     <Box display={'flex'} justifyContent={'center'} mb='8'>
-                      <Button
-                        display="block"
-                        onClick={() => handleSubscribe(product.prices[0].id)}
-                        disabled={loading}
-                        variant='primaryDark'
-                      >
-                        Subscribe to Plan
-                      </Button>
+                      {hasMembership ? (
+                        <Button
+                          display="block"
+                          onClick={() => handleSubscribe(product.prices[0].id)}
+                          disabled={loading}
+                          variant='primaryDark'
+                          size='md'
+                        >
+                          Subscribe to Plan
+                        </Button>
+                      ) : (
+                        <Link href="/api/auth/login" variant='primaryDark'>
+                          Sign Up Today
+                        </Link>
+                      )}
                     </Box>
                   </PricingCard>
                 </Box>

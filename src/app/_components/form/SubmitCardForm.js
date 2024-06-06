@@ -19,6 +19,7 @@ import { useShoppingCart } from "use-shopping-cart";
 import { loadStripe } from "@stripe/stripe-js";
 import InputFloatLight from "./inputFloatLight";
 import InputFloatWithPrefix from "./InputFloatPrefix";
+import { Link } from "@chakra-ui/next-js";
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -35,9 +36,9 @@ export default function SubmitCardForm({ data }) {
   const [number, setNumber] = useState();
   const [desc, setDesc] = useState("");
   const [value, setValue] = useState();
-  const [quantity, setQuantity] = useState();
-
+  const [ebayUrl, setEbayUrl] = useState("");
   const { user, isLoading } = useUser();
+
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -66,6 +67,7 @@ export default function SubmitCardForm({ data }) {
     fetchSubscriptions();
   }, [user, isLoading]);
 
+
   const addToCart = async () => {
 
     console.log("Add to cart clicked");
@@ -74,7 +76,7 @@ export default function SubmitCardForm({ data }) {
       alert("Please subscribe the membership first.");
       return;
     }
-    if (!name || !brand || !year || !number || !value || !quantity) {
+    if (!name || !brand || !year || !number || !value) {
       alert("Please input all fields.");
       return;
     }
@@ -101,7 +103,7 @@ export default function SubmitCardForm({ data }) {
     console.log("Cart details before adding:", cartDetails);
 
     addItem(product, {
-      count: parseInt(quantity),
+      // count: parseInt(quantity),
       product_metadata: { year, brand, number, value },
     });
     console.log("Cart details after adding:", cartDetails);
@@ -110,12 +112,23 @@ export default function SubmitCardForm({ data }) {
 
   };
 
+
   useEffect(() => {
     if (cartUpdated) {
       console.log("Cart details after adding:", cartDetails);
       setCartUpdated(false);
     }
   }, [cartUpdated, cartDetails]);
+
+
+  useEffect(() => {
+    if (name && brand && year && number) {
+      const query = `${year} ${brand} ${name} ${number}`;
+      const url = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(query)}`;
+      setEbayUrl(url);
+    }
+  }, [name, brand, year, number]);
+
 
   const handleCheckout = async () => {
     setLoading(true);
@@ -156,6 +169,7 @@ export default function SubmitCardForm({ data }) {
     }
     setLoading(false);
   };
+
 
   return (
     <Grid templateColumns="repeat(4, 1fr)">
@@ -203,7 +217,7 @@ export default function SubmitCardForm({ data }) {
                 bg="neutral.90"
                 borderColor='neutral.80'
                 fontSize="1.2rem"
-                fontWeight='600'
+                fontWeight='500'
                 h="16"
                 borderRadius="8"
                 value={brand}
@@ -264,16 +278,7 @@ export default function SubmitCardForm({ data }) {
             />
           </Box>
 
-          <Box mr="4" maxW="320px">
-            <InputFloatLight
-              label="Quantity"
-              id={"quantity"}
-              type={"text"}
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              required={true}
-            />
-          </Box>
+
         </Box>
 
         <Button
@@ -292,6 +297,17 @@ export default function SubmitCardForm({ data }) {
         >
           {"Add to Order"}
         </Button>
+
+        <Box mt="4">
+          {ebayUrl ? (
+            <Link href={ebayUrl} isExternal primaryLightText>
+              See {year + ' ' + brand + ' ' + name + ' ' + number} examples on eBay
+            </Link>
+          ) : (
+            "Ebay link goes here"
+          )}
+        </Box>
+
       </GridItem>
       <GridItem
         colSpan={2}
@@ -342,7 +358,19 @@ export default function SubmitCardForm({ data }) {
         </Box>
 
         <Box mb="8">
-          <TitleLarge color="neutral.10">Items In Order</TitleLarge>
+          <Box display='flex' justifyContent='space-between'>
+            <TitleLarge color="neutral.10">Items In Order</TitleLarge>
+            <Link
+              href="#"
+              alt=""
+              variant="primaryLightText"
+              type="submit"
+              onClick={(e) => clearCart()}
+            >
+              {"Clear the Cart"}
+            </Link>
+          </Box>
+          
           <Box mb="5" mx="2" p="7" bg="neutral.90" borderRadius="20">
             {Object.keys(cartDetails).length ? (
               <>
@@ -357,7 +385,7 @@ export default function SubmitCardForm({ data }) {
                   >
                     <Box display={"flex"} justifyContent={"space-between"}>
                       <b>{`${cartDetails[item].product_data.year} ${cartDetails[item].product_data.brand} ${cartDetails[item].name} #${cartDetails[item].product_data.number}`}</b>
-                      <b>Quantity: {cartDetails[item].quantity}</b>
+                      {/* <b>Quantity: {cartDetails[item].quantity}</b> */}
                     </Box>
                     <Box display={"flex"} justifyContent={"space-between"}>
                       <b>
@@ -383,7 +411,7 @@ export default function SubmitCardForm({ data }) {
               <Text>No Items</Text>
             )}
           </Box>
-          <Button
+          {/* <Button
             size={{ base: "md", md: "lg" }}
             // variant="primaryLight"
             type="submit"
@@ -397,7 +425,7 @@ export default function SubmitCardForm({ data }) {
             onClick={(e) => clearCart()}
           >
             {"Clear the Cart"}
-          </Button>
+          </Button> */}
         </Box>
       </GridItem>
     </Grid>
