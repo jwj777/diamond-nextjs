@@ -181,6 +181,11 @@ export default function SubmitCardForm({ data }) {
   };
 
 
+  const handleRemoveItem = (id) => {
+    removeItem(id);
+  };
+
+
   return (
     <Grid templateColumns="repeat(4, 1fr)">
       <GridItem
@@ -399,7 +404,14 @@ export default function SubmitCardForm({ data }) {
                   >
                     <Box display={"flex"} justifyContent={"space-between"}>
                       <b>{`${cartDetails[item].product_data.year} ${cartDetails[item].product_data.brand} ${cartDetails[item].name} #${cartDetails[item].product_data.number}`}</b>
-                      {/* <b>Quantity: {cartDetails[item].quantity}</b> */}
+                      <Link
+                        href="#"
+                        onClick={() => handleRemoveItem(item.id)}
+                        color="red.500"
+                        ml="4"
+                      >
+                        Delete
+                      </Link>
                     </Box>
                     <Box display={"flex"} justifyContent={"space-between"}>
                       <b>
