@@ -101,8 +101,9 @@ export default function SubmitCardForm({ data }) {
       currency: "USD",
     };
 
-    console.log("Product to be added:", product);
-    console.log("Cart details before adding:", cartDetails);
+    // console.log("Product to be added:", product);
+    // console.log("Cart details before adding:", cartDetails);
+
 
     addItem(product, {
       // count: parseInt(quantity),
@@ -170,6 +171,13 @@ export default function SubmitCardForm({ data }) {
       setError(error.message);
     }
     setLoading(false);
+  };
+
+
+  const calculateTotalDeclaredValue = () => {
+    return Object.values(cartDetails).reduce((total, item) => {
+      return total + parseInt(item.product_data.value);
+    }, 0);
   };
 
 
@@ -286,7 +294,6 @@ export default function SubmitCardForm({ data }) {
         <Button
           mt="8"
           size={{ base: "md", md: "lg" }}
-          // variant="primaryLight"
           type="submit"
           py="7"
           bg="primary.40"
@@ -300,9 +307,9 @@ export default function SubmitCardForm({ data }) {
           {"Add to Order"}
         </Button>
 
-        <Box mt="4">
+        <Box mt="8">
           {ebayUrl ? (
-            <Link href={ebayUrl} isExternal primaryLightText>
+            <Link href={ebayUrl} isExternal variant='primaryLightText'>
               See {year + ' ' + brand + ' ' + name + ' ' + number} examples on eBay
             </Link>
           ) : (
@@ -311,7 +318,7 @@ export default function SubmitCardForm({ data }) {
         </Box>
 
       </GridItem>
-      
+
       <GridItem
         colSpan={2}
         maxW="680px"
@@ -329,6 +336,10 @@ export default function SubmitCardForm({ data }) {
             <Box display={"flex"} justifyContent={"space-between"}>
               <b>Total Items:</b>
               <b>{cartCount}</b>
+            </Box>
+            <Box display={"flex"} justifyContent={"space-between"}>
+              <b>Total Declared Value:</b>
+              <b>{}</b>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <b>Grading Fees:</b>
