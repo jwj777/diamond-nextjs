@@ -73,7 +73,12 @@ export default function SubmitCardForm({ data }) {
 
 
   const calculatePrice = (declaredValue, subscriptionLevel) => {
+    console.log("Declared Value:", declaredValue);
+    console.log("Subscription Level:", subscriptionLevel);
+
     const levels = Object.keys(fees).map(parseFloat).sort((a, b) => a - b);
+    console.log("Levels:", levels);
+    
     const levelIdx = levels.findIndex(level => declaredValue <= level);
   
     // If declaredValue is higher than any level, use the highest level
