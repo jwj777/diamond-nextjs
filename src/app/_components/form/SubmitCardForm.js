@@ -109,13 +109,10 @@ export default function SubmitCardForm({ data }) {
 
 
     addItem(product, {
-      // count: parseInt(quantity),
       product_metadata: { year, brand, number, value },
     });
     console.log("Cart details after adding:", cartDetails);
-
     setCartUpdated(true);
-
   };
 
 
@@ -185,7 +182,7 @@ export default function SubmitCardForm({ data }) {
 
 
   const handleRemoveItem = (id) => {
-    console.log("handleRemoveItem: ", id)
+    console.log("handleRemoveItem called with id: ", id)
     removeItem(id);
   };
 
@@ -395,77 +392,61 @@ export default function SubmitCardForm({ data }) {
           </Box>
           
           <Box mb="5" mx="2" p="7" bg="neutral.90" borderRadius="20">
-            {Object.keys(cartDetails).length ? (
-              <>
-                {Object.keys(cartDetails).map((item, index) => (
-                  <Box
-                    key={index}
-                    bg="white"
-                    p={3}
-                    mb={2}
-                    borderRadius="md"
-                    shadow="md"
-                  >
-                    <Box display={"flex"} justifyContent={"space-between"}>
-                      <b>{`${cartDetails[item].product_data.year} ${cartDetails[item].product_data.brand} ${cartDetails[item].name} #${cartDetails[item].product_data.number}`}</b>
-                      <Tooltip label='Delete Item'>
-                        <Text>{item.id}</Text>
-                        <Link
-                          href="#"
-                          onClick={() => handleRemoveItem(item.id)}
-                          color="red.500"
-                          variant='noDeco'
-                          size='mdText'
-                          ml="4"
-                        >
-                          <Icon
-                            as={MdDelete}
-                            w='6'
-                            h='6'
-                            color='primary.40'
-                          />
-                        </Link>
-                      </Tooltip>
-                    </Box>
-                    <Box display={"flex"} justifyContent={"space-between"}>
-                      <b>
-                        Declared Value: ${cartDetails[item].product_data.value}
-                      </b>
-                    </Box>
-                    <Box display={"flex"} justifyContent={"space-between"}>
-                      <b>Grading Fee:</b>
-                      <b>{cartDetails[item].formattedValue}</b>
-                    </Box>
-                    <Box display={"flex"} justifyContent={"space-between"}>
-                      <b>Shipping & Insurance:</b>
-                      <b>{0}</b>
-                    </Box>
-                    <Box display={"flex"} justifyContent={"space-between"}>
-                      <b>Total:</b>
-                      <b>{cartDetails[item].formattedValue}</b>
-                    </Box>
+          {Object.keys(cartDetails).length ? (
+            <>
+              {Object.keys(cartDetails).map((item, index) => (
+                <Box
+                  key={index}
+                  bg="white"
+                  p={3}
+                  mb={2}
+                  borderRadius="md"
+                  shadow="md"
+                >
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <b>{`${cartDetails[item].product_data.year} ${cartDetails[item].product_data.brand} ${cartDetails[item].name} #${cartDetails[item].product_data.number}`}</b>
+                    <Tooltip label='Delete Item'>
+                      <Text>{item.id}</Text> {/* Debug: Display the item ID */}
+                      <Link
+                        href="#"
+                        onClick={() => handleRemoveItem(item.id)}
+                        color="red.500"
+                        variant='noDeco'
+                        size='mdText'
+                        ml="4"
+                      >
+                        <Icon
+                          as={MdDelete}
+                          w='6'
+                          h='6'
+                          color='primary.40'
+                        />
+                      </Link>
+                    </Tooltip>
                   </Box>
-                ))}
-              </>
-            ) : (
-              <Text>No Items</Text>
-            )}
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <b>Declared Value: ${cartDetails[item].product_data.value}</b>
+                  </Box>
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <b>Grading Fee:</b>
+                    <b>{cartDetails[item].formattedValue}</b>
+                  </Box>
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <b>Shipping & Insurance:</b>
+                    <b>{0}</b>
+                  </Box>
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <b>Total:</b>
+                    <b>{cartDetails[item].formattedValue}</b>
+                  </Box>
+                </Box>
+              ))}
+            </>
+          ) : (
+            <Text>No Items</Text>
+          )}
           </Box>
-          {/* <Button
-            size={{ base: "md", md: "lg" }}
-            // variant="primaryLight"
-            type="submit"
-            py="7"
-            bg="primary.40"
-            color="neutral.100"
-            borderRadius="64"
-            _hover={{
-              bg: "neutral.20",
-            }}
-            onClick={(e) => clearCart()}
-          >
-            {"Clear the Cart"}
-          </Button> */}
+
         </Box>
       </GridItem>
     </Grid>
