@@ -85,67 +85,63 @@ export default function SubmitCardForm({ data }) {
   
     // If declaredValue is higher than any level, use the highest level
     const level = levels[levelIdx === -1 ? levels.length - 1 : levelIdx];
+    const levelString = level.toString();
   
     console.log("Selected Level:", level);
-    console.log("Selected Level (string):", level.toString());
-    console.log("Fees at Selected Level:", fees[level.toString()]);
+    console.log("Selected Level (string):", levelString);
+    console.log("Fees at Selected Level:", fees[levelString]);
   
     // Check if subscription level exists at the selected level
-    if (fees[level.toString()] && fees[level.toString()][subscriptionLevel]) {
-      const price = fees[level.toString()][subscriptionLevel];
+    if (fees[levelString] && fees[levelString][subscriptionLevel]) {
+      const price = fees[levelString][subscriptionLevel];
       console.log("Calculated Price:", price);
       return price;
     } else {
-      console.error(`Subscription level "${subscriptionLevel}" not found at level "${level}".`);
+      console.error(`Subscription level "${subscriptionLevel}" not found at level "${levelString}".`);
       return null;
     }
   };
-
-
-const addToCart = async () => {
-  console.log("Add to cart clicked");
-
-  if (!subscriptions.length) {
-    alert("Please subscribe the membership first.");
-    return;
-  }
-  if (!name || !brand || !year || !number || !value) {
-    alert("Please input all fields.");
-    return;
-  }
-
-  const subscriptionLevel = subscriptions[0].product.name;
-  console.log("Subscription Level from Subscriptions:", subscriptionLevel);
   
-  const declaredValue = parseFloat(value);
-  const price = calculatePrice(declaredValue, subscriptionLevel);
-
-  if (price === null) {
-    alert("Error calculating price. Please check the logs for more details.");
-    return;
-  }
-
-  const product = {
-    name,
-    description: desc,
-    id: "prod_Q90vXwIVPSesQV" + new Date().getTime(),
-    price,
-    currency: "USD",
-  };
-
-  console.log("Product to be added:", product);
-  console.log("Cart details before adding:", cartDetails);
-
-  try {
+  const addToCart = async () => {
+    console.log("Add to cart clicked");
+  
+    if (!subscriptions.length) {
+      alert("Please subscribe the membership first.");
+      return;
+    }
+    if (!name || !brand || !year || !number || !value) {
+      alert("Please input all fields.");
+      return;
+    }
+  
+    const subscriptionLevel = subscriptions[0].product.name;
+    console.log("Subscription Level from Subscriptions:", subscriptionLevel);
+  
+    const declaredValue = parseFloat(value);
+    const price = calculatePrice(declaredValue, subscriptionLevel);
+  
+    if (price === null) {
+      alert("Error calculating price. Please check the logs for more details");
+      return;
+    }
+  
+    const product = {
+      name,
+      description: desc,
+      id: "prod_Q90vXwIVPSesQV" + new Date().getTime(),
+      price,
+      currency: "USD",
+    };
+  
+    console.log("Product to be added:", product);
+    console.log("Cart details before adding:", cartDetails);
+  
     addItem(product, {
       product_metadata: { year, brand, number, value },
     });
     console.log("Cart details after adding:", cartDetails);
     setCartUpdated(true);
-  } catch (error) {
-    console.error("Error adding item to cart:", error);
-  }
-};
+  };
 
   
   useEffect(() => {
