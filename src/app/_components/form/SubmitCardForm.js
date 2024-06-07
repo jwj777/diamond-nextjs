@@ -9,6 +9,7 @@ import {
   InputLeftElement,
   Grid,
   GridItem,
+  Icon,
 } from "@chakra-ui/react";
 import TitleLarge from "../typography/TitleLarge";
 import BodyMedium from "../typography/BodyMedium";
@@ -20,6 +21,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import InputFloatLight from "./inputFloatLight";
 import InputFloatWithPrefix from "./InputFloatPrefix";
 import { Link } from "@chakra-ui/next-js";
+import { MdDelete } from "react-icons/md";
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -410,7 +412,12 @@ export default function SubmitCardForm({ data }) {
                         color="red.500"
                         ml="4"
                       >
-                        Delete
+                        <Icon
+                          as={MdDelete}
+                          w='6'
+                          h='6'
+                          color='primary.40'
+                        />
                       </Link>
                     </Box>
                     <Box display={"flex"} justifyContent={"space-between"}>
