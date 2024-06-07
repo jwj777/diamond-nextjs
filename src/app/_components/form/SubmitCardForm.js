@@ -405,7 +405,7 @@ export default function SubmitCardForm({ data }) {
                 >
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <b>{`${cartDetails[item].product_data.year} ${cartDetails[item].product_data.brand} ${cartDetails[item].name} #${cartDetails[item].product_data.number}`}</b>
-                    <Tooltip label='Delete Item'>
+                    {/* <Tooltip label='Delete Item'> */}
                       <Text>{item.id}</Text> {/* Debug: Display the item ID */}
                       <Link
                         href="#"
@@ -422,7 +422,7 @@ export default function SubmitCardForm({ data }) {
                           color='primary.40'
                         />
                       </Link>
-                    </Tooltip>
+                    {/* </Tooltip> */}
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <b>Declared Value: ${cartDetails[item].product_data.value}</b>
