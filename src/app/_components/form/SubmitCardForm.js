@@ -406,10 +406,10 @@ export default function SubmitCardForm({ data }) {
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <b>{`${cartDetails[item].product_data.year} ${cartDetails[item].product_data.brand} ${cartDetails[item].name} #${cartDetails[item].product_data.number}`}</b>
                     {/* <Tooltip label='Delete Item'> */}
-                      <Text>{item.id}</Text> {/* Debug: Display the item ID */}
+                      {/* <Text>{item.id}</Text> */}
                       <Link
                         href="#"
-                        onClick={() => handleRemoveItem(item.id)}
+                        onClick={() => handleRemoveItem(key)}
                         color="red.500"
                         variant='noDeco'
                         size='mdText'
