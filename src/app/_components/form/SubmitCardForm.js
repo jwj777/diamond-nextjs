@@ -10,6 +10,7 @@ import {
   Grid,
   GridItem,
   Icon,
+  Tooltip
 } from "@chakra-ui/react";
 import TitleLarge from "../typography/TitleLarge";
 import BodyMedium from "../typography/BodyMedium";
@@ -406,21 +407,23 @@ export default function SubmitCardForm({ data }) {
                   >
                     <Box display={"flex"} justifyContent={"space-between"}>
                       <b>{`${cartDetails[item].product_data.year} ${cartDetails[item].product_data.brand} ${cartDetails[item].name} #${cartDetails[item].product_data.number}`}</b>
-                      <Link
-                        href="#"
-                        onClick={() => handleRemoveItem(item.id)}
-                        color="red.500"
-                        variant='noDeco'
-                        size='mdText'
-                        ml="4"
-                      >
-                        <Icon
-                          as={MdDelete}
-                          w='6'
-                          h='6'
-                          color='primary.40'
-                        />
-                      </Link>
+                      <Tooltip label='Delete Item'>
+                        <Link
+                          href="#"
+                          onClick={() => handleRemoveItem(item.id)}
+                          color="red.500"
+                          variant='noDeco'
+                          size='mdText'
+                          ml="4"
+                        >
+                          <Icon
+                            as={MdDelete}
+                            w='6'
+                            h='6'
+                            color='primary.40'
+                          />
+                        </Link>
+                      </Tooltip>
                     </Box>
                     <Box display={"flex"} justifyContent={"space-between"}>
                       <b>
