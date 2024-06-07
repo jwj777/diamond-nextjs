@@ -73,6 +73,19 @@ export default function SubmitCardForm({ data }) {
   }, [user, isLoading]);
 
 
+  const calculatePrice = (declaredValue, subscriptionLevel) => {
+    const levels = Object.keys(fees).map(parseFloat).sort((a, b) => a - b);
+    const levelIdx = levels.findIndex(level => declaredValue < level) - 1;
+    const level = levels[levelIdx];
+
+    if (levelIdx < 0) {
+      throw new Error("Declared value is below the minimum level.");
+    }
+
+    return fees[level][subscriptionLevel];
+  };
+
+
   const addToCart = async () => {
     console.log("Add to cart clicked");
 
@@ -100,16 +113,9 @@ export default function SubmitCardForm({ data }) {
     //     fee * (parseInt(value) - parseInt(level));
     // }
 
-    const levels = Object.keys(fees).map(Number); // Convert keys to numbers
-    const levelIdx = levels.findIndex((item) => item > parseFloat(value)) - 1;
-    const level = levels[levelIdx]?.toString(); // Convert back to string to use as key
-    
-    let price = 0;
-    if (level) {
-      price = fees[level][subscriptionLevel]; // Get the price based on the subscription level
-    }
-    
-    console.log(`The price for a declared value of ${value} with subscription level ${subscriptionLevel} is ${price}`);
+    const subscriptionLevel = subscriptions[0].product.name;
+    const declaredValue = parseFloat(value);
+    const price = calculatePrice(declaredValue, subscriptionLevel);
 
     const product = {
       name,
