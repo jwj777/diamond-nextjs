@@ -15,7 +15,6 @@ import {
 import TitleLarge from "../typography/TitleLarge";
 import BodyMedium from "../typography/BodyMedium";
 import { useState, useEffect } from "react";
-// import { fees } from "@/app/data/feeData";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useShoppingCart } from "use-shopping-cart";
 import { loadStripe } from "@stripe/stripe-js";
@@ -95,8 +94,8 @@ export default function SubmitCardForm({ data }) {
 
   const addToCart = async () => {
     console.log("Add to cart clicked");
-
-    if(!subscriptions.length) {
+  
+    if (!subscriptions.length) {
       alert("Please subscribe the membership first.");
       return;
     }
@@ -104,26 +103,11 @@ export default function SubmitCardForm({ data }) {
       alert("Please input all fields.");
       return;
     }
-
-    // const levels = Object.keys(fees).map(Number);
-    // const levelIdx =
-    //   levels.findIndex((item) => item > parseInt(value)) - 1;
-    // const level = levels[levelIdx];
-
-    // let price = 0;
-    // if (levelIdx < 0) {
-    //   price = parseInt(value);
-    // } else {
-    //   const fee = fees[level][subscriptions[0].product.name];
-    //   price =
-    //     prices[level][subscriptions[0].product.name] * 100 +
-    //     fee * (parseInt(value) - parseInt(level));
-    // }
-
+  
     const subscriptionLevel = subscriptions[0].product.name;
     const declaredValue = parseFloat(value);
     const price = calculatePrice(declaredValue, subscriptionLevel);
-
+  
     const product = {
       name,
       description: desc,
@@ -131,26 +115,32 @@ export default function SubmitCardForm({ data }) {
       price,
       currency: "USD",
     };
-
+  
     console.log("Product to be added:", product);
     console.log("Cart details before adding:", cartDetails);
-
-
-    addItem(product, {
-      product_metadata: { year, brand, number, value },
-    });
-    console.log("Cart details after adding:", cartDetails);
-    setCartUpdated(true);
+    console.log("addItem function:", addItem);
+  
+    try {
+      addItem(product, {
+        product_metadata: { year, brand, number, value },
+      });
+      console.log("Cart details after adding:", cartDetails);
+      setCartUpdated(true);
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+    }
   };
-
-
+  
   useEffect(() => {
     if (cartUpdated) {
       console.log("Cart details after adding:", cartDetails);
       setCartUpdated(false);
     }
   }, [cartUpdated, cartDetails]);
-
+  
+  useEffect(() => {
+    console.log("Initial cartDetails:", cartDetails);
+  }, []);
 
   useEffect(() => {
     if (name && brand && year && number) {
