@@ -294,28 +294,26 @@ export default function SubmitCardForm({ data }) {
               required={true}
             />
           </Box>
-
-
+          <Box mt="4">
+            {ebayUrl ? (
+              <Link href={ebayUrl} isExternal variant='primaryLightText' size='mdText'>
+                See {year + ' ' + brand + ' ' + name + ' ' + number} examples on eBay
+              </Link>
+            ) : (
+              null
+            )}
+          </Box>
         </Box>
 
         <Button
-          mt="8"
+          mt="4"
+          size={{ base: 'md', md: 'lg' }}
           type="submit"
           variant='primaryLight'
           onClick={(e) => addToCart()}
         >
           {"Add to Order"}
         </Button>
-
-        <Box mt="8">
-          {ebayUrl ? (
-            <Link href={ebayUrl} isExternal variant='primaryLightText' size='mdText'>
-              See {year + ' ' + brand + ' ' + name + ' ' + number} examples on eBay
-            </Link>
-          ) : (
-            null
-          )}
-        </Box>
 
       </GridItem>
 
@@ -355,7 +353,7 @@ export default function SubmitCardForm({ data }) {
             </Box>
           </Box>
           <Button
-            // size={{ base: "md", md: "lg" }}
+            size={{ base: 'md', md: 'lg' }}
             variant="primaryLight"
             type="submit"
             onClick={(e) => handleCheckout()}

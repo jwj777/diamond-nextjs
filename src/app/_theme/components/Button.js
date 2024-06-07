@@ -21,13 +21,13 @@ const md = defineStyle({
 })
 
 const lg = defineStyle({
-  fontSize: '1rem',
+  fontSize: '1.1rem',
   lineHeight: '1rem',
   fontWeight: '400',
-  pt: '0.8rem',
-  pr: '1.4rem',
-  pb: '0.8rem',
-  pl: '1.4rem',
+  pt: '0.9rem',
+  pr: '1.3rem',
+  pb: '0.9rem',
+  pl: '1.3rem',
 })
 
 
