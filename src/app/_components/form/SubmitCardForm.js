@@ -15,7 +15,6 @@ import {
 import TitleLarge from "../typography/TitleLarge";
 import BodyMedium from "../typography/BodyMedium";
 import { useState, useEffect } from "react";
-// import { fees, prices } from "@/app/priceData";
 import { fees } from "@/app/data/feeData";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useShoppingCart } from "use-shopping-cart";
@@ -75,12 +74,8 @@ export default function SubmitCardForm({ data }) {
 
   const calculatePrice = (declaredValue, subscriptionLevel) => {
     const levels = Object.keys(fees).map(parseFloat).sort((a, b) => a - b);
-    const levelIdx = levels.findIndex(level => declaredValue < level) - 1;
-    const level = levels[levelIdx];
-
-    if (levelIdx < 0) {
-      throw new Error("Declared value is below the minimum level.");
-    }
+    const levelIdx = levels.findIndex(level => declaredValue < level);
+    const level = levels[levelIdx > 0 ? levelIdx - 1 : 0];  // Ensure we get the closest level
 
     return fees[level][subscriptionLevel];
   };
