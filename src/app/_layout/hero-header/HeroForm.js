@@ -17,8 +17,7 @@ export default function HeroForm({ data, children }) {
 
     <Box 
       display='flex'
-      pt='32' pb='32' 
-      // background={'neutral.4'}
+      pt='20' pb='24' 
     >
 
       <XlContainer>

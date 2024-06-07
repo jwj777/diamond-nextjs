@@ -22,7 +22,6 @@ export default function HeroGeneral({ data, colorScheme, children }) {
 
       <XlContainer>
       <Box position='relative' zIndex='2'>
-
         <Box display='flex' justifyContent='space-between'>
 
           <Box flex='2'>
@@ -37,14 +36,7 @@ export default function HeroGeneral({ data, colorScheme, children }) {
           <Box flex='2'></Box>
 
         </Box>
-
       </Box>
-
-      {/* {
-        data.attributes.slug == 'pricing' ?
-          <PricingCards />
-        : null
-      }       */}
 
       </XlContainer>
 
