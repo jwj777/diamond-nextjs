@@ -330,7 +330,7 @@ export default function SubmitCardForm({ data }) {
         colSpan={2}
         maxW="680px"
         mt="24"
-        mb="16"
+        mb="20"
         mx="2"
         bg="neutral.95"
         p="10"
@@ -342,23 +342,23 @@ export default function SubmitCardForm({ data }) {
           <Box mb="6" p="7" bg="neutral.90" borderRadius='1rem'>
             <Box display={"flex"} justifyContent={"space-between"}>
               <LabelMedium>Total Items:</LabelMedium>
-              <b>{cartCount}</b>
+              <BodyMedium>{cartCount}</BodyMedium>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <LabelMedium>Total Declared Value:</LabelMedium>
-              <b>${calculateTotalDeclaredValue()}</b>
+              <BodyMedium>${calculateTotalDeclaredValue()}</BodyMedium>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <LabelMedium>Grading Fees:</LabelMedium>
-              <b>{formattedTotalPrice}</b>
+              <BodyMedium>{formattedTotalPrice}</BodyMedium>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <LabelMedium>Shipping & Insurance:</LabelMedium>
-              <b>{0}</b>
+              <BodyMedium>{0}</BodyMedium>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <LabelMedium>Order Total:</LabelMedium>
-              <b>{formattedTotalPrice}</b>
+              <BodyMedium>{formattedTotalPrice}</BodyMedium>
             </Box>
           </Box>
           <Button
@@ -392,7 +392,7 @@ export default function SubmitCardForm({ data }) {
             </Link>
           </Box>
           
-          <Box mb="5" mx="2" p="7" bg="neutral.90" borderRadius="1rem">
+          <Box mb="5" p="7" bg="neutral.90" borderRadius="1rem">
           {Object.keys(cartDetails).length ? (
             <>
               {Object.keys(cartDetails).map((item, index) => (
