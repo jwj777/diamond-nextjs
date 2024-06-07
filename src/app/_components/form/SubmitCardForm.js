@@ -394,7 +394,7 @@ export default function SubmitCardForm({ data }) {
           <Box mb="5" mx="2" p="7" bg="neutral.90" borderRadius="20">
           {Object.keys(cartDetails).length ? (
             <>
-              {Object.keys(cartDetails).map((key, index) => (
+              {Object.keys(cartDetails).map((item, index) => (
                 <Box
                   key={index}
                   bg="white"
@@ -405,9 +405,10 @@ export default function SubmitCardForm({ data }) {
                 >
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <b>{`${cartDetails[item].product_data.year} ${cartDetails[item].product_data.brand} ${cartDetails[item].name} #${cartDetails[item].product_data.number}`}</b>
+
                       <Link
                         href="#"
-                        onClick={() => handleRemoveItem(key)}
+                        onClick={() => handleRemoveItem(item.id)}
                         color="red.500"
                         variant='noDeco'
                         size='mdText'
@@ -420,6 +421,7 @@ export default function SubmitCardForm({ data }) {
                           color='primary.40'
                         />
                       </Link>
+                      
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <b>Declared Value: ${cartDetails[item].product_data.value}</b>
