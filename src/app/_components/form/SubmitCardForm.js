@@ -73,6 +73,12 @@ export default function SubmitCardForm({ data }) {
   }, [user, isLoading]);
 
 
+  useEffect(() => {
+    console.log('subcription level is: ', subscriptions)
+    console.log('levels --> ', levels)
+  })
+
+
   const addToCart = async () => {
     console.log("Add to cart clicked");
 
@@ -84,10 +90,14 @@ export default function SubmitCardForm({ data }) {
       alert("Please input all fields.");
       return;
     }
-    const levels = Object.keys(fees);
+    const levels = Object.keys(fees).map(Number);
+    // console.log('levels --> ', levels)
     const levelIdx =
-      levels.findIndex((item) => parseInt(item) > parseInt(value)) - 1;
+      levels.findIndex((item) => item > parseInt(value)) - 1;
     const level = levels[levelIdx];
+
+
+
     let price = 0;
     if (levelIdx < 0) {
       price = parseInt(value);
