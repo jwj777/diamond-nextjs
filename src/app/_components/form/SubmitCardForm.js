@@ -23,6 +23,7 @@ import InputFloatLight from "./inputFloatLight";
 import InputFloatWithPrefix from "./InputFloatPrefix";
 import { Link } from "@chakra-ui/next-js";
 import { MdDelete } from "react-icons/md";
+import LabelMedium from "../typography/LabelMedium";
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -407,7 +408,7 @@ export default function SubmitCardForm({ data }) {
                     <b>{`${cartDetails[item].product_data.year} ${cartDetails[item].product_data.brand} ${cartDetails[item].name} #${cartDetails[item].product_data.number}`}</b>
 
                       <Link
-                        href="#"
+                        href="#/"
                         onClick={() => handleRemoveItem(cartDetails[item].id)}
                         color="red.500"
                         variant='noDeco'
@@ -424,19 +425,20 @@ export default function SubmitCardForm({ data }) {
 
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
-                    <b>Declared Value: ${cartDetails[item].product_data.value}</b>
+                    <LabelMedium>Declared Value:</LabelMedium> 
+                    <BodyMedium>${cartDetails[item].product_data.value}</BodyMedium>
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
-                    <b>Grading Fee:</b>
-                    <b>{cartDetails[item].formattedValue}</b>
+                    <LabelMedium>Grading Fee:</LabelMedium> 
+                    <BodyMedium>{cartDetails[item].formattedValue}</BodyMedium>
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
-                    <b>Shipping & Insurance:</b>
-                    <b>{0}</b>
+                    <LabelMedium>Shipping & Insurance:</LabelMedium> 
+                    <BodyMedium>{0}</BodyMedium>
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
-                    <b>Total:</b>
-                    <b>{cartDetails[item].formattedValue}</b>
+                    <LabelMedium>Total:</LabelMedium> 
+                    <BodyMedium>{cartDetails[item].formattedValue}</BodyMedium>
                   </Box>
                 </Box>
               ))}

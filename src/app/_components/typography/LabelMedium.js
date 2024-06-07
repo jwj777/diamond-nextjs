@@ -1,24 +1,23 @@
 import React from "react";
 import { Text } from '@chakra-ui/react'
-import styles from './alliance-300.module.css'
 
 
-export default function LabelMedium({ children, textColor, color }) {
+export default function LabelMedium({ children, textColor, color, mb, mr }) {
 
   textColor ? color = textColor : null
   color ? color : color = 'neutral.10'
 
-
   return (
     <Text 
-      // className="overline"
-      className={styles.alliance}
-      fontSize={{ base: '1rem', md: '1rem' }}
-      fontFamily='Alliance'
-      fontWeight='300'
-      textTransform='uppercase'
-      letterSpacing='8px'
+      fontFamily='figtree'
+      fontSize={{ base: '1rem', md: '1.05rem' }}
+      lineHeight={{ base: '152%', md: '154%' }}
       color={color}
-    >{ children }</Text>
+      fontWeight='400'
+      mb={mb}
+      mr={mr}
+    >
+      {children}
+    </Text>
   )
 }
