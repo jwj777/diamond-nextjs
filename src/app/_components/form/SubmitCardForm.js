@@ -339,25 +339,25 @@ export default function SubmitCardForm({ data }) {
       >
         <Box mb="8">
           <TitleLarge color="neutral.10">Order Summary</TitleLarge>
-          <Box mb="5" mx="2" p="7" bg="neutral.90" borderRadius="20">
+          <Box mb="5" mx="2" p="7" bg="neutral.90" borderRadius='1rem'>
             <Box display={"flex"} justifyContent={"space-between"}>
-              <b>Total Items:</b>
+              <LabelMedium>Total Items:</LabelMedium>
               <b>{cartCount}</b>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
-              <b>Total Declared Value:</b>
+              <LabelMedium>Total Declared Value:</LabelMedium>
               <b>${calculateTotalDeclaredValue()}</b>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
-              <b>Grading Fees:</b>
+              <LabelMedium>Grading Fees:</LabelMedium>
               <b>{formattedTotalPrice}</b>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
-              <b>Shipping & Insurance:</b>
+              <LabelMedium>Shipping & Insurance:</LabelMedium>
               <b>{0}</b>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
-              <b>Order Total:</b>
+              <LabelMedium>Order Total:</LabelMedium>
               <b>{formattedTotalPrice}</b>
             </Box>
           </Box>
@@ -399,10 +399,10 @@ export default function SubmitCardForm({ data }) {
                 <Box
                   key={index}
                   bg="white"
-                  p={3}
-                  mb={2}
-                  borderRadius="md"
-                  shadow="md"
+                  p='4'
+                  mb='2'
+                  borderRadius="0.8rem"
+                  // shadow="md"
                 >
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium mb='1'>{ 

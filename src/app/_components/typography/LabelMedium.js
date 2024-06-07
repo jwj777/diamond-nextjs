@@ -14,8 +14,8 @@ export default function LabelMedium({ children, textColor, color, mb, mr }) {
       mb={mb}
     >
       <Text 
-        fontSize={{ base: '1rem', md: '1.05rem' }}
-        lineHeight={{ base: '152%', md: '154%' }}
+        fontSize={{ base: '1rem', md: '1rem' }}
+        lineHeight={{ base: '152%', md: '152%' }}
         color={color}
         fontWeight='600'
         mb={mb}
