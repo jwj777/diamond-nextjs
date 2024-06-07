@@ -410,6 +410,8 @@ export default function SubmitCardForm({ data }) {
                         href="#"
                         onClick={() => handleRemoveItem(item.id)}
                         color="red.500"
+                        variant='noDeco'
+                        size='mdText'
                         ml="4"
                       >
                         <Icon
