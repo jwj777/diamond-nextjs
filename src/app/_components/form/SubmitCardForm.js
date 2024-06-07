@@ -73,12 +73,6 @@ export default function SubmitCardForm({ data }) {
   }, [user, isLoading]);
 
 
-  useEffect(() => {
-    console.log('subcription level is: ', subscriptions)
-    console.log('levels --> ', levels)
-  })
-
-
   const addToCart = async () => {
     console.log("Add to cart clicked");
 
@@ -90,23 +84,32 @@ export default function SubmitCardForm({ data }) {
       alert("Please input all fields.");
       return;
     }
-    const levels = Object.keys(fees).map(Number);
-    // console.log('levels --> ', levels)
-    const levelIdx =
-      levels.findIndex((item) => item > parseInt(value)) - 1;
-    const level = levels[levelIdx];
 
+    // const levels = Object.keys(fees).map(Number);
+    // const levelIdx =
+    //   levels.findIndex((item) => item > parseInt(value)) - 1;
+    // const level = levels[levelIdx];
 
+    // let price = 0;
+    // if (levelIdx < 0) {
+    //   price = parseInt(value);
+    // } else {
+    //   const fee = fees[level][subscriptions[0].product.name];
+    //   price =
+    //     prices[level][subscriptions[0].product.name] * 100 +
+    //     fee * (parseInt(value) - parseInt(level));
+    // }
 
+    const levels = Object.keys(fees).map(Number); // Convert keys to numbers
+    const levelIdx = levels.findIndex((item) => item > parseFloat(value)) - 1;
+    const level = levels[levelIdx]?.toString(); // Convert back to string to use as key
+    
     let price = 0;
-    if (levelIdx < 0) {
-      price = parseInt(value);
-    } else {
-      const fee = fees[level][subscriptions[0].product.name];
-      price =
-        prices[level][subscriptions[0].product.name] * 100 +
-        fee * (parseInt(value) - parseInt(level));
+    if (level) {
+      price = fees[level][subscriptionLevel]; // Get the price based on the subscription level
     }
+    
+    console.log(`The price for a declared value of ${value} with subscription level ${subscriptionLevel} is ${price}`);
 
     const product = {
       name,
