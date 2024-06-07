@@ -87,11 +87,12 @@ export default function SubmitCardForm({ data }) {
     const level = levels[levelIdx === -1 ? levels.length - 1 : levelIdx];
   
     console.log("Selected Level:", level);
-    console.log("Fees at Selected Level:", fees[level]);
+    console.log("Selected Level (string):", level.toString());
+    console.log("Fees at Selected Level:", fees[level.toString()]);
   
     // Check if subscription level exists at the selected level
-    if (fees[level] && fees[level][subscriptionLevel]) {
-      const price = fees[level][subscriptionLevel];
+    if (fees[level.toString()] && fees[level.toString()][subscriptionLevel]) {
+      const price = fees[level.toString()][subscriptionLevel];
       console.log("Calculated Price:", price);
       return price;
     } else {
