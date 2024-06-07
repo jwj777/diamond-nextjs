@@ -75,61 +75,77 @@ export default function SubmitCardForm({ data }) {
   const calculatePrice = (declaredValue, subscriptionLevel) => {
     console.log("Declared Value:", declaredValue);
     console.log("Subscription Level:", subscriptionLevel);
-
+  
     console.log("Fees Data:", fees);
-
+  
     const levels = Object.keys(fees).map(parseFloat).sort((a, b) => a - b);
     console.log("Levels:", levels);
-
+  
     const levelIdx = levels.findIndex(level => declaredValue <= level);
   
     // If declaredValue is higher than any level, use the highest level
     const level = levels[levelIdx === -1 ? levels.length - 1 : levelIdx];
-
+  
     console.log("Selected Level:", level);
+    console.log("Fees at Selected Level:", fees[level]);
   
-    return fees[level][subscriptionLevel];
+    // Check if subscription level exists at the selected level
+    if (fees[level] && fees[level][subscriptionLevel]) {
+      const price = fees[level][subscriptionLevel];
+      console.log("Calculated Price:", price);
+      return price;
+    } else {
+      console.error(`Subscription level "${subscriptionLevel}" not found at level "${level}".`);
+      return null;
+    }
   };
 
 
-  const addToCart = async () => {
-    console.log("Add to cart clicked");
+const addToCart = async () => {
+  console.log("Add to cart clicked");
+
+  if (!subscriptions.length) {
+    alert("Please subscribe the membership first.");
+    return;
+  }
+  if (!name || !brand || !year || !number || !value) {
+    alert("Please input all fields.");
+    return;
+  }
+
+  const subscriptionLevel = subscriptions[0].product.name;
+  console.log("Subscription Level from Subscriptions:", subscriptionLevel);
   
-    if (!subscriptions.length) {
-      alert("Please subscribe the membership first.");
-      return;
-    }
-    if (!name || !brand || !year || !number || !value) {
-      alert("Please input all fields.");
-      return;
-    }
-  
-    const subscriptionLevel = subscriptions[0].product.name;
-    const declaredValue = parseFloat(value);
-    const price = calculatePrice(declaredValue, subscriptionLevel);
-  
-    const product = {
-      name,
-      description: desc,
-      id: "prod_Q90vXwIVPSesQV" + new Date().getTime(),
-      price,
-      currency: "USD",
-    };
-  
-    console.log("Product to be added:", product);
-    console.log("Cart details before adding:", cartDetails);
-    console.log("addItem function:", addItem);
-  
-    try {
-      addItem(product, {
-        product_metadata: { year, brand, number, value },
-      });
-      console.log("Cart details after adding:", cartDetails);
-      setCartUpdated(true);
-    } catch (error) {
-      console.error("Error adding item to cart:", error);
-    }
+  const declaredValue = parseFloat(value);
+  const price = calculatePrice(declaredValue, subscriptionLevel);
+
+  if (price === null) {
+    alert("Error calculating price. Please check the logs for more details.");
+    return;
+  }
+
+  const product = {
+    name,
+    description: desc,
+    id: "prod_Q90vXwIVPSesQV" + new Date().getTime(),
+    price,
+    currency: "USD",
   };
+
+  console.log("Product to be added:", product);
+  console.log("Cart details before adding:", cartDetails);
+
+  try {
+    addItem(product, {
+      product_metadata: { year, brand, number, value },
+    });
+    console.log("Cart details after adding:", cartDetails);
+    setCartUpdated(true);
+  } catch (error) {
+    console.error("Error adding item to cart:", error);
+  }
+};
+
   
   useEffect(() => {
     if (cartUpdated) {
@@ -141,6 +157,7 @@ export default function SubmitCardForm({ data }) {
   useEffect(() => {
     console.log("Initial cartDetails:", cartDetails);
   }, []);
+
 
   useEffect(() => {
     if (name && brand && year && number) {
