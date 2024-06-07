@@ -88,7 +88,6 @@ const primaryDark = defineStyle({
   borderRadius: '10rem',
   py: '14px',
   px: '24px',
-  fontSize: '1.3rem',
   lineHeight: '1rem',
     _hover: {
     bg: 'primary.80',
