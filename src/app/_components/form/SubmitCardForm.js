@@ -25,7 +25,7 @@ import { MdDelete } from "react-icons/md";
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
-  const { addItem, cartDetails, clearCart, cartCount, formattedTotalPrice } =
+  const { addItem, cartDetails, clearCart, cartCount, formattedTotalPrice, removeItem } =
     useShoppingCart();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
