@@ -104,8 +104,8 @@ export default function SubmitCardForm({ data }) {
       currency: "USD",
     };
 
-    // console.log("Product to be added:", product);
-    // console.log("Cart details before adding:", cartDetails);
+    console.log("Product to be added:", product);
+    console.log("Cart details before adding:", cartDetails);
 
 
     addItem(product, {
@@ -185,6 +185,7 @@ export default function SubmitCardForm({ data }) {
 
 
   const handleRemoveItem = (id) => {
+    console.log("handleRemoveItem: ", id)
     removeItem(id);
   };
 
@@ -408,6 +409,7 @@ export default function SubmitCardForm({ data }) {
                     <Box display={"flex"} justifyContent={"space-between"}>
                       <b>{`${cartDetails[item].product_data.year} ${cartDetails[item].product_data.brand} ${cartDetails[item].name} #${cartDetails[item].product_data.number}`}</b>
                       <Tooltip label='Delete Item'>
+                        <Text>{item.id}</Text>
                         <Link
                           href="#"
                           onClick={() => handleRemoveItem(item.id)}
