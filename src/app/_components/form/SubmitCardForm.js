@@ -300,15 +300,8 @@ export default function SubmitCardForm({ data }) {
 
         <Button
           mt="8"
-          size={{ base: "md", md: "lg" }}
           type="submit"
-          py="7"
-          bg="primary.40"
-          color="neutral.100"
-          borderRadius="64"
-          _hover={{
-            bg: "neutral.20",
-          }}
+          variant='primaryLight'
           onClick={(e) => addToCart()}
         >
           {"Add to Order"}
@@ -340,19 +333,19 @@ export default function SubmitCardForm({ data }) {
         <Box mb="8">
           <TitleLarge color="neutral.10">Order Summary</TitleLarge>
           <Box mb="6" p="7" bg="neutral.90" borderRadius='1rem'>
-            <Box display={"flex"} justifyContent={"space-between"}>
+            <Box display={"flex"} justifyContent={"space-between"} mb='1'>
               <LabelMedium>Total Items:</LabelMedium>
               <BodyMedium>{cartCount}</BodyMedium>
             </Box>
-            <Box display={"flex"} justifyContent={"space-between"}>
+            <Box display={"flex"} justifyContent={"space-between"} mb='1'>
               <LabelMedium>Total Declared Value:</LabelMedium>
               <BodyMedium>${calculateTotalDeclaredValue()}</BodyMedium>
             </Box>
-            <Box display={"flex"} justifyContent={"space-between"}>
+            <Box display={"flex"} justifyContent={"space-between"} mb='1'>
               <LabelMedium>Grading Fees:</LabelMedium>
               <BodyMedium>{formattedTotalPrice}</BodyMedium>
             </Box>
-            <Box display={"flex"} justifyContent={"space-between"}>
+            <Box display={"flex"} justifyContent={"space-between"} mb='4'>
               <LabelMedium>Shipping & Insurance:</LabelMedium>
               <BodyMedium>{0}</BodyMedium>
             </Box>
@@ -362,16 +355,9 @@ export default function SubmitCardForm({ data }) {
             </Box>
           </Box>
           <Button
-            size={{ base: "md", md: "lg" }}
-            // variant="primaryLight"
+            // size={{ base: "md", md: "lg" }}
+            variant="primaryLight"
             type="submit"
-            py="7"
-            bg="primary.40"
-            color="neutral.100"
-            borderRadius="64"
-            _hover={{
-              bg: "neutral.20",
-            }}
             onClick={(e) => handleCheckout()}
           >
             {"Place Your Order"}
