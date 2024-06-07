@@ -379,7 +379,7 @@ export default function SubmitCardForm({ data }) {
         </Box>
 
         <Box mb="8">
-          <Box display='flex' justifyContent='space-between'>
+          <Box display='flex' justifyContent='space-between' mb='2'>
             <TitleLarge color="neutral.10">Items In Order</TitleLarge>
             <Link
               href="#"
@@ -392,7 +392,7 @@ export default function SubmitCardForm({ data }) {
             </Link>
           </Box>
           
-          <Box mb="5" mx="2" p="7" bg="neutral.90" borderRadius="20">
+          <Box mb="5" mx="2" p="7" bg="neutral.90" borderRadius="1rem">
           {Object.keys(cartDetails).length ? (
             <>
               {Object.keys(cartDetails).map((item, index) => (
@@ -405,7 +405,12 @@ export default function SubmitCardForm({ data }) {
                   shadow="md"
                 >
                   <Box display={"flex"} justifyContent={"space-between"}>
-                    <b>{`${cartDetails[item].product_data.year} ${cartDetails[item].product_data.brand} ${cartDetails[item].name} #${cartDetails[item].product_data.number}`}</b>
+                    <LabelMedium mb='1'>{ 
+                        `${cartDetails[item].product_data.year} 
+                        ${cartDetails[item].product_data.brand} 
+                        ${cartDetails[item].name} #${cartDetails[item].product_data.number}`
+                      }
+                    </LabelMedium>
 
                       <Link
                         href="#/"
