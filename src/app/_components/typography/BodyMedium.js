@@ -9,13 +9,12 @@ export default function BodyMedium({ text, textColor, color, children, mb, mr })
   color ? color = color : color = 'neutral.10'
 
   return (
-    <Box color={textColor} className={styles.bodyContent2 + ' bodyLarge'}>
-
+    <Box color={textColor} className={styles.bodyContent2 + ' bodyMedium'}>
 
       <Box 
         fontFamily='figtree'
-        fontSize={{ base: '1rem', md: '1.05rem' }}
-        lineHeight={{ base: '152%', md: '154%' }}
+        fontSize={{ base: '1rem', md: '1rem' }}
+        lineHeight={{ base: '152%', md: '152%' }}
         color={color}
         fontWeight='400'
         mb={mb}
