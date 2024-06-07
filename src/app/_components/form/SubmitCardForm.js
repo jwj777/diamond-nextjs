@@ -15,7 +15,8 @@ import {
 import TitleLarge from "../typography/TitleLarge";
 import BodyMedium from "../typography/BodyMedium";
 import { useState, useEffect } from "react";
-import { fees, prices } from "@/app/priceData";
+// import { fees, prices } from "@/app/priceData";
+import { fees } from "@/app/data/feeData";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useShoppingCart } from "use-shopping-cart";
 import { loadStripe } from "@stripe/stripe-js";
@@ -397,7 +398,10 @@ export default function SubmitCardForm({ data }) {
 
                       <Link
                         href="#/"
-                        onClick={() => handleRemoveItem(cartDetails[item].id)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleRemoveItem(cartDetails[item].id)
+                        }}
                         color="red.500"
                         variant='noDeco'
                         size='mdText'
