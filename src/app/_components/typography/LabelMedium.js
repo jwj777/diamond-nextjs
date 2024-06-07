@@ -1,5 +1,5 @@
 import React from "react";
-import { Text } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 
 
 export default function LabelMedium({ children, textColor, color, mb, mr }) {
@@ -8,7 +8,8 @@ export default function LabelMedium({ children, textColor, color, mb, mr }) {
   color ? color : color = 'neutral.10'
 
   return (
-    <Text 
+    
+    <Box 
       fontFamily='figtree'
       fontSize={{ base: '1rem', md: '1.05rem' }}
       lineHeight={{ base: '152%', md: '154%' }}
@@ -18,6 +19,7 @@ export default function LabelMedium({ children, textColor, color, mb, mr }) {
       mr={mr}
     >
       {children}
-    </Text>
+    </Box>
+
   )
 }
