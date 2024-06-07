@@ -15,7 +15,7 @@ import {
 import TitleLarge from "../typography/TitleLarge";
 import BodyMedium from "../typography/BodyMedium";
 import { useState, useEffect } from "react";
-import { fees } from "@/app/data/feeData";
+// import { fees } from "@/app/data/feeData";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useShoppingCart } from "use-shopping-cart";
 import { loadStripe } from "@stripe/stripe-js";
@@ -24,6 +24,7 @@ import InputFloatWithPrefix from "./InputFloatPrefix";
 import { Link } from "@chakra-ui/next-js";
 import { MdDelete } from "react-icons/md";
 import LabelMedium from "../typography/LabelMedium";
+import { fees } from "@/app/data/feeData";
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
