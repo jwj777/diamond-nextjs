@@ -8,18 +8,20 @@ export default function LabelMedium({ children, textColor, color, mb, mr }) {
   color ? color : color = 'neutral.10'
 
   return (
-
     <Box 
       className='labelMedium'
       fontFamily='figtree'
-      fontSize={{ base: '1rem', md: '1.05rem' }}
-      lineHeight={{ base: '152%', md: '154%' }}
-      color={color}
-      fontWeight='500'
-      mb={mb}
-      mr={mr}
     >
-      {children}
+      <Text 
+        fontSize={{ base: '1rem', md: '1.05rem' }}
+        lineHeight={{ base: '152%', md: '154%' }}
+        color={color}
+        fontWeight='600'
+        mb={mb}
+        mr={mr}
+      >
+        {children}
+      </Text>
     </Box>
 
   )
