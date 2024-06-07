@@ -339,7 +339,7 @@ export default function SubmitCardForm({ data }) {
       >
         <Box mb="8">
           <TitleLarge color="neutral.10">Order Summary</TitleLarge>
-          <Box mb="5" mx="2" p="7" bg="neutral.90" borderRadius='1rem'>
+          <Box mb="6" p="7" bg="neutral.90" borderRadius='1rem'>
             <Box display={"flex"} justifyContent={"space-between"}>
               <LabelMedium>Total Items:</LabelMedium>
               <b>{cartCount}</b>
@@ -404,7 +404,7 @@ export default function SubmitCardForm({ data }) {
                   borderRadius="0.8rem"
                   // shadow="md"
                 >
-                  <Box display={"flex"} justifyContent={"space-between"}>
+                  <Box display={"flex"} justifyContent={"space-between"} alignItems='center'>
                     <LabelMedium mb='1'>{ 
                         `${cartDetails[item].product_data.year} 
                         ${cartDetails[item].product_data.brand} 
