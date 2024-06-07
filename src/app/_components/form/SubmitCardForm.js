@@ -402,7 +402,6 @@ export default function SubmitCardForm({ data }) {
                   p='4'
                   mb='2'
                   borderRadius="0.8rem"
-                  // shadow="md"
                 >
                   <Box display={"flex"} justifyContent={"space-between"} alignItems='center'>
                     <LabelMedium mb='1'>{ 
@@ -419,6 +418,7 @@ export default function SubmitCardForm({ data }) {
                         variant='noDeco'
                         size='mdText'
                         ml="4"
+                        mb='2'
                       >
                         <Icon
                           as={MdDelete}
