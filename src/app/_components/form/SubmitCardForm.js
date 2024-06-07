@@ -408,7 +408,7 @@ export default function SubmitCardForm({ data }) {
 
                       <Link
                         href="#"
-                        onClick={() => handleRemoveItem(item.id)}
+                        onClick={() => handleRemoveItem(cartDetails[item].id)}
                         color="red.500"
                         variant='noDeco'
                         size='mdText'
@@ -421,7 +421,7 @@ export default function SubmitCardForm({ data }) {
                           color='primary.40'
                         />
                       </Link>
-                      
+
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <b>Declared Value: ${cartDetails[item].product_data.value}</b>
