@@ -20,8 +20,6 @@ export default async function Contact({ params }) {
       <Box bg={'neutral.4'}>
         <XlContainer>
         <Box>
-          <Test />
-
           <ContactForm />
         </Box>
         </XlContainer>
