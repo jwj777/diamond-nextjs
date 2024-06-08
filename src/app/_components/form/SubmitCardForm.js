@@ -118,6 +118,18 @@ export default function SubmitCardForm({ data }) {
     return totalCost;
   };
 
+
+  function getInsuranceCost(declaredValue) {
+    const levels = Object.keys(insuranceCosts).map(parseFloat).sort((a, b) => a - b);
+  
+    for (let i = levels.length - 1; i >= 0; i--) {
+      if (declaredValue >= levels[i]) {
+        return insuranceCosts[levels[i].toString()];
+      }
+    }
+    return null; 
+  }
+
   
   const addToCart = async () => {
   
@@ -188,6 +200,7 @@ export default function SubmitCardForm({ data }) {
       const numberOfCards = Object.keys(cartDetails).length;
       const declaredValue = calculateTotalDeclaredValue();
       const shippingCost = calculateShippingCost(numberOfCards, declaredValue);
+      const insuranceCost = getInsuranceCost(declaredValue);
       const totalOrderCost = formattedTotalPrice + shippingCost;
   
       const response = await fetch("/api/stripe/product", {
@@ -384,8 +397,12 @@ export default function SubmitCardForm({ data }) {
               <BodyMedium>{formattedTotalPrice}</BodyMedium>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"} mb='4'>
-              <LabelMedium>Shipping & Insurance:</LabelMedium>
-              <BodyMedium>{0}</BodyMedium>
+              <LabelMedium>Shipping:</LabelMedium>
+              {/* <BodyMedium>{shippingCost}</BodyMedium> */}
+            </Box>
+            <Box display={"flex"} justifyContent={"space-between"} mb='4'>
+              <LabelMedium>Insurance:</LabelMedium>
+              {/* <BodyMedium>{insuranceCost}</BodyMedium> */}
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <LabelMedium>Order Total:</LabelMedium>
@@ -466,7 +483,11 @@ export default function SubmitCardForm({ data }) {
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Shipping:</LabelMedium> 
-                    <BodyMedium>{shippingCost}</BodyMedium>
+                    {/* <BodyMedium>{shippingCost}</BodyMedium> */}
+                  </Box>
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <LabelMedium>Shipping:</LabelMedium> 
+                    {/* <BodyMedium>{shippingCost}</BodyMedium> */}
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Total:</LabelMedium> 
