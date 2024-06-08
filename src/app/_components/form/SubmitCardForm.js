@@ -73,37 +73,49 @@ export default function SubmitCardForm({ data }) {
   }, [user, isLoading]);
 
 
-  const calculatePrice = (declaredValue, subscriptionLevel) => {
+  const calculateTotalDeclaredValue = () => {
+    return Object.values(cartDetails).reduce((total, item) => {
+      return total + parseInt(item.product_data.value);
+    }, 0);
+  };
 
-    console.log("Declared Value:", declaredValue);
-    console.log("Subscription Level:", subscriptionLevel);
-    console.log("Fees Data:", fees); 
+
+  const calculatePrice = (declaredValue, subscriptionLevel) => {
   
     const levels = Object.keys(fees).map(parseFloat).sort((a, b) => a - b);
-    console.log("Levels:", levels);
-  
     const levelIdx = levels.findIndex(level => declaredValue <= level);
-  
     const level = levels[levelIdx === -1 ? levels.length - 1 : levelIdx];
     const levelString = level.toString();
-  
-    console.log("Selected Level:", level);
-    console.log("Selected Level (string):", levelString);
-    console.log("My Test level --> ", level.toString())
-    console.log("My Test fees level --> ", fees[level.toString()])
-    console.log("My Test subscription --> ", fees[subscriptionLevel])
-    console.log("My Test subscription --> ", fees[subscriptionLevel.toString()])
-    console.log("My Test level + subscription --> ", fees[level.toString()][subscriptionLevel.toString()])
   
     // Check if subscription level exists at the selected level
     if (fees[levelString] && fees[levelString][subscriptionLevel]) {
       const price = fees[level.toString()][subscriptionLevel.toString()]
-      console.log("Calculated Price:", price);
       return price;
     } else {
-      console.error(`Subscription level "${subscriptionLevel}" not found at level "${levelString}".`);
       return null;
     }
+  };
+
+
+  const calculateShippingCost = (numberOfCards, declaredValue) => {
+    const shippingRates = declaredValue >= 1500 ? fedexShipping : uspsShipping;
+    let remainingCards = numberOfCards;
+    let totalCost = 0;
+  
+    while (remainingCards > 0) {
+      if (remainingCards <= shippingRates.smallBox.capacity) {
+        totalCost += shippingRates.smallBox.cost;
+        remainingCards -= shippingRates.smallBox.capacity;
+      } else if (remainingCards <= shippingRates.mediumBox.capacity) {
+        totalCost += shippingRates.mediumBox.cost;
+        remainingCards -= shippingRates.mediumBox.capacity;
+      } else {
+        totalCost += shippingRates.largeBox.cost;
+        remainingCards -= shippingRates.largeBox.capacity;
+      }
+    }
+  
+    return totalCost;
   };
 
   
@@ -166,21 +178,26 @@ export default function SubmitCardForm({ data }) {
   const handleCheckout = async () => {
     setLoading(true);
     setError(null);
-
+  
     try {
       const customerRes = await fetch(
         `/api/stripe/customer?email=${user.email}`
       );
       const customerData = await customerRes.json();
-
+  
+      const numberOfCards = Object.keys(cartDetails).length;
+      const declaredValue = calculateTotalDeclaredValue();
+      const shippingCost = calculateShippingCost(numberOfCards, declaredValue);
+      const totalOrderCost = formattedTotalPrice + shippingCost;
+  
       const response = await fetch("/api/stripe/product", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ cartDetails, customerId: customerData.id }),
+        body: JSON.stringify({ cartDetails, customerId: customerData.id, totalOrderCost }),
       });
-
+  
       const data = await response.json();
       if (data.sessionId) {
         const stripe = await loadStripe(
@@ -201,13 +218,6 @@ export default function SubmitCardForm({ data }) {
       setError(error.message);
     }
     setLoading(false);
-  };
-
-
-  const calculateTotalDeclaredValue = () => {
-    return Object.values(cartDetails).reduce((total, item) => {
-      return total + parseInt(item.product_data.value);
-    }, 0);
   };
 
 
@@ -455,8 +465,8 @@ export default function SubmitCardForm({ data }) {
                     <BodyMedium>{cartDetails[item].formattedValue}</BodyMedium>
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
-                    <LabelMedium>Shipping & Insurance:</LabelMedium> 
-                    <BodyMedium>{0}</BodyMedium>
+                    <LabelMedium>Shipping:</LabelMedium> 
+                    <BodyMedium>{shippingCost}</BodyMedium>
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Total:</LabelMedium> 
