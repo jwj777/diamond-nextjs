@@ -144,7 +144,7 @@ export default function SubmitCardForm({ data }) {
   
     const subscriptionLevel = subscriptions[0].product.name;
     const declaredValue = parseFloat(value);
-    const insuranceCost = getInsuranceCost(declaredValue);
+    let insuranceCost = getInsuranceCost(declaredValue);
     const price = calculatePrice(declaredValue, subscriptionLevel);
 
     // console.log('insurance cost----- ', insuranceCost)
