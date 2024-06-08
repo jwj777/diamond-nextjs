@@ -144,7 +144,10 @@ export default function SubmitCardForm({ data }) {
   
     const subscriptionLevel = subscriptions[0].product.name;
     const declaredValue = parseFloat(value);
+    const insuranceCost = getInsuranceCost(declaredValue);
     const price = calculatePrice(declaredValue, subscriptionLevel);
+
+    console.log('insurance cost----- ', insuranceCost)
   
     if (price === null) {
       return;
@@ -483,7 +486,7 @@ export default function SubmitCardForm({ data }) {
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Shipping:</LabelMedium> 
-                    {/* <BodyMedium>{shippingCost}</BodyMedium> */}
+                    <BodyMedium>{shippingCost}</BodyMedium>
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Shipping:</LabelMedium> 
