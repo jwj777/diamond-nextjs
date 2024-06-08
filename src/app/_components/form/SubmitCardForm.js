@@ -93,8 +93,8 @@ export default function SubmitCardForm({ data }) {
     console.log("Selected Level (string):", levelString);
     // console.log("Fees at Selected Level:", JSON.stringify(fees[levelString], null, 2));
 
-    console.log("My Test level --> ", level)
-    console.log("My Test --> ", fees[level])
+    console.log("My Test level --> ", level.toString())
+    console.log("My Test --> ", fees[level.toString()])
   
     // Check if subscription level exists at the selected level
     if (fees[levelString] && fees[levelString][subscriptionLevel]) {
