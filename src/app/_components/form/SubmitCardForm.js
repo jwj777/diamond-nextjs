@@ -90,7 +90,7 @@ export default function SubmitCardForm({ data }) {
   
     console.log("Selected Level:", level);
     console.log("Selected Level (string):", levelString);
-    console.log("Fees at Selected Level:", fees[levelString]);
+    console.log("Fees at Selected Level:", JSON.stringify(fees[levelString], null, 2));
   
     // Check if subscription level exists at the selected level
     if (fees[levelString] && fees[levelString][subscriptionLevel]) {
@@ -102,6 +102,7 @@ export default function SubmitCardForm({ data }) {
       return null;
     }
   };
+  
   
   const addToCart = async () => {
     console.log("Add to cart clicked");
