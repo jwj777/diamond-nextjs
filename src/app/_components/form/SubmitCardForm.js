@@ -24,6 +24,7 @@ import { Link } from "@chakra-ui/next-js";
 import { MdDelete } from "react-icons/md";
 import LabelMedium from "../typography/LabelMedium";
 import { fees } from "@/app/data/feeData";
+import Test from "./Test";
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -77,7 +78,7 @@ export default function SubmitCardForm({ data }) {
     console.log("Subscription Level:", subscriptionLevel);
   
     console.log("Fees Data:", fees);
-    console.log("Fees Data stringify:", JSON.stringify(fees, null, 2)); // Detailed logging of fees
+    // console.log("Fees Data stringify:", JSON.stringify(fees, null, 2)); 
   
     const levels = Object.keys(fees).map(parseFloat).sort((a, b) => a - b);
     console.log("Levels:", levels);
@@ -90,7 +91,9 @@ export default function SubmitCardForm({ data }) {
   
     console.log("Selected Level:", level);
     console.log("Selected Level (string):", levelString);
-    console.log("Fees at Selected Level:", JSON.stringify(fees[levelString], null, 2));
+    // console.log("Fees at Selected Level:", JSON.stringify(fees[levelString], null, 2));
+
+    console.log("My Test --> ", fees[level])
   
     // Check if subscription level exists at the selected level
     if (fees[levelString] && fees[levelString][subscriptionLevel]) {
@@ -102,7 +105,7 @@ export default function SubmitCardForm({ data }) {
       return null;
     }
   };
-  
+
   
   const addToCart = async () => {
     console.log("Add to cart clicked");
@@ -241,6 +244,7 @@ export default function SubmitCardForm({ data }) {
           <BodyMedium color="neutral.10">
             {data?.attributes?.Form_Subheading}
           </BodyMedium>
+
         </Box>
 
         <Box>
