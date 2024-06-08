@@ -77,6 +77,7 @@ export default function SubmitCardForm({ data }) {
     console.log("Subscription Level:", subscriptionLevel);
   
     console.log("Fees Data:", fees);
+    console.log("Fees Data stringify:", JSON.stringify(fees, null, 2)); // Detailed logging of fees
   
     const levels = Object.keys(fees).map(parseFloat).sort((a, b) => a - b);
     console.log("Levels:", levels);
