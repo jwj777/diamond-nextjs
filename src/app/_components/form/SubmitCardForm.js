@@ -147,7 +147,7 @@ export default function SubmitCardForm({ data }) {
     const insuranceCost = getInsuranceCost(declaredValue);
     const price = calculatePrice(declaredValue, subscriptionLevel);
 
-    console.log('insurance cost----- ', insuranceCost)
+    // console.log('insurance cost----- ', insuranceCost)
   
     if (price === null) {
       return;
