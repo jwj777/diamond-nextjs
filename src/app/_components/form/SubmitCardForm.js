@@ -74,25 +74,21 @@ export default function SubmitCardForm({ data }) {
 
 
   const calculatePrice = (declaredValue, subscriptionLevel) => {
+
     console.log("Declared Value:", declaredValue);
     console.log("Subscription Level:", subscriptionLevel);
-  
-    console.log("Fees Data:", fees);
-    // console.log("Fees Data stringify:", JSON.stringify(fees, null, 2)); 
+    console.log("Fees Data:", fees); 
   
     const levels = Object.keys(fees).map(parseFloat).sort((a, b) => a - b);
     console.log("Levels:", levels);
   
     const levelIdx = levels.findIndex(level => declaredValue <= level);
   
-    // If declaredValue is higher than any level, use the highest level
     const level = levels[levelIdx === -1 ? levels.length - 1 : levelIdx];
     const levelString = level.toString();
   
     console.log("Selected Level:", level);
     console.log("Selected Level (string):", levelString);
-    // console.log("Fees at Selected Level:", JSON.stringify(fees[levelString], null, 2));
-
     console.log("My Test level --> ", level.toString())
     console.log("My Test fees level --> ", fees[level.toString()])
     console.log("My Test subscription --> ", fees[subscriptionLevel])
@@ -112,7 +108,6 @@ export default function SubmitCardForm({ data }) {
 
   
   const addToCart = async () => {
-    console.log("Add to cart clicked");
   
     if (!subscriptions.length) {
       alert("Please subscribe the membership first.");
@@ -124,13 +119,10 @@ export default function SubmitCardForm({ data }) {
     }
   
     const subscriptionLevel = subscriptions[0].product.name;
-    console.log("Subscription Level from Subscriptions:", subscriptionLevel);
-  
     const declaredValue = parseFloat(value);
     const price = calculatePrice(declaredValue, subscriptionLevel);
   
     if (price === null) {
-      alert("Error calculating price. Please check the logs for more details");
       return;
     }
   
@@ -138,17 +130,13 @@ export default function SubmitCardForm({ data }) {
       name,
       description: desc,
       id: "prod_Q90vXwIVPSesQV" + new Date().getTime(),
-      price,
+      price: price * 100,
       currency: "USD",
     };
-  
-    console.log("Product to be added:", product);
-    console.log("Cart details before adding:", cartDetails);
   
     addItem(product, {
       product_metadata: { year, brand, number, value },
     });
-    console.log("Cart details after adding:", cartDetails);
     setCartUpdated(true);
   };
 
@@ -160,6 +148,7 @@ export default function SubmitCardForm({ data }) {
     }
   }, [cartUpdated, cartDetails]);
   
+
   useEffect(() => {
     console.log("Initial cartDetails:", cartDetails);
   }, []);
