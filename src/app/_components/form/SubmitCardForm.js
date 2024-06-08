@@ -101,7 +101,7 @@ export default function SubmitCardForm({ data }) {
   
     // Check if subscription level exists at the selected level
     if (fees[levelString] && fees[levelString][subscriptionLevel]) {
-      const price = fees[levelString][subscriptionLevel];
+      const price = fees[level.toString()][subscriptionLevel.toString()]
       console.log("Calculated Price:", price);
       return price;
     } else {
