@@ -26,7 +26,6 @@ import LabelMedium from "../typography/LabelMedium";
 import { fees } from "@/app/data/feeData";
 import { insuranceCost } from "@/app/data/insuranceData";
 import { uspsShipping, fedexShipping } from "@/app/data/shippingData";
-import Test from "./Test";
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -48,6 +47,7 @@ export default function SubmitCardForm({ data }) {
 
 
   console.log('insurance cost 1: ', insuranceCost); // Log the dataset
+  console.log('shippintg cost 1: ', uspsShipping); // Log the dataset
 
 
   useEffect(() => {
