@@ -120,10 +120,10 @@ export default function SubmitCardForm({ data }) {
     return totalCost;
   };
 
-  console.log('insurance costs ----> ', insuranceCost)
 
   function getInsuranceCost(declaredValue) {
     const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
+    console.log('getinsuranceCost levels ---- ', levels)
   
     for (let i = levels.length - 1; i >= 0; i--) {
       if (declaredValue >= levels[i]) {
@@ -147,6 +147,7 @@ export default function SubmitCardForm({ data }) {
   
     const subscriptionLevel = subscriptions[0].product.name;
     const declaredValue = parseFloat(value);
+    console.log('declared value --->  ', declaredValue)
     let insuranceCost = getInsuranceCost(declaredValue);
     // let shippingCost = calculateShippingCost(declaredValue, 3);
     const price = calculatePrice(declaredValue, subscriptionLevel);
