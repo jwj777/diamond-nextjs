@@ -24,8 +24,9 @@ import { Link } from "@chakra-ui/next-js";
 import { MdDelete } from "react-icons/md";
 import LabelMedium from "../typography/LabelMedium";
 import { fees } from "@/app/data/feeData";
-import { insuranceCost } from "@/app/data/insuranceData";
-import { uspsShipping, fedexShipping } from "@/app/data/shippingData";
+import insuranceCost from "../../data/insuranceData";
+import { uspsShipping, fedexShipping } from "../../data/shippingData";
+
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
