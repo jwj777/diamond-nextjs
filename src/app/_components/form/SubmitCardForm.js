@@ -120,9 +120,10 @@ export default function SubmitCardForm({ data }) {
     return totalCost;
   };
 
+  console.log('insurance cost: ', insuranceCost)
 
   function getInsuranceCost(declaredValue) {
-    console.log(insuranceCost)
+    console.log('insurance cost 2: ', insuranceCost)
     const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
 
     console.log('getInsuranceCost levels: ', levels)
