@@ -47,6 +47,9 @@ export default function SubmitCardForm({ data }) {
   const { user, isLoading } = useUser();
 
 
+  console.log('insurance cost 1: ', insuranceCost); // Log the dataset
+
+
   useEffect(() => {
     if (!isLoading && !user) {
       return redirect("/");
@@ -120,7 +123,7 @@ export default function SubmitCardForm({ data }) {
     return totalCost;
   };
 
-  
+
   function getInsuranceCost(declaredValue) {
     const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
 
@@ -131,8 +134,6 @@ export default function SubmitCardForm({ data }) {
     }
     return null;
   }
-
-  console.log('insurance cost: ', insuranceCost); // Log the dataset
 
   
   const addToCart = async () => {
