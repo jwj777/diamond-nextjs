@@ -24,6 +24,8 @@ import { Link } from "@chakra-ui/next-js";
 import { MdDelete } from "react-icons/md";
 import LabelMedium from "../typography/LabelMedium";
 import { fees } from "@/app/data/feeData";
+import { insuranceCost } from "@/app/data/insuranceData";
+import { uspsShipping, fedexShipping } from "@/app/data/shippingData";
 import Test from "./Test";
 
 export default function SubmitCardForm({ data }) {
@@ -120,11 +122,11 @@ export default function SubmitCardForm({ data }) {
 
 
   function getInsuranceCost(declaredValue) {
-    const levels = Object.keys(insuranceCosts).map(parseFloat).sort((a, b) => a - b);
+    const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
   
     for (let i = levels.length - 1; i >= 0; i--) {
       if (declaredValue >= levels[i]) {
-        return insuranceCosts[levels[i].toString()];
+        return insuranceCost[levels[i].toString()];
       }
     }
     return null; 
@@ -145,11 +147,11 @@ export default function SubmitCardForm({ data }) {
     const subscriptionLevel = subscriptions[0].product.name;
     const declaredValue = parseFloat(value);
     let insuranceCost = getInsuranceCost(declaredValue);
-    let shippingCost = calculateShippingCost(declaredValue, 3);
+    // let shippingCost = calculateShippingCost(declaredValue, 3);
     const price = calculatePrice(declaredValue, subscriptionLevel);
 
     console.log('insurance cost----- ', insuranceCost)
-    console.log('shipping cost----- ', shippingCost)
+    // console.log('shipping cost----- ', shippingCost)
   
     if (price === null) {
       return;
