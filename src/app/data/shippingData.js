@@ -1,4 +1,4 @@
-const uspsShipping = {
+export const uspsShipping = {
   smallBox: {
     cost: 12.55,
     capacity: 4,
@@ -13,7 +13,7 @@ const uspsShipping = {
   },
 };
 
-const fedexShipping = {
+export const fedexShipping = {
   smallBox: {
     cost: 17.50,
     capacity: 4,

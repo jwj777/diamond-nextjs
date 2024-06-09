@@ -1,4 +1,4 @@
-const insuranceCost = {
+export const insuranceCost = {
   "1.0": { "Cost": 0.00, "Carrier": "USPS" },
   "100.0": { "Cost": 0.00, "Carrier": "USPS" },
   "200.0": { "Cost": 3.50, "Carrier": "USPS" },

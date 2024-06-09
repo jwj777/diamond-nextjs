@@ -24,9 +24,8 @@ import { Link } from "@chakra-ui/next-js";
 import { MdDelete } from "react-icons/md";
 import LabelMedium from "../typography/LabelMedium";
 import { fees } from "@/app/data/feeData";
-// import insuranceCost from "./insuranceData";
-import { uspsShipping, fedexShipping } from "../../data/shippingData";
-
+import { insuranceCost } from "@/app/data/insuranceData";
+import { uspsShipping, fedexShipping } from "@/app/data/shippingData";
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -45,35 +44,16 @@ export default function SubmitCardForm({ data }) {
   const [value, setValue] = useState();
   const [ebayUrl, setEbayUrl] = useState("");
   const { user, isLoading } = useUser();
-  const [insuranceCost, setInsuranceCost] = useState({});
 
-
-  useEffect(() => {
-    const fetchInsuranceData = async () => {
-      const response = await fetch('/insuranceData.json');
-      const data = await response.json();
-      setInsuranceCost(data);
-    };
-
-    const fetchShippingData = async () => {
-      const response = await fetch('/shippingData.json');
-      const data = await response.json();
-      setUspsShipping(data.uspsShipping);
-      setFedexShipping(data.fedexShipping);
-    };
-
-    fetchInsuranceData();
-    fetchShippingData();
-  }, []);
 
   console.log('insurance cost 1: ', insuranceCost); // Log the dataset
-  // console.log('shippintg cost 1: ', uspsShipping.toString()); 
+  console.log('shippintg cost 1: ', uspsShipping); // Log the dataset
 
 
   useEffect(() => {
-    // if (!isLoading && !user) {
-    //   return redirect("/");
-    // }
+    if (!isLoading && !user) {
+      return redirect("/");
+    }
     setLoading(true);
     async function fetchSubscriptions() {
       try {
