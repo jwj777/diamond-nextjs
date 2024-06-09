@@ -24,7 +24,7 @@ import { Link } from "@chakra-ui/next-js";
 import { MdDelete } from "react-icons/md";
 import LabelMedium from "../typography/LabelMedium";
 import { fees } from "@/app/data/feeData";
-import insuranceCost from "../../data/insuranceData";
+import insuranceCost from "/insuranceData";
 import { uspsShipping, fedexShipping } from "../../data/shippingData";
 
 
@@ -45,10 +45,18 @@ export default function SubmitCardForm({ data }) {
   const [value, setValue] = useState();
   const [ebayUrl, setEbayUrl] = useState("");
   const { user, isLoading } = useUser();
+  const [insuranceCost, setInsuranceCost] = useState({});
 
 
-  console.log('insurance cost 1: ', insuranceCost.toString()); // Log the dataset
-  console.log('shippintg cost 1: ', uspsShipping.toString()); // Log the dataset
+  useEffect(() => {
+    const fetchInsuranceData = async () => {
+      const response = await fetch('/insuranceData.json');
+      const data = await response.json();
+      setInsuranceCost(data);
+    };
+
+  console.log('insurance cost 1: ', insuranceCost); // Log the dataset
+  // console.log('shippintg cost 1: ', uspsShipping.toString()); 
 
 
   useEffect(() => {
