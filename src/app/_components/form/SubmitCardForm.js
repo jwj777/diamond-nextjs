@@ -122,7 +122,10 @@ export default function SubmitCardForm({ data }) {
 
 
   function getInsuranceCost(declaredValue) {
+    console.log(insuranceCost)
     const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
+
+    console.log('getInsuranceCost levels: ', levels)
   
     for (let i = levels.length - 1; i >= 0; i--) {
       if (declaredValue >= levels[i]) {
