@@ -26,6 +26,7 @@ import LabelMedium from "../typography/LabelMedium";
 import { fees } from "@/app/data/feeData";
 import { insuranceCost } from "@/app/data/insuranceData";
 import { uspsShipping, fedexShipping } from "@/app/data/shippingData";
+import Test from "./Test";
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -44,10 +45,6 @@ export default function SubmitCardForm({ data }) {
   const [value, setValue] = useState();
   const [ebayUrl, setEbayUrl] = useState("");
   const { user, isLoading } = useUser();
-
-
-  console.log('insurance cost 1: ', insuranceCost); // Log the dataset
-  console.log('shippintg cost 1: ', uspsShipping); // Log the dataset
 
 
   useEffect(() => {
@@ -123,7 +120,6 @@ export default function SubmitCardForm({ data }) {
     return totalCost;
   };
 
-
   function getInsuranceCost(declaredValue) {
     const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
 
@@ -134,6 +130,7 @@ export default function SubmitCardForm({ data }) {
     }
     return null;
   }
+
 
   
   const addToCart = async () => {
@@ -496,8 +493,8 @@ export default function SubmitCardForm({ data }) {
                     {/* <BodyMedium>{shippingCost}</BodyMedium> */}
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
-                    <LabelMedium>Shipping:</LabelMedium> 
-                    {/* <BodyMedium>{shippingCost}</BodyMedium> */}
+                    <LabelMedium>Insurance:</LabelMedium> 
+                    <BodyMedium>{insuranceCost}</BodyMedium>
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Total:</LabelMedium> 
