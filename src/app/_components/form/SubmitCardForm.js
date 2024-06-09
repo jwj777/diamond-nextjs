@@ -129,7 +129,7 @@ export default function SubmitCardForm({ data }) {
 
     console.log('getinsuranceCost test 2 ---- ', insuranceCost["1500.0"]["Cost"])
 
-    let insuranceValue = insuranceCost[levels.toString()][Cost]
+    let insuranceValue = insuranceCost[levels.toString()]["Cost"]
     return insuranceValue; 
   }
 
