@@ -486,7 +486,7 @@ export default function SubmitCardForm({ data }) {
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Shipping:</LabelMedium> 
-                    <BodyMedium>{shippingCost}</BodyMedium>
+                    {/* <BodyMedium>{shippingCost}</BodyMedium> */}
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Shipping:</LabelMedium> 
