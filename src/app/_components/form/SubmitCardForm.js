@@ -125,7 +125,7 @@ export default function SubmitCardForm({ data }) {
     const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
     
     
-    console.log('getinsuranceCost test ---- ', insuranceCost[levels.toString()][Cost])
+    console.log('getinsuranceCost test ---- ', insuranceCost[levels.toString()]["Cost"])
 
     console.log('getinsuranceCost test 2a ---- ', insuranceCost["1500.0"]["Cost"])
 
