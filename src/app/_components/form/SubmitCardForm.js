@@ -54,6 +54,7 @@ export default function SubmitCardForm({ data }) {
       const data = await response.json();
       setInsuranceCost(data);
     };
+  })
 
   console.log('insurance cost 1: ', insuranceCost); // Log the dataset
   // console.log('shippintg cost 1: ', uspsShipping.toString()); 
