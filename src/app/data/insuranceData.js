@@ -84,7 +84,7 @@ const insuranceCost = {
   "8200.0": { "Cost": 114.80, "Carrier": "Fedex" },
   "8300.0": { "Cost": 116.20, "Carrier": "Fedex" },
   "8400.0": { "Cost": 117.60, "Carrier": "Fedex" },
-  "8500.0": { "Cost": 119.00, "Carrier": "Fedex" },
+    "8500.0": { "Cost": 119.00, "Carrier": "Fedex" },
   "8600.0": { "Cost": 120.40, "Carrier": "Fedex" },
   "8700.0": { "Cost": 121.80, "Carrier": "Fedex" },
   "8800.0": { "Cost": 123.20, "Carrier": "Fedex" },

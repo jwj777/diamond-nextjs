@@ -47,14 +47,14 @@ export default function SubmitCardForm({ data }) {
   const { user, isLoading } = useUser();
 
 
-  console.log('insurance cost 1: ', insuranceCost); // Log the dataset
-  console.log('shippintg cost 1: ', uspsShipping); // Log the dataset
+  console.log('insurance cost 1: ', insuranceCost.toString()); // Log the dataset
+  console.log('shippintg cost 1: ', uspsShipping.toString()); // Log the dataset
 
 
   useEffect(() => {
-    if (!isLoading && !user) {
-      return redirect("/");
-    }
+    // if (!isLoading && !user) {
+    //   return redirect("/");
+    // }
     setLoading(true);
     async function fetchSubscriptions() {
       try {
