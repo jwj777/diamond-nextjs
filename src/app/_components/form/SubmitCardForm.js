@@ -120,21 +120,19 @@ export default function SubmitCardForm({ data }) {
     return totalCost;
   };
 
-  console.log('insurance cost: ', insuranceCost)
-
+  
   function getInsuranceCost(declaredValue) {
-    console.log('insurance cost 2: ', insuranceCost)
     const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
 
-    console.log('getInsuranceCost levels: ', levels)
-  
     for (let i = levels.length - 1; i >= 0; i--) {
       if (declaredValue >= levels[i]) {
-        return insuranceCost[levels[i].toString()];
+        return insuranceCost[levels[i].toString()].Cost;
       }
     }
-    return null; 
+    return null;
   }
+
+  console.log('insurance cost: ', insuranceCost); // Log the dataset
 
   
   const addToCart = async () => {
