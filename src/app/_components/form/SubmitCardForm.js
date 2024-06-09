@@ -126,11 +126,11 @@ export default function SubmitCardForm({ data }) {
     
     console.log('declared value ', declaredValue)
     console.log(typeof declaredValue)
-    console.log('getinsuranceCost test ---- ', insuranceCost[declaredValue]["Cost"])
+    console.log('getinsuranceCost test ---- ', insuranceCost[declaredValue.toString()])
 
     console.log('getinsuranceCost test 2a ---- ', insuranceCost["1500.0"]["Cost"])
 
-    let insuranceValue = insuranceCost[declaredValue.toString()]["Cost"] 
+    // let insuranceValue = insuranceCost[declaredValue.toString()]["Cost"] 
     return insuranceValue; 
   }
 
