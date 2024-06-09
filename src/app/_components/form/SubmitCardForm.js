@@ -134,7 +134,7 @@ export default function SubmitCardForm({ data }) {
 
   
   const addToCart = async () => {
-  
+    console.log("Adding to cart...");
     if (!subscriptions.length) {
       alert("Please subscribe the membership first.");
       return;
@@ -143,20 +143,21 @@ export default function SubmitCardForm({ data }) {
       alert("Please input all fields.");
       return;
     }
-  
+
     const subscriptionLevel = subscriptions[0].product.name;
     const declaredValue = parseFloat(value);
-    let insuranceCost = getInsuranceCost(declaredValue);
-    // let shippingCost = calculateShippingCost(declaredValue, 3);
+    const insuranceCostValue = getInsuranceCost(declaredValue);
     const price = calculatePrice(declaredValue, subscriptionLevel);
 
-    console.log('insurance cost----- ', insuranceCost)
-    // console.log('shipping cost----- ', shippingCost)
-  
+    console.log("subscriptionLevel:", subscriptionLevel);
+    console.log("declaredValue:", declaredValue);
+    console.log("insuranceCost:", insuranceCostValue);
+    console.log("price:", price);
+
     if (price === null) {
       return;
     }
-  
+
     const product = {
       name,
       description: desc,
@@ -164,7 +165,7 @@ export default function SubmitCardForm({ data }) {
       price: price * 100,
       currency: "USD",
     };
-  
+
     addItem(product, {
       product_metadata: { year, brand, number, value },
     });
