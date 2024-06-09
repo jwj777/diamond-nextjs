@@ -123,25 +123,18 @@ export default function SubmitCardForm({ data }) {
 
   function getInsuranceCost(declaredValue) {
     const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
-    console.log("Declared Value for Insurance Calculation: ", declaredValue);
-    console.log("Insurance Cost Levels: ", levels);
   
     for (let i = levels.length - 1; i >= 0; i--) {
       if (declaredValue >= levels[i]) {
-        const costObject = insuranceCost[levels[i].toString()];
-        console.log("Matched Level: ", levels[i], " with Cost: ", costObject);
-        if (costObject) {
-          return costObject.Cost;
-        }
+        return insuranceCost[levels[i].toString()];
       }
     }
-    console.log("No matching level found for declared value: ", declaredValue);
-    return null;
+    return null; 
   }
 
   
   const addToCart = async () => {
-    console.log("Adding to cart...");
+  
     if (!subscriptions.length) {
       alert("Please subscribe the membership first.");
       return;
@@ -153,13 +146,12 @@ export default function SubmitCardForm({ data }) {
   
     const subscriptionLevel = subscriptions[0].product.name;
     const declaredValue = parseFloat(value);
-    const insuranceCostValue = getInsuranceCost(declaredValue);
+    let insuranceCost = getInsuranceCost(declaredValue);
+    // let shippingCost = calculateShippingCost(declaredValue, 3);
     const price = calculatePrice(declaredValue, subscriptionLevel);
-  
-    console.log("subscriptionLevel:", subscriptionLevel);
-    console.log("declaredValue:", declaredValue);
-    console.log("insuranceCost:", insuranceCostValue);
-    console.log("price:", price);
+
+    console.log('insurance cost----- ', insuranceCost)
+    // console.log('shipping cost----- ', shippingCost)
   
     if (price === null) {
       return;
@@ -501,8 +493,8 @@ export default function SubmitCardForm({ data }) {
                     {/* <BodyMedium>{shippingCost}</BodyMedium> */}
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
-                    <LabelMedium>Insurance:</LabelMedium> 
-                    <BodyMedium>{insuranceCost}</BodyMedium>
+                    <LabelMedium>Shipping:</LabelMedium> 
+                    {/* <BodyMedium>{shippingCost}</BodyMedium> */}
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Total:</LabelMedium> 
