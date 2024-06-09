@@ -36,7 +36,7 @@ export default function SubmitCardForm({ data }) {
   const [error, setError] = useState(null);
   const [cartUpdated, setCartUpdated] = useState(false);
 
-  const [formSubmit, setFormSubmit] = useState(false);
+  // const [formSubmit, setFormSubmit] = useState(false);
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [year, setYear] = useState();
@@ -120,6 +120,7 @@ export default function SubmitCardForm({ data }) {
     return totalCost;
   };
 
+  console.log('insurance costs ----> ', insuranceCost)
 
   function getInsuranceCost(declaredValue) {
     const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
