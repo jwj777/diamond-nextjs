@@ -125,7 +125,9 @@ export default function SubmitCardForm({ data }) {
     const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
     console.log('getinsuranceCost levels ---- ', levels)
     
-    console.log('getinsuranceCost levels ---- ', insuranceCost["1500.0"])
+    console.log('getinsuranceCost test ---- ', insuranceCost["1500.0"])
+
+    console.log('getinsuranceCost test ---- ', insuranceCost["1500.0"]["Cost"])
 
     // for (let i = levels.length - 1; i >= 0; i--) {
     //   if (declaredValue >= levels[i]) {
