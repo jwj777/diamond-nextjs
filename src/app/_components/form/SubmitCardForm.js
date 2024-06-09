@@ -120,17 +120,24 @@ export default function SubmitCardForm({ data }) {
     return totalCost;
   };
 
+
   function getInsuranceCost(declaredValue) {
     const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
-
+    console.log("Declared Value for Insurance Calculation: ", declaredValue);
+    console.log("Insurance Cost Levels: ", levels);
+  
     for (let i = levels.length - 1; i >= 0; i--) {
       if (declaredValue >= levels[i]) {
-        return insuranceCost[levels[i].toString()].Cost;
+        const costObject = insuranceCost[levels[i].toString()];
+        console.log("Matched Level: ", levels[i], " with Cost: ", costObject);
+        if (costObject) {
+          return costObject.Cost;
+        }
       }
     }
+    console.log("No matching level found for declared value: ", declaredValue);
     return null;
   }
-
 
   
   const addToCart = async () => {
@@ -143,21 +150,21 @@ export default function SubmitCardForm({ data }) {
       alert("Please input all fields.");
       return;
     }
-
+  
     const subscriptionLevel = subscriptions[0].product.name;
     const declaredValue = parseFloat(value);
     const insuranceCostValue = getInsuranceCost(declaredValue);
     const price = calculatePrice(declaredValue, subscriptionLevel);
-
+  
     console.log("subscriptionLevel:", subscriptionLevel);
     console.log("declaredValue:", declaredValue);
     console.log("insuranceCost:", insuranceCostValue);
     console.log("price:", price);
-
+  
     if (price === null) {
       return;
     }
-
+  
     const product = {
       name,
       description: desc,
@@ -165,7 +172,7 @@ export default function SubmitCardForm({ data }) {
       price: price * 100,
       currency: "USD",
     };
-
+  
     addItem(product, {
       product_metadata: { year, brand, number, value },
     });
