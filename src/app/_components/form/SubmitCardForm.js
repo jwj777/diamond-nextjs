@@ -171,9 +171,6 @@ export default function SubmitCardForm({ data }) {
       id: "prod_Q90vXwIVPSesQV" + new Date().getTime(),
       price: price * 100,
       currency: "USD",
-      metadata: {
-        "insuranceCost": insuranceCost,
-      },
     };
   
     addItem(product, {
