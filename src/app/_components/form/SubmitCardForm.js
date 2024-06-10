@@ -131,13 +131,15 @@ export default function SubmitCardForm({ data }) {
     console.log('declared value ', declaredValue)
     console.log(typeof declaredValue)
     console.log('getinsuranceCost test ---- ', insuranceCost[declaredValue.toString()]["Cost"])
-
     console.log('getinsuranceCost test 2a ---- ', insuranceCost["1500"]["Cost"])
 
     let insuranceValue = insuranceCost[declaredValue.toString()]["Cost"] 
 
     setInsurance(insuranceValue); 
   }
+
+  let testInsurance = getInsuranceCost(declaredValue)
+  console.log('test insurance ', insurance)
 
   
   const addToCart = async () => {
