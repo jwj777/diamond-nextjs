@@ -124,7 +124,7 @@ export default function SubmitCardForm({ data }) {
   function getInsuranceCost(declaredValue) {
     const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
 
-    declaredValue = (declaredValue*100)/100 - 100
+    declaredValue = Math.ceil(declaredValue / 100) * 100;
     
     console.log('declared value ', declaredValue)
     console.log(typeof declaredValue)
