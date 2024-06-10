@@ -134,9 +134,10 @@ export default function SubmitCardForm({ data }) {
     }
   }
 
+  const declaredValue = calculateTotalDeclaredValue();
   let insuranceTest = getInsuranceCost(declaredValue);
   console.log('insurance Test ', insuranceTest)
-  
+
   
   const addToCart = async () => {
   
