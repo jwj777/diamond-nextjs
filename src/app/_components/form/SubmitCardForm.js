@@ -46,7 +46,7 @@ export default function SubmitCardForm({ data }) {
   const [value, setValue] = useState();
   const [ebayUrl, setEbayUrl] = useState("");
   const { user, isLoading } = useUser();
-  const [insuranceCost, setInsuranceCost] = useState(0);
+  const [insurance, setInsurance] = useState();
 
 
   useEffect(() => {
@@ -136,6 +136,7 @@ export default function SubmitCardForm({ data }) {
 
   
   const addToCart = async () => {
+  
     if (!subscriptions.length) {
       alert("Please subscribe the membership first.");
       return;
@@ -147,8 +148,11 @@ export default function SubmitCardForm({ data }) {
   
     const subscriptionLevel = subscriptions[0].product.name;
     const declaredValue = parseFloat(value);
+    console.log('declared value --->  ', declaredValue)
     const insuranceCostValue = getInsuranceCost(declaredValue);
     const price = calculatePrice(declaredValue, subscriptionLevel);
+
+    console.log('insurance cost (ADD TO CART) ----- ', insuranceCostValue)
   
     if (price === null) {
       return;
@@ -160,13 +164,14 @@ export default function SubmitCardForm({ data }) {
       id: "prod_Q90vXwIVPSesQV" + new Date().getTime(),
       price: price * 100,
       currency: "USD",
+      metadata: {
+        insuranceCost: insuranceCostValue,
+      },
     };
   
     addItem(product, {
       product_metadata: { year, brand, number, value },
     });
-  
-    setInsuranceCost(insuranceCostValue);  // Update the insurance cost state
     setCartUpdated(true);
   };
 
@@ -205,8 +210,8 @@ export default function SubmitCardForm({ data }) {
   
       const numberOfCards = Object.keys(cartDetails).length;
       const declaredValue = calculateTotalDeclaredValue();
-      // const shippingCost = calculateShippingCost(numberOfCards, declaredValue);
-      // const insuranceCost = getInsuranceCost(declaredValue);
+      const shippingCost = calculateShippingCost(numberOfCards, declaredValue);
+      const insuranceCost = getInsuranceCost(declaredValue);
       const totalOrderCost = formattedTotalPrice + shippingCost;
   
       const response = await fetch("/api/stripe/product", {
@@ -408,7 +413,7 @@ export default function SubmitCardForm({ data }) {
             </Box>
             <Box display={"flex"} justifyContent={"space-between"} mb='4'>
               <LabelMedium>Insurance:</LabelMedium>
-              <BodyMedium>{insuranceCost}</BodyMedium>
+              {/* <BodyMedium>{insuranceCost}</BodyMedium> */}
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <LabelMedium>Order Total:</LabelMedium>
