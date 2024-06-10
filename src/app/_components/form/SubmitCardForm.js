@@ -26,8 +26,8 @@ import LabelMedium from "../typography/LabelMedium";
 import { fees } from "@/app/data/feeData";
 import { insuranceCost } from "@/app/data/insuranceData";
 import { uspsShipping, fedexShipping } from "@/app/data/shippingData";
-import Test from "./Test";
-import { metadata } from "@/app/layout";
+// import { metadata } from "@/app/layout";
+
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -46,7 +46,7 @@ export default function SubmitCardForm({ data }) {
   const [value, setValue] = useState();
   const [ebayUrl, setEbayUrl] = useState("");
   const { user, isLoading } = useUser();
-  const [insurance, setInsurance] = useState();
+  const [insuranceCost, setInsuranceCost] = useState(0);
 
 
   useEffect(() => {
@@ -124,26 +124,18 @@ export default function SubmitCardForm({ data }) {
 
 
   function getInsuranceCost(declaredValue) {
-    const levels = Object.keys(insuranceCost).map(parseFloat).sort((a, b) => a - b);
-
     declaredValue = Math.ceil(declaredValue / 100) * 100;
-    
-    console.log('declared value ', declaredValue)
-    console.log(typeof declaredValue)
-    console.log('getinsuranceCost test ---- ', insuranceCost[declaredValue.toString()]["Cost"])
-    console.log('getinsuranceCost test 2a ---- ', insuranceCost["1500"]["Cost"])
-
-    let insuranceValue = insuranceCost[declaredValue.toString()]["Cost"] 
-
-    setInsurance(insuranceValue); 
+  
+    if (insuranceCost.hasOwnProperty(declaredValue.toString())) {
+      return insuranceCost[declaredValue.toString()].Cost;
+    } else {
+      // Handle cases where the declaredValue key doesn't exist, if needed
+      return null; // or any default value or error handling
+    }
   }
-
-  let testInsurance = getInsuranceCost(declaredValue)
-  console.log('test insurance ', insurance)
 
   
   const addToCart = async () => {
-  
     if (!subscriptions.length) {
       alert("Please subscribe the membership first.");
       return;
@@ -155,13 +147,8 @@ export default function SubmitCardForm({ data }) {
   
     const subscriptionLevel = subscriptions[0].product.name;
     const declaredValue = parseFloat(value);
-    console.log('declared value --->  ', declaredValue)
-    let insuranceCost = getInsuranceCost(declaredValue);
-    // let shippingCost = calculateShippingCost(declaredValue, 3);
+    const insuranceCostValue = getInsuranceCost(declaredValue);
     const price = calculatePrice(declaredValue, subscriptionLevel);
-
-    console.log('insurance cost----- ', insuranceCost)
-    // console.log('shipping cost----- ', shippingCost)
   
     if (price === null) {
       return;
@@ -173,14 +160,13 @@ export default function SubmitCardForm({ data }) {
       id: "prod_Q90vXwIVPSesQV" + new Date().getTime(),
       price: price * 100,
       currency: "USD",
-      metadata: {
-        "insuranceCost": insuranceCost,
-      },
     };
   
     addItem(product, {
       product_metadata: { year, brand, number, value },
     });
+  
+    setInsuranceCost(insuranceCostValue);  // Update the insurance cost state
     setCartUpdated(true);
   };
 
@@ -219,8 +205,8 @@ export default function SubmitCardForm({ data }) {
   
       const numberOfCards = Object.keys(cartDetails).length;
       const declaredValue = calculateTotalDeclaredValue();
-      const shippingCost = calculateShippingCost(numberOfCards, declaredValue);
-      const insuranceCost = getInsuranceCost(declaredValue);
+      // const shippingCost = calculateShippingCost(numberOfCards, declaredValue);
+      // const insuranceCost = getInsuranceCost(declaredValue);
       const totalOrderCost = formattedTotalPrice + shippingCost;
   
       const response = await fetch("/api/stripe/product", {
@@ -422,7 +408,7 @@ export default function SubmitCardForm({ data }) {
             </Box>
             <Box display={"flex"} justifyContent={"space-between"} mb='4'>
               <LabelMedium>Insurance:</LabelMedium>
-              {/* <BodyMedium>{insuranceCost}</BodyMedium> */}
+              <BodyMedium>{insuranceCost}</BodyMedium>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <LabelMedium>Order Total:</LabelMedium>
