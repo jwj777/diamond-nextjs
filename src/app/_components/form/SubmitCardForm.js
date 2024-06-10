@@ -171,6 +171,9 @@ export default function SubmitCardForm({ data }) {
       id: "prod_Q90vXwIVPSesQV" + new Date().getTime(),
       price: price * 100,
       currency: "USD",
+      metadata: {
+        "insuranceCost": insuranceCost,
+      },
     };
   
     addItem(product, {
@@ -415,10 +418,10 @@ export default function SubmitCardForm({ data }) {
               <LabelMedium>Shipping:</LabelMedium>
               {/* <BodyMedium>{shippingCost}</BodyMedium> */}
             </Box>
-            {/* <Box display={"flex"} justifyContent={"space-between"} mb='4'>
+            <Box display={"flex"} justifyContent={"space-between"} mb='4'>
               <LabelMedium>Insurance:</LabelMedium>
-              <BodyMedium>{insurance}</BodyMedium>
-            </Box> */}
+              {/* <BodyMedium>{insuranceCost}</BodyMedium> */}
+            </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <LabelMedium>Order Total:</LabelMedium>
               <BodyMedium>{formattedTotalPrice}</BodyMedium>
