@@ -27,6 +27,7 @@ import { fees } from "@/app/data/feeData";
 import { insuranceCost } from "@/app/data/insuranceData";
 import { uspsShipping, fedexShipping } from "@/app/data/shippingData";
 import Test from "./Test";
+import { metadata } from "@/app/layout";
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -45,6 +46,7 @@ export default function SubmitCardForm({ data }) {
   const [value, setValue] = useState();
   const [ebayUrl, setEbayUrl] = useState("");
   const { user, isLoading } = useUser();
+  const [insurance, setInsurance] = useState();
 
 
   useEffect(() => {
@@ -133,7 +135,8 @@ export default function SubmitCardForm({ data }) {
     console.log('getinsuranceCost test 2a ---- ', insuranceCost["1500"]["Cost"])
 
     let insuranceValue = insuranceCost[declaredValue.toString()]["Cost"] 
-    return insuranceValue; 
+
+    setInsurance(insuranceValue); 
   }
 
   
@@ -168,6 +171,9 @@ export default function SubmitCardForm({ data }) {
       id: "prod_Q90vXwIVPSesQV" + new Date().getTime(),
       price: price * 100,
       currency: "USD",
+      metadata: {
+        "insuranceCost": insuranceCost,
+      },
     };
   
     addItem(product, {
@@ -414,7 +420,7 @@ export default function SubmitCardForm({ data }) {
             </Box>
             <Box display={"flex"} justifyContent={"space-between"} mb='4'>
               <LabelMedium>Insurance:</LabelMedium>
-              {/* <BodyMedium>{insuranceCost}</BodyMedium> */}
+              <BodyMedium>{insurance}</BodyMedium>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"}>
               <LabelMedium>Order Total:</LabelMedium>
