@@ -46,7 +46,7 @@ export default function SubmitCardForm({ data }) {
   const [value, setValue] = useState();
   const [ebayUrl, setEbayUrl] = useState("");
   const { user, isLoading } = useUser();
-  const [insurance, setInsurance] = useState();
+  const [insurance, setInsurance] = useState(0);
 
 
   useEffect(() => {
@@ -80,17 +80,15 @@ export default function SubmitCardForm({ data }) {
   const calculateTotalDeclaredValue = () => {
     return Object.values(cartDetails).reduce((total, item) => {
       return total + parseInt(item.product_data.value);
-    }, 0);
+    }, 0).toFixed(2);
   };
 
 
   const calculatePrice = (declaredValue, subscriptionLevel) => {
-  
     const levels = Object.keys(fees).map(parseFloat).sort((a, b) => a - b);
     const levelIdx = levels.findIndex(level => declaredValue <= level);
     const level = levels[levelIdx === -1 ? levels.length - 1 : levelIdx];
     const levelString = level.toString();
-  
     // Check if subscription level exists at the selected level
     if (fees[levelString] && fees[levelString][subscriptionLevel]) {
       const price = fees[level.toString()][subscriptionLevel.toString()]
@@ -123,6 +121,15 @@ export default function SubmitCardForm({ data }) {
   };
 
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const declaredValue = calculateTotalDeclaredValue();
+      const insuranceCostValue = getInsuranceCost(declaredValue);
+      setInsurance(insuranceCostValue);
+    }
+  }, [cartDetails]);
+
+
   function getInsuranceCost(declaredValue) {
     declaredValue = Math.ceil(declaredValue / 100) * 100;
   
@@ -134,10 +141,12 @@ export default function SubmitCardForm({ data }) {
     }
   }
 
-  const declaredValue = calculateTotalDeclaredValue();
-  let insuranceTest = getInsuranceCost(declaredValue);
-  console.log('insurance Test ', insuranceTest)
-
+  const calculateTotalPriceWithInsurance = () => {
+    const totalDeclaredValue = calculateTotalDeclaredValue();
+    const insuranceCostValue = getInsuranceCost(totalDeclaredValue);
+    const total = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g,"")) + (insuranceCostValue ? insuranceCostValue : 0);
+    return total.toFixed(2);
+  };
   
   const addToCart = async () => {
   
@@ -275,7 +284,6 @@ export default function SubmitCardForm({ data }) {
           <BodyMedium color="neutral.10">
             {data?.attributes?.Form_Subheading}
           </BodyMedium>
-
         </Box>
 
         <Box>
@@ -411,17 +419,17 @@ export default function SubmitCardForm({ data }) {
               <LabelMedium>Grading Fees:</LabelMedium>
               <BodyMedium>{formattedTotalPrice}</BodyMedium>
             </Box>
-            <Box display={"flex"} justifyContent={"space-between"} mb='4'>
+            <Box display={"flex"} justifyContent={"space-between"} mb='1'>
               <LabelMedium>Shipping:</LabelMedium>
               {/* <BodyMedium>{shippingCost}</BodyMedium> */}
             </Box>
-            <Box display={"flex"} justifyContent={"space-between"} mb='4'>
+            <Box display={"flex"} justifyContent={"space-between"} mb='2'>
               <LabelMedium>Insurance:</LabelMedium>
-              {/* <BodyMedium>{insuranceCost}</BodyMedium> */}
+              <BodyMedium>{insurance !== null ? `$${insurance.toFixed(2)}` : "$0.00"}</BodyMedium>
             </Box>
-            <Box display={"flex"} justifyContent={"space-between"}>
+            <Box display={"flex"} justifyContent={"space-between"} borderTop='1px' borderColor='neutral.80' pt='2'>
               <LabelMedium>Order Total:</LabelMedium>
-              <BodyMedium>{formattedTotalPrice}</BodyMedium>
+              <BodyMedium>${calculateTotalPriceWithInsurance()}</BodyMedium>
             </Box>
           </Box>
           <Button
@@ -502,7 +510,7 @@ export default function SubmitCardForm({ data }) {
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Insurance:</LabelMedium> 
-                    <BodyMedium>{insurance}</BodyMedium>
+                    <BodyMedium>{insurance !== null ? `$${insurance.toFixed(2)}` : "$0.00"}</BodyMedium>
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Total:</LabelMedium> 
