@@ -438,7 +438,7 @@ export default function SubmitCardForm({ data }) {
             </Box>
             {/* <Box display={"flex"} justifyContent={"space-between"} mb='1'>
               <LabelMedium>Shipping:</LabelMedium>
-              <BodyMedium>${calculateTotalPriceWithShippingAndInsurance()}</BodyMedium>
+              <BodyMedium>${calculateShippingCost()}</BodyMedium>
             </Box> */}
             <Box display={"flex"} justifyContent={"space-between"} mb='2'>
               <LabelMedium>Insurance:</LabelMedium>
@@ -446,7 +446,7 @@ export default function SubmitCardForm({ data }) {
             </Box>
             <Box display={"flex"} justifyContent={"space-between"} borderTop='1px' borderColor='neutral.80' pt='2'>
               <LabelMedium>Order Total:</LabelMedium>
-              <BodyMedium>${calculateTotalPriceWithInsurance()}</BodyMedium>
+              <BodyMedium>${calculateTotalPriceWithShippingAndInsurance()}</BodyMedium>
             </Box>
           </Box>
 
@@ -482,7 +482,7 @@ export default function SubmitCardForm({ data }) {
                   key={index}
                   bg="white"
                   p='4'
-                  mb='6'
+                  mb='5'
                   borderRadius="0.8rem"
                 >
                   <Box display={"flex"} justifyContent={"space-between"} alignItems='center'>
@@ -526,14 +526,14 @@ export default function SubmitCardForm({ data }) {
                     <LabelMedium>Shipping:</LabelMedium> 
                     <BodyMedium>${calculateTotalPriceWithShippingAndInsurance()}</BodyMedium>
                   </Box> */}
-                  <Box display={"flex"} justifyContent={"space-between"}>
+                  {/* <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Insurance:</LabelMedium> 
                     <BodyMedium>{insurance !== null ? `$${insurance.toFixed(2)}` : "$0.00"}</BodyMedium>
-                  </Box>
-                  <Box display={"flex"} justifyContent={"space-between"}>
+                  </Box> */}
+                  {/* <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Total:</LabelMedium> 
                     <BodyMedium>{cartDetails[item].formattedValue}</BodyMedium>
-                  </Box>
+                  </Box> */}
                 </Box>
               ))}
             </>
