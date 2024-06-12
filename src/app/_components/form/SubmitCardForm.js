@@ -26,7 +26,6 @@ import LabelMedium from "../typography/LabelMedium";
 import { fees } from "@/app/data/feeData";
 import { insuranceCost } from "@/app/data/insuranceData";
 import { uspsShipping, fedexShipping } from "@/app/data/shippingData";
-// import { metadata } from "@/app/layout";
 
 
 export default function SubmitCardForm({ data }) {
@@ -37,7 +36,6 @@ export default function SubmitCardForm({ data }) {
   const [error, setError] = useState(null);
   const [cartUpdated, setCartUpdated] = useState(false);
 
-  // const [formSubmit, setFormSubmit] = useState(false);
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [year, setYear] = useState();
@@ -47,6 +45,7 @@ export default function SubmitCardForm({ data }) {
   const [ebayUrl, setEbayUrl] = useState("");
   const { user, isLoading } = useUser();
   const [insurance, setInsurance] = useState(0);
+  const [shippingCost, setShippingCost] = useState(0);
 
 
   useEffect(() => {
@@ -99,25 +98,25 @@ export default function SubmitCardForm({ data }) {
   };
 
 
-  const calculateShippingCost = (numberOfCards, declaredValue) => {
+  const calculateShippingCost = (numberOfItems, declaredValue) => {
     const shippingRates = declaredValue >= 1500 ? fedexShipping : uspsShipping;
-    let remainingCards = numberOfCards;
+    let remainingItems = numberOfItems;
     let totalCost = 0;
   
-    while (remainingCards > 0) {
-      if (remainingCards <= shippingRates.smallBox.capacity) {
+    while (remainingItems > 0) {
+      if (remainingItems <= shippingRates.smallBox.capacity) {
         totalCost += shippingRates.smallBox.cost;
-        remainingCards -= shippingRates.smallBox.capacity;
-      } else if (remainingCards <= shippingRates.mediumBox.capacity) {
+        remainingItems -= shippingRates.smallBox.capacity;
+      } else if (remainingItems <= shippingRates.mediumBox.capacity) {
         totalCost += shippingRates.mediumBox.cost;
-        remainingCards -= shippingRates.mediumBox.capacity;
+        remainingItems -= shippingRates.mediumBox.capacity;
       } else {
         totalCost += shippingRates.largeBox.cost;
-        remainingCards -= shippingRates.largeBox.capacity;
+        remainingItems -= shippingRates.largeBox.capacity;
       }
     }
   
-    return totalCost;
+    return totalCost.toFixed(2);
   };
 
 
@@ -145,6 +144,18 @@ export default function SubmitCardForm({ data }) {
     const totalDeclaredValue = calculateTotalDeclaredValue();
     const insuranceCostValue = getInsuranceCost(totalDeclaredValue);
     const total = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g,"")) + (insuranceCostValue ? insuranceCostValue : 0);
+    return total.toFixed(2);
+  };
+
+
+  const calculateTotalPriceWithShippingAndInsurance = () => {
+    const totalDeclaredValue = calculateTotalDeclaredValue();
+    const insuranceCostValue = getInsuranceCost(totalDeclaredValue);
+    const numberOfItems = Object.keys(cartDetails).length;
+    const shippingCostValue = calculateShippingCost(numberOfItems, totalDeclaredValue);
+    const total = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, "")) +
+                  (insuranceCostValue ? insuranceCostValue : 0) +
+                  (shippingCostValue ? parseFloat(shippingCostValue) : 0);
     return total.toFixed(2);
   };
   
@@ -404,24 +415,30 @@ export default function SubmitCardForm({ data }) {
         pb="16"
         borderRadius="20"
       >
-        <Box mb="8">
-          <TitleLarge color="neutral.10">Order Summary</TitleLarge>
-          <Box mb="6" p="7" bg="neutral.90" borderRadius='1rem'>
+        <Box>
+          <Box mb='4'>
+            <TitleLarge color="neutral.10">Order Summary</TitleLarge>
+          </Box>
+
+          <Box mb='6' p="7" pb='5' bg="neutral.90" borderRadius='1rem'>
             <Box display={"flex"} justifyContent={"space-between"} mb='1'>
               <LabelMedium>Total Items:</LabelMedium>
               <BodyMedium>{cartCount}</BodyMedium>
             </Box>
-            <Box display={"flex"} justifyContent={"space-between"} mb='1'>
+            <Box display={"flex"} justifyContent={"space-between"} mb='2'>
               <LabelMedium>Total Declared Value:</LabelMedium>
               <BodyMedium>${calculateTotalDeclaredValue()}</BodyMedium>
             </Box>
+          </Box>
+
+          <Box mb="6" p="7" bg="neutral.90" borderRadius='1rem'>
             <Box display={"flex"} justifyContent={"space-between"} mb='1'>
               <LabelMedium>Grading Fees:</LabelMedium>
               <BodyMedium>{formattedTotalPrice}</BodyMedium>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"} mb='1'>
               <LabelMedium>Shipping:</LabelMedium>
-              {/* <BodyMedium>{shippingCost}</BodyMedium> */}
+              <BodyMedium>${calculateTotalPriceWithShippingAndInsurance()}</BodyMedium>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"} mb='2'>
               <LabelMedium>Insurance:</LabelMedium>
@@ -432,6 +449,7 @@ export default function SubmitCardForm({ data }) {
               <BodyMedium>${calculateTotalPriceWithInsurance()}</BodyMedium>
             </Box>
           </Box>
+
           <Button
             size={{ base: 'md', md: 'lg' }}
             variant="primaryLight"
@@ -442,7 +460,7 @@ export default function SubmitCardForm({ data }) {
           </Button>
         </Box>
 
-        <Box mb="8">
+        <Box mt='12' mb="8">
           <Box display='flex' justifyContent='space-between' mb='2'>
             <TitleLarge color="neutral.10">Items In Order</TitleLarge>
             <Link
@@ -464,7 +482,7 @@ export default function SubmitCardForm({ data }) {
                   key={index}
                   bg="white"
                   p='4'
-                  mb='2'
+                  mb='6'
                   borderRadius="0.8rem"
                 >
                   <Box display={"flex"} justifyContent={"space-between"} alignItems='center'>
@@ -504,10 +522,10 @@ export default function SubmitCardForm({ data }) {
                     <LabelMedium>Grading Fee:</LabelMedium> 
                     <BodyMedium>{cartDetails[item].formattedValue}</BodyMedium>
                   </Box>
-                  <Box display={"flex"} justifyContent={"space-between"}>
+                  {/* <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Shipping:</LabelMedium> 
-                    {/* <BodyMedium>{shippingCost}</BodyMedium> */}
-                  </Box>
+                    <BodyMedium>${calculateTotalPriceWithShippingAndInsurance()}</BodyMedium>
+                  </Box> */}
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Insurance:</LabelMedium> 
                     <BodyMedium>{insurance !== null ? `$${insurance.toFixed(2)}` : "$0.00"}</BodyMedium>
