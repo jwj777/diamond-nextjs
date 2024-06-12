@@ -436,10 +436,10 @@ export default function SubmitCardForm({ data }) {
               <LabelMedium>Grading Fees:</LabelMedium>
               <BodyMedium>{formattedTotalPrice}</BodyMedium>
             </Box>
-            <Box display={"flex"} justifyContent={"space-between"} mb='1'>
+            {/* <Box display={"flex"} justifyContent={"space-between"} mb='1'>
               <LabelMedium>Shipping:</LabelMedium>
               <BodyMedium>${calculateTotalPriceWithShippingAndInsurance()}</BodyMedium>
-            </Box>
+            </Box> */}
             <Box display={"flex"} justifyContent={"space-between"} mb='2'>
               <LabelMedium>Insurance:</LabelMedium>
               <BodyMedium>{insurance !== null ? `$${insurance.toFixed(2)}` : "$0.00"}</BodyMedium>
