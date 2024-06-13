@@ -125,6 +125,10 @@ export default function SubmitCardForm({ data }) {
       const declaredValue = calculateTotalDeclaredValue();
       const insuranceCostValue = getInsuranceCost(declaredValue);
       setInsurance(insuranceCostValue);
+
+      const numberOfItems = Object.keys(cartDetails).length;
+      const shippingCostValue = calculateShippingCost(numberOfItems, declaredValue);
+      setShippingCost(shippingCostValue);
     }
   }, [cartDetails]);
 
@@ -140,12 +144,12 @@ export default function SubmitCardForm({ data }) {
     }
   }
 
-  const calculateTotalPriceWithInsurance = () => {
-    const totalDeclaredValue = calculateTotalDeclaredValue();
-    const insuranceCostValue = getInsuranceCost(totalDeclaredValue);
-    const total = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g,"")) + (insuranceCostValue ? insuranceCostValue : 0);
-    return total.toFixed(2);
-  };
+  // const calculateTotalPriceWithInsurance = () => {
+  //   const totalDeclaredValue = calculateTotalDeclaredValue();
+  //   const insuranceCostValue = getInsuranceCost(totalDeclaredValue);
+  //   const total = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g,"")) + (insuranceCostValue ? insuranceCostValue : 0);
+  //   return total.toFixed(2);
+  // };
 
 
   const calculateTotalPriceWithShippingAndInsurance = () => {
@@ -172,11 +176,8 @@ export default function SubmitCardForm({ data }) {
   
     const subscriptionLevel = subscriptions[0].product.name;
     const declaredValue = parseFloat(value);
-    console.log('declared value --->  ', declaredValue)
     const insuranceCostValue = getInsuranceCost(declaredValue);
     const price = calculatePrice(declaredValue, subscriptionLevel);
-
-    console.log('insurance cost (ADD TO CART) ----- ', insuranceCostValue)
   
     if (price === null) {
       return;
@@ -235,7 +236,7 @@ export default function SubmitCardForm({ data }) {
       const numberOfCards = Object.keys(cartDetails).length;
       const declaredValue = calculateTotalDeclaredValue();
       const shippingCost = calculateShippingCost(numberOfCards, declaredValue);
-      const insuranceCost = getInsuranceCost(declaredValue);
+      // const insuranceCost = getInsuranceCost(declaredValue);
       const totalOrderCost = formattedTotalPrice + shippingCost;
   
       const response = await fetch("/api/stripe/product", {
@@ -438,7 +439,7 @@ export default function SubmitCardForm({ data }) {
             </Box>
             <Box display={"flex"} justifyContent={"space-between"} mb='1'>
               <LabelMedium>Shipping:</LabelMedium>
-              {/* <BodyMedium>${calculateShippingCost()}</BodyMedium> */}
+              <BodyMedium>${shippingCost}</BodyMedium>
             </Box>
             <Box display={"flex"} justifyContent={"space-between"} mb='2'>
               <LabelMedium>Insurance:</LabelMedium>

@@ -1,6 +1,6 @@
 "use client";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { Box, Text, Button, Link } from "@chakra-ui/react";
+import { Box, Text, Button, Link, Spinner } from "@chakra-ui/react";
 import PricingCard from "../card/PricingCard";
 import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect } from "react";
@@ -68,18 +68,42 @@ export default function PricingCards({ data }) {
     fetchData();
   }, []);
 
+  // useEffect(() => {
+  //   if (isLoading) return; // Wait until loading is done
+  //   if (!user) return;
+
+  //   async function fetchSubscriptions() {
+  //     try {
+  //       const customerRes = await fetch(`/api/stripe/customer?email=${user.email}`);
+  //       const customerData = await customerRes.json();
+
+  //       const response = await fetch(`/api/stripe/subscriptions?customerId=${customerData.id}`);
+  //       const data = await response.json();
+
+  //       // Check if user has any subscriptions
+  //       if (data && data.length > 0) {
+  //         setHasMembership(true);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching subscriptions:", error);
+  //     }
+  //   }
+  //   fetchSubscriptions();
+  // }, [user, isLoading]);
+
+
   useEffect(() => {
     if (isLoading) return; // Wait until loading is done
     if (!user) return;
-
+  
     async function fetchSubscriptions() {
       try {
         const customerRes = await fetch(`/api/stripe/customer?email=${user.email}`);
         const customerData = await customerRes.json();
-
+  
         const response = await fetch(`/api/stripe/subscriptions?customerId=${customerData.id}`);
         const data = await response.json();
-
+  
         // Check if user has any subscriptions
         if (data && data.length > 0) {
           setHasMembership(true);
@@ -91,8 +115,10 @@ export default function PricingCards({ data }) {
     fetchSubscriptions();
   }, [user, isLoading]);
 
+
+
   if (loading) {
-    return <p>Loading...</p>;
+    return <Box><Spinner color='primary.80' emptyColor="neutral.30" /></Box>;
   }
 
   if (error) {
