@@ -10,7 +10,7 @@ import {
   Grid,
   GridItem,
   Icon,
-  Tooltip
+  Tooltip,
 } from "@chakra-ui/react";
 import TitleLarge from "../typography/TitleLarge";
 import BodyMedium from "../typography/BodyMedium";
@@ -27,11 +27,16 @@ import { fees } from "@/app/data/feeData";
 import { insuranceCost } from "@/app/data/insuranceData";
 import { uspsShipping, fedexShipping } from "@/app/data/shippingData";
 
-
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
-  const { addItem, cartDetails, clearCart, cartCount, formattedTotalPrice, removeItem } =
-    useShoppingCart();
+  const {
+    addItem,
+    cartDetails,
+    clearCart,
+    cartCount,
+    formattedTotalPrice,
+    removeItem,
+  } = useShoppingCart();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cartUpdated, setCartUpdated] = useState(false);
@@ -47,6 +52,7 @@ export default function SubmitCardForm({ data }) {
   const [insurance, setInsurance] = useState(0);
   const [shippingCost, setShippingCost] = useState(0);
 
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -75,34 +81,35 @@ export default function SubmitCardForm({ data }) {
     fetchSubscriptions();
   }, [user, isLoading]);
 
-
   const calculateTotalDeclaredValue = () => {
-    return Object.values(cartDetails).reduce((total, item) => {
-      return total + parseInt(item.product_data.value);
-    }, 0).toFixed(2);
+    return Object.values(cartDetails)
+      .reduce((total, item) => {
+        return total + parseInt(item.product_data.value);
+      }, 0)
+      .toFixed(2);
   };
 
-
   const calculatePrice = (declaredValue, subscriptionLevel) => {
-    const levels = Object.keys(fees).map(parseFloat).sort((a, b) => a - b);
-    const levelIdx = levels.findIndex(level => declaredValue <= level);
+    const levels = Object.keys(fees)
+      .map(parseFloat)
+      .sort((a, b) => a - b);
+    const levelIdx = levels.findIndex((level) => declaredValue <= level);
     const level = levels[levelIdx === -1 ? levels.length - 1 : levelIdx];
     const levelString = level.toString();
     // Check if subscription level exists at the selected level
     if (fees[levelString] && fees[levelString][subscriptionLevel]) {
-      const price = fees[level.toString()][subscriptionLevel.toString()]
+      const price = fees[level.toString()][subscriptionLevel.toString()];
       return price;
     } else {
       return null;
     }
   };
 
-
   const calculateShippingCost = (numberOfItems, declaredValue) => {
     const shippingRates = declaredValue >= 1500 ? fedexShipping : uspsShipping;
     let remainingItems = numberOfItems;
     let totalCost = 0;
-  
+
     while (remainingItems > 0) {
       if (remainingItems <= shippingRates.smallBox.capacity) {
         totalCost += shippingRates.smallBox.cost;
@@ -115,10 +122,9 @@ export default function SubmitCardForm({ data }) {
         remainingItems -= shippingRates.largeBox.capacity;
       }
     }
-  
+
     return totalCost.toFixed(2);
   };
-
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -127,15 +133,17 @@ export default function SubmitCardForm({ data }) {
       setInsurance(insuranceCostValue);
 
       const numberOfItems = Object.keys(cartDetails).length;
-      const shippingCostValue = calculateShippingCost(numberOfItems, declaredValue);
+      const shippingCostValue = calculateShippingCost(
+        numberOfItems,
+        declaredValue
+      );
       setShippingCost(shippingCostValue);
     }
   }, [cartDetails]);
 
-
   function getInsuranceCost(declaredValue) {
     declaredValue = Math.ceil(declaredValue / 100) * 100;
-  
+
     if (insuranceCost.hasOwnProperty(declaredValue.toString())) {
       return insuranceCost[declaredValue.toString()].Cost;
     } else {
@@ -151,20 +159,23 @@ export default function SubmitCardForm({ data }) {
   //   return total.toFixed(2);
   // };
 
-
   const calculateTotalPriceWithShippingAndInsurance = () => {
     const totalDeclaredValue = calculateTotalDeclaredValue();
     const insuranceCostValue = getInsuranceCost(totalDeclaredValue);
     const numberOfItems = Object.keys(cartDetails).length;
-    const shippingCostValue = calculateShippingCost(numberOfItems, totalDeclaredValue);
-    const total = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, "")) +
-                  (insuranceCostValue ? insuranceCostValue : 0) +
-                  (shippingCostValue ? parseFloat(shippingCostValue) : 0);
+    const shippingCostValue = calculateShippingCost(
+      numberOfItems,
+      totalDeclaredValue
+    );
+    const total =
+      parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, "")) +
+      (insuranceCostValue ? insuranceCostValue : 0) +
+      (shippingCostValue ? parseFloat(shippingCostValue) : 0);
+    console.log("t", total);
     return total.toFixed(2);
   };
-  
+
   const addToCart = async () => {
-  
     if (!subscriptions.length) {
       alert("Please subscribe the membership first.");
       return;
@@ -173,16 +184,16 @@ export default function SubmitCardForm({ data }) {
       alert("Please input all fields.");
       return;
     }
-  
+
     const subscriptionLevel = subscriptions[0].product.name;
     const declaredValue = parseFloat(value);
     const insuranceCostValue = getInsuranceCost(declaredValue);
     const price = calculatePrice(declaredValue, subscriptionLevel);
-  
+
     if (price === null) {
       return;
     }
-  
+
     const product = {
       name,
       description: desc,
@@ -193,60 +204,63 @@ export default function SubmitCardForm({ data }) {
         insuranceCost: insuranceCostValue,
       },
     };
-  
+
     addItem(product, {
       product_metadata: { year, brand, number, value },
     });
     setCartUpdated(true);
   };
 
-  
   useEffect(() => {
     if (cartUpdated) {
       console.log("Cart details after adding:", cartDetails);
       setCartUpdated(false);
     }
   }, [cartUpdated, cartDetails]);
-  
 
   useEffect(() => {
     console.log("Initial cartDetails:", cartDetails);
+    setIsClient(true);
   }, []);
-
 
   useEffect(() => {
     if (name && brand && year && number) {
       const query = `${year} ${brand} ${name} ${number}`;
-      const url = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(query)}`;
+      const url = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(
+        query
+      )}`;
       setEbayUrl(url);
     }
   }, [name, brand, year, number]);
 
-
   const handleCheckout = async () => {
     setLoading(true);
     setError(null);
-  
+
     try {
       const customerRes = await fetch(
         `/api/stripe/customer?email=${user.email}`
       );
       const customerData = await customerRes.json();
-  
+
       const numberOfCards = Object.keys(cartDetails).length;
       const declaredValue = calculateTotalDeclaredValue();
       const shippingCost = calculateShippingCost(numberOfCards, declaredValue);
       // const insuranceCost = getInsuranceCost(declaredValue);
       const totalOrderCost = formattedTotalPrice + shippingCost;
-  
+
       const response = await fetch("/api/stripe/product", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ cartDetails, customerId: customerData.id, totalOrderCost }),
+        body: JSON.stringify({
+          cartDetails,
+          customerId: customerData.id,
+          totalOrderCost,
+        }),
       });
-  
+
       const data = await response.json();
       if (data.sessionId) {
         const stripe = await loadStripe(
@@ -269,12 +283,10 @@ export default function SubmitCardForm({ data }) {
     setLoading(false);
   };
 
-
   const handleRemoveItem = (id) => {
-    console.log("handleRemoveItem called with id: ", id)
+    console.log("handleRemoveItem called with id: ", id);
     removeItem(id);
   };
-
 
   return (
     <Grid templateColumns="repeat(4, 1fr)">
@@ -320,9 +332,9 @@ export default function SubmitCardForm({ data }) {
               <Select
                 placeholder="Card Brand"
                 bg="neutral.90"
-                borderColor='neutral.80'
+                borderColor="neutral.80"
                 fontSize="1.2rem"
-                fontWeight='500'
+                fontWeight="500"
                 h="16"
                 borderRadius="8"
                 value={brand}
@@ -384,167 +396,182 @@ export default function SubmitCardForm({ data }) {
           </Box>
           <Box mt="4">
             {ebayUrl ? (
-              <Link href={ebayUrl} isExternal variant='primaryLightText' size='mdText'>
-                See {year + ' ' + brand + ' ' + name + ' ' + number} examples on eBay
+              <Link
+                href={ebayUrl}
+                isExternal
+                variant="primaryLightText"
+                size="mdText"
+              >
+                See {year + " " + brand + " " + name + " " + number} examples on
+                eBay
               </Link>
-            ) : (
-              null
-            )}
+            ) : null}
           </Box>
         </Box>
 
         <Button
           mt="4"
-          size={{ base: 'md', md: 'lg' }}
+          size={{ base: "md", md: "lg" }}
           type="submit"
-          variant='primaryLight'
+          variant="primaryLight"
           onClick={(e) => addToCart()}
         >
           {"Add to Order"}
         </Button>
-
       </GridItem>
 
-      <GridItem
-        colSpan={2}
-        maxW="680px"
-        mt="24"
-        mb="20"
-        mx="2"
-        bg="neutral.95"
-        p="10"
-        pb="16"
-        borderRadius="20"
-      >
-        <Box>
-          <Box mb='4'>
-            <TitleLarge color="neutral.10">Order Summary</TitleLarge>
-          </Box>
+      {isClient && (
+        <GridItem
+          colSpan={2}
+          maxW="680px"
+          mt="24"
+          mb="20"
+          mx="2"
+          bg="neutral.95"
+          p="10"
+          pb="16"
+          borderRadius="20"
+        >
+          <Box>
+            <Box mb="4">
+              <TitleLarge color="neutral.10">Order Summary</TitleLarge>
+            </Box>
 
-          <Box mb='6' p="7" pb='5' bg="neutral.90" borderRadius='1rem'>
-            <Box display={"flex"} justifyContent={"space-between"} mb='1'>
-              <LabelMedium>Total Items:</LabelMedium>
-              <BodyMedium>{cartCount}</BodyMedium>
+            <Box mb="6" p="7" pb="5" bg="neutral.90" borderRadius="1rem">
+              <Box display={"flex"} justifyContent={"space-between"} mb="1">
+                <LabelMedium>Total Items:</LabelMedium>
+                <BodyMedium>{cartCount}</BodyMedium>
+              </Box>
+              <Box display={"flex"} justifyContent={"space-between"} mb="2">
+                <LabelMedium>Total Declared Value:</LabelMedium>
+                <BodyMedium>${calculateTotalDeclaredValue()}</BodyMedium>
+              </Box>
             </Box>
-            <Box display={"flex"} justifyContent={"space-between"} mb='2'>
-              <LabelMedium>Total Declared Value:</LabelMedium>
-              <BodyMedium>${calculateTotalDeclaredValue()}</BodyMedium>
-            </Box>
-          </Box>
 
-          <Box mb="6" p="7" bg="neutral.90" borderRadius='1rem'>
-            <Box display={"flex"} justifyContent={"space-between"} mb='1'>
-              <LabelMedium>Grading Fees:</LabelMedium>
-              <BodyMedium>{formattedTotalPrice}</BodyMedium>
+            <Box mb="6" p="7" bg="neutral.90" borderRadius="1rem">
+              <Box display={"flex"} justifyContent={"space-between"} mb="1">
+                <LabelMedium>Grading Fees:</LabelMedium>
+                <BodyMedium>
+                  ${formattedTotalPrice}
+                </BodyMedium>
+              </Box>
+              <Box display={"flex"} justifyContent={"space-between"} mb="1">
+                <LabelMedium>Shipping:</LabelMedium>
+                <BodyMedium>${shippingCost}</BodyMedium>
+              </Box>
+              <Box display={"flex"} justifyContent={"space-between"} mb="2">
+                <LabelMedium>Insurance:</LabelMedium>
+                <BodyMedium>
+                  {insurance !== null ? `$${insurance.toFixed(2)}` : "$0.00"}
+                </BodyMedium>
+              </Box>
+              <Box
+                display={"flex"}
+                justifyContent={"space-between"}
+                borderTop="1px"
+                borderColor="neutral.80"
+                pt="2"
+              >
+                <LabelMedium>Order Total:</LabelMedium>
+                <BodyMedium>{`$${calculateTotalPriceWithShippingAndInsurance()}`}</BodyMedium>
+              </Box>
             </Box>
-            <Box display={"flex"} justifyContent={"space-between"} mb='1'>
-              <LabelMedium>Shipping:</LabelMedium>
-              <BodyMedium>${shippingCost}</BodyMedium>
-            </Box>
-            <Box display={"flex"} justifyContent={"space-between"} mb='2'>
-              <LabelMedium>Insurance:</LabelMedium>
-              <BodyMedium>{insurance !== null ? `$${insurance.toFixed(2)}` : "$0.00"}</BodyMedium>
-            </Box>
-            <Box display={"flex"} justifyContent={"space-between"} borderTop='1px' borderColor='neutral.80' pt='2'>
-              <LabelMedium>Order Total:</LabelMedium>
-              <BodyMedium>${calculateTotalPriceWithShippingAndInsurance()}</BodyMedium>
-            </Box>
-          </Box>
 
-          <Button
-            size={{ base: 'md', md: 'lg' }}
-            variant="primaryLight"
-            type="submit"
-            onClick={(e) => handleCheckout()}
-          >
-            {"Place Your Order"}
-          </Button>
-        </Box>
-
-        <Box mt='12' mb="8">
-          <Box display='flex' justifyContent='space-between' mb='2'>
-            <TitleLarge color="neutral.10">Items In Order</TitleLarge>
-            <Link
-              href="#"
-              alt=""
-              variant="primaryLightText"
+            <Button
+              size={{ base: "md", md: "lg" }}
+              variant="primaryLight"
               type="submit"
-              onClick={(e) => clearCart()}
+              onClick={(e) => handleCheckout()}
             >
-              {"Clear the Cart"}
-            </Link>
+              {"Place Your Order"}
+            </Button>
           </Box>
-          
-          <Box mb="5" p="7" bg="neutral.90" borderRadius="1rem">
-          {Object.keys(cartDetails).length ? (
-            <>
-              {Object.keys(cartDetails).map((item, index) => (
-                <Box
-                  key={index}
-                  bg="white"
-                  p='4'
-                  mb='5'
-                  borderRadius="0.8rem"
-                >
-                  <Box display={"flex"} justifyContent={"space-between"} alignItems='center'>
-                    <LabelMedium mb='1'>{ 
-                        `${cartDetails[item].product_data.year} 
-                        ${cartDetails[item].product_data.brand} 
-                        ${cartDetails[item].name} #${cartDetails[item].product_data.number}`
-                      }
-                    </LabelMedium>
 
-                      <Link
-                        href="#/"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleRemoveItem(cartDetails[item].id)
-                        }}
-                        color="red.500"
-                        variant='noDeco'
-                        size='mdText'
-                        ml="4"
-                        mb='2'
+          <Box mt="12" mb="8">
+            <Box display="flex" justifyContent="space-between" mb="2">
+              <TitleLarge color="neutral.10">Items In Order</TitleLarge>
+              <Link
+                href="#"
+                alt=""
+                variant="primaryLightText"
+                type="submit"
+                onClick={(e) => clearCart()}
+              >
+                {"Clear the Cart"}
+              </Link>
+            </Box>
+
+            <Box mb="5" p="7" bg="neutral.90" borderRadius="1rem">
+              {Object.keys(cartDetails).length ? (
+                <>
+                  {Object.keys(cartDetails).map((item, index) => (
+                    <Box
+                      key={index}
+                      bg="white"
+                      p="4"
+                      mb="5"
+                      borderRadius="0.8rem"
+                    >
+                      <Box
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                        alignItems="center"
                       >
-                        <Icon
-                          as={MdDelete}
-                          w='6'
-                          h='6'
-                          color='primary.40'
-                        />
-                      </Link>
+                        <LabelMedium mb="1">
+                          {`${cartDetails[item].product_data.year} 
+                        ${cartDetails[item].product_data.brand} 
+                        ${cartDetails[item].name} #${cartDetails[item].product_data.number}`}
+                        </LabelMedium>
 
-                  </Box>
-                  <Box display={"flex"} justifyContent={"space-between"}>
-                    <LabelMedium>Declared Value:</LabelMedium> 
-                    <BodyMedium>${cartDetails[item].product_data.value}</BodyMedium>
-                  </Box>
-                  <Box display={"flex"} justifyContent={"space-between"}>
-                    <LabelMedium>Grading Fee:</LabelMedium> 
-                    <BodyMedium>{cartDetails[item].formattedValue}</BodyMedium>
-                  </Box>
-                  {/* <Box display={"flex"} justifyContent={"space-between"}>
+                        <Link
+                          href="#/"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleRemoveItem(cartDetails[item].id);
+                          }}
+                          color="red.500"
+                          variant="noDeco"
+                          size="mdText"
+                          ml="4"
+                          mb="2"
+                        >
+                          <Icon as={MdDelete} w="6" h="6" color="primary.40" />
+                        </Link>
+                      </Box>
+                      <Box display={"flex"} justifyContent={"space-between"}>
+                        <LabelMedium>Declared Value:</LabelMedium>
+                        <BodyMedium>
+                          ${cartDetails[item].product_data.value}
+                        </BodyMedium>
+                      </Box>
+                      <Box display={"flex"} justifyContent={"space-between"}>
+                        <LabelMedium>Grading Fee:</LabelMedium>
+                        <BodyMedium>
+                          {cartDetails[item].formattedValue}
+                        </BodyMedium>
+                      </Box>
+                      {/* <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Shipping:</LabelMedium> 
                     <BodyMedium>${calculateTotalPriceWithShippingAndInsurance()}</BodyMedium>
                   </Box> */}
-                  {/* <Box display={"flex"} justifyContent={"space-between"}>
+                      {/* <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Insurance:</LabelMedium> 
                     <BodyMedium>{insurance !== null ? `$${insurance.toFixed(2)}` : "$0.00"}</BodyMedium>
                   </Box> */}
-                  {/* <Box display={"flex"} justifyContent={"space-between"}>
+                      {/* <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Total:</LabelMedium> 
                     <BodyMedium>{cartDetails[item].formattedValue}</BodyMedium>
                   </Box> */}
-                </Box>
-              ))}
-            </>
-          ) : (
-            <Text>No Items</Text>
-          )}
+                    </Box>
+                  ))}
+                </>
+              ) : (
+                <Text>No Items</Text>
+              )}
+            </Box>
           </Box>
-
-        </Box>
-      </GridItem>
+        </GridItem>
+      )}
     </Grid>
   );
 }

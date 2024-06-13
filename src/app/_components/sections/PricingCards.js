@@ -5,9 +5,11 @@ import PricingCard from "../card/PricingCard";
 import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect } from "react";
 
-async function getPlans() { 
+async function getPlans() {
   try {
-    const url = 'https://strapi-production-0074.up.railway.app' + '/api/member-plans?[populate]=*';
+    const url =
+      "https://strapi-production-0074.up.railway.app" +
+      "/api/member-plans?[populate]=*";
     console.log("Fetching plans from URL:", url);
     const response = await fetch(url);
     if (!response.ok) {
@@ -36,14 +38,18 @@ export default function PricingCards({ data }) {
       try {
         const productsResponse = await fetch("/api/stripe/products");
         if (!productsResponse.ok) {
-          throw new Error(`Failed to fetch products, status: ${productsResponse.status}`);
+          throw new Error(
+            `Failed to fetch products, status: ${productsResponse.status}`
+          );
         }
         const productsData = await productsResponse.json();
         const plansData = await getPlans();
 
         // Combine the data
-        const combinedData = productsData.map(product => {
-          const plan = plansData.find(plan => plan.attributes.Stripe_ID === product.id);
+        const combinedData = productsData.map((product) => {
+          const plan = plansData.find(
+            (plan) => plan.attributes.Stripe_ID === product.id
+          );
           if (plan) {
             return {
               ...product,
@@ -91,19 +97,22 @@ export default function PricingCards({ data }) {
   //   fetchSubscriptions();
   // }, [user, isLoading]);
 
-
   useEffect(() => {
     if (isLoading) return; // Wait until loading is done
     if (!user) return;
-  
+
     async function fetchSubscriptions() {
       try {
-        const customerRes = await fetch(`/api/stripe/customer?email=${user.email}`);
+        const customerRes = await fetch(
+          `/api/stripe/customer?email=${user.email}`
+        );
         const customerData = await customerRes.json();
-  
-        const response = await fetch(`/api/stripe/subscriptions?customerId=${customerData.id}`);
+
+        const response = await fetch(
+          `/api/stripe/subscriptions?customerId=${customerData.id}`
+        );
         const data = await response.json();
-  
+
         // Check if user has any subscriptions
         if (data && data.length > 0) {
           setHasMembership(true);
@@ -115,10 +124,12 @@ export default function PricingCards({ data }) {
     fetchSubscriptions();
   }, [user, isLoading]);
 
-
-
   if (loading) {
-    return <Box><Spinner color='primary.80' emptyColor="neutral.30" /></Box>;
+    return (
+      <Box>
+        <Spinner color="primary.80" emptyColor="neutral.30" />
+      </Box>
+    );
   }
 
   if (error) {
@@ -133,7 +144,9 @@ export default function PricingCards({ data }) {
     setError(null);
 
     try {
-      const customerRes = await fetch(`/api/stripe/customer?email=${user.email}`);
+      const customerRes = await fetch(
+        `/api/stripe/customer?email=${user.email}`
+      );
       const customerData = await customerRes.json();
 
       const response = await fetch("/api/stripe/create", {
@@ -146,7 +159,9 @@ export default function PricingCards({ data }) {
 
       const data = await response.json();
       if (data.sessionId) {
-        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+        const stripe = await loadStripe(
+          process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+        );
         const { error } = await stripe.redirectToCheckout({
           sessionId: data.sessionId,
         });
@@ -164,7 +179,7 @@ export default function PricingCards({ data }) {
   };
 
   return (
-    <Box display="flex" flexWrap="wrap" alignItems='stretch' ml='-2' mb='24'>
+    <Box display="flex" flexWrap="wrap" alignItems="stretch" ml="-2" mb="24">
       {products.length > 0 ? (
         <>
           {products.map(
@@ -176,24 +191,24 @@ export default function PricingCards({ data }) {
                     highlight={product.highlight}
                     price={
                       product.prices[0].unit_amount
-                        ? '$' + product.prices[0].unit_amount / 100
+                        ? "$" + product.prices[0].unit_amount / 100
                         : "Free"
                     }
                     features={product.features}
                   >
-                    <Box display={'flex'} justifyContent={'center'} mb='8'>
-                      {hasMembership ? (
+                    <Box display={"flex"} justifyContent={"center"} mb="8">
+                      {user ? (
                         <Button
                           display="block"
                           onClick={() => handleSubscribe(product.prices[0].id)}
                           disabled={loading}
-                          variant='primaryDark'
-                          size='md'
+                          variant="primaryDark"
+                          size="md"
                         >
                           Subscribe to Plan
                         </Button>
                       ) : (
-                        <Link href="/api/auth/login" variant='primaryDark'>
+                        <Link href="/api/auth/login" variant="primaryDark">
                           Sign Up Today
                         </Link>
                       )}
