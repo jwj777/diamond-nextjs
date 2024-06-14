@@ -12,7 +12,7 @@ export default function BodyLarge({ text, textColor, color, children, thin }) {
     <Box color={textColor} className={styles.bodyContent2 + ' bodyLarge'}>
       {
       text ?
-      <Box 
+      <Text 
         dangerouslySetInnerHTML={{ __html: text }} 
         fontSize={{ base: '1.15rem', md: '1.4rem' }}
         fontFamily='figtree'
@@ -20,15 +20,15 @@ export default function BodyLarge({ text, textColor, color, children, thin }) {
         fontWeight={400}
         color={color}
         letterSpacing={'0px'}
-      ></Box> :
-      <Box 
+      ></Text> :
+      <Text 
         fontSize={{ base: '1.15rem', md: '1.4rem' }}
         fontFamily='figtree'
         lineHeight={{ base: '148%', md: '148%' }}
         color={color}
         fontWeight={400}
         letterSpacing={'0px'}
-      >{children}</Box>
+      >{children}</Text>
 }
     </Box>
   )}

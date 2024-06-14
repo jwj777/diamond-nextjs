@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 export const POST = async (req) => {
   const body = await req.json();
   const { cartDetails, customerId } = body;
-  console.log(cartDetails);
+
   const line_items = Object.keys(cartDetails).map((item) => ({
     price_data: {
       currency: "usd",
@@ -19,18 +19,32 @@ export const POST = async (req) => {
     },
     quantity: cartDetails[item].quantity,
   }));
-  console.log(JSON.stringify(line_items))
+
   try {
-    const session = await stripe.checkout.sessions.create({
+    const sessionParams = {
       payment_method_types: ["card"],
-      mode: "payment",
       line_items,
       customer: customerId,
       success_url: `${process.env.AUTH0_BASE_URL}/account`,
       cancel_url: `${process.env.AUTH0_BASE_URL}`,
-    });
+      payment_method_collection: totalAmount === 0 ? "if_required" : "always",
+      mode: "payment",
+    };
 
-    return new Response(JSON.stringify({ sessionId: session.id }), {
+    // Check if all items in the cart are free
+    const isFree = line_items.every(item => item.price_data.unit_amount === 0);
+
+    if (isFree) {
+      sessionParams.mode = "setup";
+      sessionParams.payment_method_types = [];
+      sessionParams.payment_status = "no_payment_required";
+    } else {
+      sessionParams.mode = "payment";
+    }
+
+    const session = await stripe.checkout.sessions.create(sessionParams);
+
+    return new Response(JSON.stringify({ sessionId: session.id, paymentStatus: session.payment_status }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",

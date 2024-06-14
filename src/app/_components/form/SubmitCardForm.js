@@ -55,9 +55,9 @@ export default function SubmitCardForm({ data }) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (!isLoading && !user) {
-      return redirect("/");
-    }
+    // if (!isLoading && !user) {
+    //   return redirect("/");
+    // }
     setLoading(true);
     async function fetchSubscriptions() {
       try {
@@ -233,39 +233,33 @@ export default function SubmitCardForm({ data }) {
     }
   }, [name, brand, year, number]);
 
+
   const handleCheckout = async () => {
     setLoading(true);
     setError(null);
-
+  
     try {
       const customerRes = await fetch(
         `/api/stripe/customer?email=${user.email}`
       );
       const customerData = await customerRes.json();
-
+  
       const numberOfCards = Object.keys(cartDetails).length;
       const declaredValue = calculateTotalDeclaredValue();
       const shippingCost = calculateShippingCost(numberOfCards, declaredValue);
-      // const insuranceCost = getInsuranceCost(declaredValue);
-      const totalOrderCost = formattedTotalPrice + shippingCost;
-
+      const totalOrderCost = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, "")) + parseFloat(shippingCost);
+  
       const response = await fetch("/api/stripe/product", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          cartDetails,
-          customerId: customerData.id,
-          totalOrderCost,
-        }),
+        body: JSON.stringify({ cartDetails, customerId: customerData.id, totalOrderCost }),
       });
-
+  
       const data = await response.json();
       if (data.sessionId) {
-        const stripe = await loadStripe(
-          process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-        );
+        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
         clearCart();
         const { error } = await stripe.redirectToCheckout({
           sessionId: data.sessionId,
@@ -282,6 +276,7 @@ export default function SubmitCardForm({ data }) {
     }
     setLoading(false);
   };
+
 
   const handleRemoveItem = (id) => {
     console.log("handleRemoveItem called with id: ", id);
@@ -452,7 +447,7 @@ export default function SubmitCardForm({ data }) {
               <Box display={"flex"} justifyContent={"space-between"} mb="1">
                 <LabelMedium>Grading Fees:</LabelMedium>
                 <BodyMedium>
-                  ${formattedTotalPrice}
+                  {formattedTotalPrice}
                 </BodyMedium>
               </Box>
               <Box display={"flex"} justifyContent={"space-between"} mb="1">
