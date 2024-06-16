@@ -9,8 +9,8 @@ import DisplaySmall from "../../typography/DisplaySmall";
 
 export default function ImageTextCards({ data }) {
   
-  console.log('BasicCardList')
-  console.log(data)
+  // console.log('BasicCardList')
+  // console.log(data)
 
   return (
 

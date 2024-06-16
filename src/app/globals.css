@@ -29,6 +29,13 @@ body {
   padding-left: var(--gutter-full);
 }
 
+@media (min-width: 410px) {
+  .fullContainer {
+    padding-right: var(--gutter-sm);
+    padding-left: var(--gutter-sm);
+  }
+}
+
 .xlContainer {
   width: var(--width-xl);
   padding-right: var(--gutter-full);

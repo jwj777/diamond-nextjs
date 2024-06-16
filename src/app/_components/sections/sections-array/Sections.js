@@ -10,8 +10,8 @@ import ImageTextCards from "../image-text-cards/ImageTextCards";
 
 export default function Sections({ data }) {
   
-  console.log('Sections')
-  console.log(data)
+  // console.log('Sections')
+  // console.log(data)
 
   return (
 

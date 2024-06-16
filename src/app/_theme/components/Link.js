@@ -115,6 +115,17 @@ const neutralDark = defineStyle({
   }
 })
 
+const mobileLink = defineStyle({
+  textDecoration: 'none',
+  color: 'neutral.90',
+  fontSize: 'xl',
+  borderRadius: '10rem',
+  _hover: {
+    textDecoration: 'none',
+    color: 'neutral.95',
+  },
+})
+
 export const Link = defineStyleConfig({
   variants: { 
     noDeco,
@@ -123,6 +134,7 @@ export const Link = defineStyleConfig({
     primaryDark,
     primaryDarkText,
     neutralDark,
+    mobileLink,
   },
   sizes: { sm, md, mdText, lg, xl, xxl },
   defaultProps: { variant: 'primaryLight', size: 'md' }

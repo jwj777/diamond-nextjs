@@ -9,8 +9,8 @@ import BodyLarge from "../../typography/BodyLarge";
 
 export default function BasicCardList({ data }) {
   
-  console.log('BasicCardList')
-  console.log(data)
+  // console.log('BasicCardList')
+  // console.log(data)
 
   return (
 
