@@ -19,7 +19,6 @@ export default function TwoColImgTextEdge({ data }) {
 
         <Box 
           display='flex' 
-          // justifyContent='flex-start'
           alignItems='center'
           flexDirection={
             data.Image_Position == 'left' ? 'row-reverse' : 'row'

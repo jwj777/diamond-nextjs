@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Text } from '@chakra-ui/react'
-import styles from "./typography.module.css"
+// import styles from "./typography.module.css"
 
 
 export default function BodyLarge({ text, textColor, color, children, thin }) {
@@ -9,13 +9,16 @@ export default function BodyLarge({ text, textColor, color, children, thin }) {
   color ? color = color : color = 'neutral.10'
 
   return (
-    <Box color={textColor} className={styles.bodyContent2 + ' bodyLarge'}>
+    <Box 
+      color={textColor} 
+      // className={styles.bodyContent2 + ' bodyLarge'}
+    >
       {
       text ?
       <Text 
         dangerouslySetInnerHTML={{ __html: text }} 
         fontSize={{ base: '1.15rem', md: '1.4rem' }}
-        fontFamily='figtree'
+        // fontFamily='figtree'
         lineHeight={{ base: '148%', md: '148%' }}
         fontWeight={400}
         color={color}
@@ -23,7 +26,7 @@ export default function BodyLarge({ text, textColor, color, children, thin }) {
       ></Text> :
       <Text 
         fontSize={{ base: '1.15rem', md: '1.4rem' }}
-        fontFamily='figtree'
+        // fontFamily='figtree'
         lineHeight={{ base: '148%', md: '148%' }}
         color={color}
         fontWeight={400}
