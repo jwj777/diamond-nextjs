@@ -10,7 +10,6 @@ export default function LabelMedium({ children, textColor, color, mb, mr }) {
   return (
     <Box 
       className='labelMedium'
-      fontFamily='figtree'
       mb={mb}
     >
       <Text 
