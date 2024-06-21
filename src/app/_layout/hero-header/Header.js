@@ -47,10 +47,10 @@ export default function Header({ data, children, contentType }) {
               </Link>
             ) : (
               <>
-                <Link href="/form/submit-card" variant="neutralDark">
+                <Link href="/form/submit-card" variant="neutralDark" mr='4'>
                   Submit a Card
                 </Link>
-                <Link href="/account" variant="neutralDark">
+                <Link href="/account" variant="neutralDark" mr='4'>
                   My Account
                 </Link>
                 <Link href="/api/auth/logout" variant="neutralDark">

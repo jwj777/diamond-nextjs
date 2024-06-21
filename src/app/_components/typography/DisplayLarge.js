@@ -13,7 +13,6 @@ export default function DisplayLarge({ children, color, type }) {
       fontSize={{ base: '2.8rem', md: '4rem', lg: '4.5rem' }}
       lineHeight={{ base: '120%', md: '106%', lg: '108%' }}
       fontWeight='300'
-      fontFamily='figtree'
       letterSpacing={{ base:'-0.5px', md: '-1px' }}
       mt={{ base: '1rem', md: '0' }}
       mb={{ base: '1rem', md: '1.2rem' }}

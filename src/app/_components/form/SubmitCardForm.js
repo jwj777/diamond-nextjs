@@ -1,16 +1,12 @@
 "use client";
 import {
   Box,
-  Image,
   Text,
   Button,
   Select,
-  InputGroup,
-  InputLeftElement,
   Grid,
   GridItem,
   Icon,
-  Tooltip,
 } from "@chakra-ui/react";
 import TitleLarge from "../typography/TitleLarge";
 import BodyMedium from "../typography/BodyMedium";
@@ -23,9 +19,11 @@ import InputFloatWithPrefix from "./InputFloatPrefix";
 import { Link } from "@chakra-ui/next-js";
 import { MdDelete } from "react-icons/md";
 import LabelMedium from "../typography/LabelMedium";
-import { fees } from "@/app/data/feeData";
 import { insuranceCost } from "@/app/data/insuranceData";
 import { uspsShipping, fedexShipping } from "@/app/data/shippingData";
+import bulkFees from '@/app/data/BulkFeeData.js';
+import standardFees from '@/app/data/StandardFeeData.js';
+
 
 export default function SubmitCardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -43,15 +41,15 @@ export default function SubmitCardForm({ data }) {
 
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
-  const [year, setYear] = useState();
-  const [number, setNumber] = useState();
+  const [year, setYear] = useState("");
+  const [number, setNumber] = useState("");
   const [desc, setDesc] = useState("");
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
   const [ebayUrl, setEbayUrl] = useState("");
   const { user, isLoading } = useUser();
   const [insurance, setInsurance] = useState(0);
   const [shippingCost, setShippingCost] = useState(0);
-
+  const [resetInputState, setResetInputState] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -89,21 +87,61 @@ export default function SubmitCardForm({ data }) {
       .toFixed(2);
   };
 
-  const calculatePrice = (declaredValue, subscriptionLevel) => {
+
+  const calculatePrice = (declaredValue, subscriptionLevel, numberOfCards) => {
+    const fees = numberOfCards >= 2 ? bulkFees : standardFees;
+    if (!fees) {
+      console.error("Fees data is not available");
+      return null;
+    }
     const levels = Object.keys(fees)
       .map(parseFloat)
       .sort((a, b) => a - b);
     const levelIdx = levels.findIndex((level) => declaredValue <= level);
     const level = levels[levelIdx === -1 ? levels.length - 1 : levelIdx];
     const levelString = level.toString();
+    
     // Check if subscription level exists at the selected level
     if (fees[levelString] && fees[levelString][subscriptionLevel]) {
-      const price = fees[level.toString()][subscriptionLevel.toString()];
+      const price = fees[level.toString()][subscriptionLevel];
       return price;
     } else {
       return null;
     }
   };
+
+ 
+  
+const recalculateCartPrices = (subscriptionLevel, numberOfCards) => {
+    const updatedCartDetails = {};
+
+    Object.keys(cartDetails).forEach((itemId) => {
+      const item = cartDetails[itemId];
+      const declaredValue = parseFloat(item.product_data.value);
+      const newPrice = calculatePrice(declaredValue, subscriptionLevel, numberOfCards);
+      if (newPrice !== null) {
+        const updatedItem = {
+          ...item,
+          price: newPrice * 100, // Update the price in cents
+          formattedValue: `$${newPrice.toFixed(2)}`,
+        };
+        updatedCartDetails[itemId] = updatedItem;
+      } else {
+        updatedCartDetails[itemId] = item;
+      }
+    });
+
+    clearCart(); // Clear the existing cart
+    Object.keys(updatedCartDetails).forEach((itemId) => {
+      const item = updatedCartDetails[itemId];
+      addItem(item, {
+        product_metadata: { ...item.product_data },
+      });
+    });
+  };
+  
+  
+  
 
   const calculateShippingCost = (numberOfItems, declaredValue) => {
     const shippingRates = declaredValue >= 1500 ? fedexShipping : uspsShipping;
@@ -152,13 +190,6 @@ export default function SubmitCardForm({ data }) {
     }
   }
 
-  // const calculateTotalPriceWithInsurance = () => {
-  //   const totalDeclaredValue = calculateTotalDeclaredValue();
-  //   const insuranceCostValue = getInsuranceCost(totalDeclaredValue);
-  //   const total = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g,"")) + (insuranceCostValue ? insuranceCostValue : 0);
-  //   return total.toFixed(2);
-  // };
-
   const calculateTotalPriceWithShippingAndInsurance = () => {
     const totalDeclaredValue = calculateTotalDeclaredValue();
     const insuranceCostValue = getInsuranceCost(totalDeclaredValue);
@@ -171,11 +202,14 @@ export default function SubmitCardForm({ data }) {
       parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, "")) +
       (insuranceCostValue ? insuranceCostValue : 0) +
       (shippingCostValue ? parseFloat(shippingCostValue) : 0);
-    console.log("t", total);
+    // console.log("t", total);
     return total.toFixed(2);
   };
+  
 
-  const addToCart = async () => {
+
+  const addToCart = async (e) => {
+    e.preventDefault();
     if (!subscriptions.length) {
       alert("Please subscribe the membership first.");
       return;
@@ -187,13 +221,14 @@ export default function SubmitCardForm({ data }) {
 
     const subscriptionLevel = subscriptions[0].product.name;
     const declaredValue = parseFloat(value);
-    const insuranceCostValue = getInsuranceCost(declaredValue);
-    const price = calculatePrice(declaredValue, subscriptionLevel);
+    const numberOfCards = Object.keys(cartDetails).length + 1;
+    const price = calculatePrice(declaredValue, subscriptionLevel, numberOfCards);
 
     if (price === null) {
       return;
     }
 
+    const insuranceCostValue = getInsuranceCost(declaredValue);
     const product = {
       name,
       description: desc,
@@ -208,30 +243,48 @@ export default function SubmitCardForm({ data }) {
     addItem(product, {
       product_metadata: { year, brand, number, value },
     });
+
+    // Clear form fields
+    setName("");
+    setBrand("");
+    setYear("");
+    setNumber("");
+    setDesc("");
+    setValue("");
+
+    // Trigger reset state
+    setResetInputState(true);
+    setTimeout(() => setResetInputState(false), 0);
+
+    if (numberOfCards >= 10) {
+      recalculateCartPrices(subscriptionLevel, numberOfCards);
+    }
+    
     setCartUpdated(true);
   };
+  
 
   useEffect(() => {
     if (cartUpdated) {
-      console.log("Cart details after adding:", cartDetails);
       setCartUpdated(false);
     }
   }, [cartUpdated, cartDetails]);
 
+
   useEffect(() => {
-    console.log("Initial cartDetails:", cartDetails);
     setIsClient(true);
   }, []);
 
+
   useEffect(() => {
-    if (name && brand && year && number) {
-      const query = `${year} ${brand} ${name} ${number}`;
+    if (name && brand && year && number && desc) {
+      const query = `${year} ${brand} ${name} ${number} ${desc}`;
       const url = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(
         query
-      )}`;
+      )}&LH_Sold=1`;
       setEbayUrl(url);
     }
-  }, [name, brand, year, number]);
+  }, [name, brand, year, number, desc]);
 
 
   const handleCheckout = async () => {
@@ -283,7 +336,9 @@ export default function SubmitCardForm({ data }) {
     removeItem(id);
   };
 
+
   return (
+
     <Grid templateColumns="repeat(4, 1fr)">
       <GridItem
         colSpan={2}
@@ -310,10 +365,12 @@ export default function SubmitCardForm({ data }) {
             <InputFloatLight
               label="Player Name"
               id={"playername"}
+              name="playername"
               type={"text"}
               value={name}
               onChange={(e) => setName(e.target.value)}
               required={true}
+              resetState={resetInputState}
             />
           </Box>
           <Box
@@ -351,7 +408,7 @@ export default function SubmitCardForm({ data }) {
                 label="Card Year"
                 id={"cardyear"}
                 type={"text"}
-                value={year}
+                value={year || ""}
                 onChange={(e) => setYear(e.target.value)}
                 required={true}
               />
@@ -361,7 +418,7 @@ export default function SubmitCardForm({ data }) {
                 label="Card #"
                 id={"cardnumber"}
                 type={"text"}
-                value={number}
+                value={number || ""}
                 onChange={(e) => setNumber(e.target.value)}
                 required={true}
               />
@@ -384,7 +441,7 @@ export default function SubmitCardForm({ data }) {
               label="Declared Value"
               id={"declaredValue"}
               type={"text"}
-              value={value}
+              value={value || ""}
               onChange={(e) => setValue(e.target.value)}
               required={true}
             />
@@ -409,7 +466,7 @@ export default function SubmitCardForm({ data }) {
           size={{ base: "md", md: "lg" }}
           type="submit"
           variant="primaryLight"
-          onClick={(e) => addToCart()}
+          onClick={(e) => addToCart(e)}
         >
           {"Add to Order"}
         </Button>
@@ -545,18 +602,6 @@ export default function SubmitCardForm({ data }) {
                           {cartDetails[item].formattedValue}
                         </BodyMedium>
                       </Box>
-                      {/* <Box display={"flex"} justifyContent={"space-between"}>
-                    <LabelMedium>Shipping:</LabelMedium> 
-                    <BodyMedium>${calculateTotalPriceWithShippingAndInsurance()}</BodyMedium>
-                  </Box> */}
-                      {/* <Box display={"flex"} justifyContent={"space-between"}>
-                    <LabelMedium>Insurance:</LabelMedium> 
-                    <BodyMedium>{insurance !== null ? `$${insurance.toFixed(2)}` : "$0.00"}</BodyMedium>
-                  </Box> */}
-                      {/* <Box display={"flex"} justifyContent={"space-between"}>
-                    <LabelMedium>Total:</LabelMedium> 
-                    <BodyMedium>{cartDetails[item].formattedValue}</BodyMedium>
-                  </Box> */}
                     </Box>
                   ))}
                 </>

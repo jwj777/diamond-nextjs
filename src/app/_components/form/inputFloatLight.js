@@ -1,11 +1,17 @@
 import { FormErrorMessage, FormHelperText, FormLabel, Input, FormControl } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LabelActive from "./LabelActive";
 import LabelActiveLight from "./LabelActiveLight";
 
-export default function InputFloatLight({ label, id, type, pattern, errorMsg, width, required, value, onChange }) {
+export default function InputFloatLight({ label, id, type, pattern, errorMsg, width, required, value, onChange, resetState }) {
 
   const [inputState, setInputState] = useState('empty')
+
+  useEffect(() => {
+    if (resetState) {
+      setInputState('empty');
+    }
+  }, [resetState]);
 
   const handleOnBlur = (element) => {
     element.target.value < 1 ? setInputState("empty") : setInputState("has-value")
@@ -13,7 +19,6 @@ export default function InputFloatLight({ label, id, type, pattern, errorMsg, wi
 
   const handleOnFocus = (element) => {
     setInputState("focus")
-    
   }
 
   const handleOnClick = (element, id) => {
@@ -46,7 +51,7 @@ export default function InputFloatLight({ label, id, type, pattern, errorMsg, wi
         />
 
         {
-          inputState == 'has-value' || inputState == 'focus' ?
+          inputState == 'has-value' || inputState == 'focus' && !resetState ? 
             <LabelActiveLight label={label} /> 
           :  
             <FormLabel 

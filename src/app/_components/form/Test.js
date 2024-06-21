@@ -1,4 +1,4 @@
-import { fees } from "@/app/data/feeData";
+import { fees } from "@/app/data/StandardFeeData";
 import { Box } from "@chakra-ui/react";
 
 export default function Test() {
