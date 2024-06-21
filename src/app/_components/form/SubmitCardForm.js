@@ -259,7 +259,7 @@ const recalculateCartPrices = (subscriptionLevel, numberOfCards) => {
     if (numberOfCards >= 10) {
       recalculateCartPrices(subscriptionLevel, numberOfCards);
     }
-    
+
     setCartUpdated(true);
   };
   
@@ -277,12 +277,14 @@ const recalculateCartPrices = (subscriptionLevel, numberOfCards) => {
 
 
   useEffect(() => {
-    if (name && brand && year && number && desc) {
+    if ((name && brand && year) && (number || desc)) {
       const query = `${year} ${brand} ${name} ${number} ${desc}`;
       const url = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(
         query
       )}&LH_Sold=1`;
       setEbayUrl(url);
+    } else {
+      console.log('Missing information:', { name, brand, year, number, desc });
     }
   }, [name, brand, year, number, desc]);
 
