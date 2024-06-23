@@ -4,6 +4,7 @@ import PageContainer from "@/app/_layout/PageContainer";
 import PageContainerForm from "@/app/_layout/PageContainerForm";
 import SubmitCardForm from "@/app/_components/form/SubmitCardForm";
 import XlContainer from "@/app/_layout/containers/XlContainer";
+import CardForm from "@/app/_components/form/CardForm";
 
 
 export default async function SubmitCard({ params }) {
@@ -20,7 +21,7 @@ export default async function SubmitCard({ params }) {
         <XlContainer>
 
         {
-          data.attributes.slug = 'submit-card' ? <SubmitCardForm data={data} />
+          data.attributes.slug = 'submit-card' ? <CardForm data={data} />
           : null
         }
         

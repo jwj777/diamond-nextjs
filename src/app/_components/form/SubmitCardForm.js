@@ -42,6 +42,8 @@ export default function SubmitCardForm({ data }) {
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [year, setYear] = useState("");
+  const [brandSet, setBrandSet] = useState("");
+  const [slabStyle, setSlabStyle] = useState("")
   const [number, setNumber] = useState("");
   const [desc, setDesc] = useState("");
   const [value, setValue] = useState("");
@@ -214,7 +216,7 @@ const recalculateCartPrices = (subscriptionLevel, numberOfCards) => {
       alert("Please subscribe the membership first.");
       return;
     }
-    if (!name || !brand || !year || !number || !value) {
+    if (!name || !brandSet || !year || !number || !value) {
       alert("Please input all fields.");
       return;
     }
@@ -241,16 +243,17 @@ const recalculateCartPrices = (subscriptionLevel, numberOfCards) => {
     };
 
     addItem(product, {
-      product_metadata: { year, brand, number, value },
+      product_metadata: { year, brandSet, number, value },
     });
 
     // Clear form fields
     setName("");
-    setBrand("");
+    setBrandSet("");
     setYear("");
     setNumber("");
     setDesc("");
     setValue("");
+    setBrandSet("");
 
     // Trigger reset state
     setResetInputState(true);
@@ -277,16 +280,16 @@ const recalculateCartPrices = (subscriptionLevel, numberOfCards) => {
 
 
   useEffect(() => {
-    if ((name && brand && year) && (number || desc)) {
-      const query = `${year} ${brand} ${name} ${number} ${desc}`;
+    if ((name && brandSet && year) && (number || desc)) {
+      const query = `${year} ${brandSet} ${name} ${number} ${desc}`;
       const url = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(
         query
       )}&LH_Sold=1`;
       setEbayUrl(url);
     } else {
-      console.log('Missing information:', { name, brand, year, number, desc });
+      console.log('Missing information:', { name, brandSet, year, number, desc });
     }
-  }, [name, brand, year, number, desc]);
+  }, [name, brandSet, year, number, desc]);
 
 
   const handleCheckout = async () => {
@@ -365,12 +368,24 @@ const recalculateCartPrices = (subscriptionLevel, numberOfCards) => {
         <Box>
           <Box mr="4" minW="160px">
             <InputFloatLight
-              label="Player Name"
+              label="Player Name / Character"
               id={"playername"}
               name="playername"
               type={"text"}
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required={true}
+              resetState={resetInputState}
+            />
+          </Box>
+          <Box mr="4" minW="160px">
+            <InputFloatLight
+              label="Brand / Set"
+              id={"brandSet"}
+              name="brandSet"
+              type={"text"}
+              value={brandSet}
+              onChange={(e) => setBrandSet(e.target.value)}
               required={true}
               resetState={resetInputState}
             />
@@ -382,30 +397,8 @@ const recalculateCartPrices = (subscriptionLevel, numberOfCards) => {
             flexDirection={{ base: "column", md: "row" }}
             required={true}
           >
-            <Box mb="4" mr="4" minW="180px" h="16">
-              <Select
-                placeholder="Card Brand"
-                bg="neutral.90"
-                borderColor="neutral.80"
-                fontSize="1.2rem"
-                fontWeight="500"
-                h="16"
-                borderRadius="8"
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-              >
-                <option value="Topps">Topps</option>
-                <option value="Panini">Panini</option>
-                <option value="Upper Deck">Upper Deck</option>
-                <option value="Bowman">Bowman</option>
-                <option value="Fleer">Fleer</option>
-                <option value="Donruss">Donruss</option>
-                <option value="Score">Score</option>
-                <option value="Other">Other</option>
-              </Select>
-            </Box>
 
-            <Box mr="4" minW="130px">
+            <Box mr="4" minW="160px">
               <InputFloatLight
                 label="Card Year"
                 id={"cardyear"}
@@ -415,7 +408,7 @@ const recalculateCartPrices = (subscriptionLevel, numberOfCards) => {
                 required={true}
               />
             </Box>
-            <Box mr="4" minW="130px">
+            <Box mr="4" minW="160px">
               <InputFloatLight
                 label="Card #"
                 id={"cardnumber"}
@@ -425,6 +418,7 @@ const recalculateCartPrices = (subscriptionLevel, numberOfCards) => {
                 required={true}
               />
             </Box>
+
           </Box>
 
           <Box mr="4" minW="160px">
@@ -448,6 +442,25 @@ const recalculateCartPrices = (subscriptionLevel, numberOfCards) => {
               required={true}
             />
           </Box>
+
+            <Box mb="4" mr="4" minW="180px" h="16">
+              <Select
+                placeholder="-- Slab Style --"
+                bg="neutral.90"
+                borderColor="neutral.80"
+                fontSize="1.2rem"
+                fontWeight="500"
+                h="16"
+                borderRadius="8"
+                value={slabStyle}
+                onChange={(e) => setSlabStyle(e.target.value)}
+              >
+                <option value="Topps">Clear Acrylic</option>
+                <option value="Panini">Black Acrylic</option>
+              </Select>
+            </Box>
+
+
           <Box mt="4">
             {ebayUrl ? (
               <Link
@@ -456,7 +469,7 @@ const recalculateCartPrices = (subscriptionLevel, numberOfCards) => {
                 variant="primaryLightText"
                 size="mdText"
               >
-                See {year + " " + brand + " " + name + " " + number} examples on
+                See {year + " " + brandSet + " " + name + " " + number} examples on
                 eBay
               </Link>
             ) : null}
@@ -573,7 +586,7 @@ const recalculateCartPrices = (subscriptionLevel, numberOfCards) => {
                       >
                         <LabelMedium mb="1">
                           {`${cartDetails[item].product_data.year} 
-                        ${cartDetails[item].product_data.brand} 
+                        ${cartDetails[item].product_data.brandSet} 
                         ${cartDetails[item].name} #${cartDetails[item].product_data.number}`}
                         </LabelMedium>
 
