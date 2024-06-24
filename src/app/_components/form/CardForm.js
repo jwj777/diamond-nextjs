@@ -366,7 +366,7 @@ function CardForm({ data }) {
                   Bulk Order Form
                 </TitleLarge>
                 <BodyMedium color="neutral.10">
-                  Enter 10 or more items to receive discounts 
+                  Enter 10 or more items to receive bulk order discounts.
                 </BodyMedium>
               </Box>
 

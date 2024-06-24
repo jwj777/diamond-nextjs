@@ -48,9 +48,9 @@ const xl = defineStyle({
   field: {
     fontSize: '1.2rem',
     fontWeight: '600',
-    pt: '1.1rem',
+    pt: '1rem',
     pr: '1.5rem',
-    pb: '1.1rem',
+    pb: '1rem',
     pl: '1.5rem',
   }
 })
