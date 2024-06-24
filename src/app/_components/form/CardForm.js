@@ -24,6 +24,8 @@ import CardOrderSummary from "./CardOrderSummary"; // Import OrderSummary compon
 import TitleLarge from "../typography/TitleLarge";
 import BodyMedium from "../typography/BodyMedium";
 import BodyLarge from "../typography/BodyLarge";
+import XlContainer from "@/app/_layout/containers/XlContainer";
+import TitleMedium from "../typography/TitleMedium";
 
 function CardForm({ data }) {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -412,8 +414,13 @@ function CardForm({ data }) {
           </TabPanel>
         </TabPanels>
       </Tabs>
-
-      <BodyMedium>Having Issues Entering Cards? Questions About Our Services? Call us 440-444-0404 or <Link href='page/contact' variant='noDeco'>use our contact form</Link> to send questions and feedback.</BodyMedium>
+      
+      <Box mt='8' px='10' maxW='480px'>
+        <TitleMedium>Feedback and Support</TitleMedium>
+        <BodyMedium>Call us 440-444-0404 or <Link href='page/contact' variant='noDeco' size='mdText'> use our contact form </Link> 
+          to send questions and feedback.
+        </BodyMedium>
+      </Box>
 
       </GridItem>
 
