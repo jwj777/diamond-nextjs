@@ -25,7 +25,7 @@ export default function PricingCard({ data, title, price, children, highlight, f
             <BodyMedium color='primary.90'>Per Year</BodyMedium>
           </Box>
         }
-        <Box mt='7'>
+        <Box mt='7' mb='6'>
           <BodyMedium color='neutral.90'>
             Estimated Turnaround Time: 
           </BodyMedium>

@@ -1,8 +1,8 @@
 const bulkFees = {
-  "100": {},
-  "200": {},
-  "300": {},
-  "400": {},
+  "100": { "Standard": 18.0, "Club": 16.0, "Premium": 14.0, "Dealer's": 12.0 },
+  "200": { "Standard": 18.0, "Club": 16.0, "Premium": 14.0, "Dealer's": 12.0 },
+  "300": { "Standard": 18.0, "Club": 16.0, "Premium": 14.0, "Dealer's": 12.0 },
+  "400": { "Standard": 18.0, "Club": 16.0, "Premium": 14.0, "Dealer's": 12.0 },
   "500": { "Standard": 18.0, "Club": 16.0, "Premium": 14.0, "Dealer's": 12.0 },
   "600": { "Standard": 19.8, "Club": 17.6, "Premium": 15.4, "Dealer's": 13.2 },
   "700": { "Standard": 21.6, "Club": 19.2, "Premium": 16.8, "Dealer's": 14.4 },

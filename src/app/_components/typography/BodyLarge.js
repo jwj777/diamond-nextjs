@@ -11,14 +11,12 @@ export default function BodyLarge({ text, textColor, color, children, thin }) {
   return (
     <Box 
       color={textColor} 
-      // className={styles.bodyContent2 + ' bodyLarge'}
     >
       {
       text ?
       <Text 
         dangerouslySetInnerHTML={{ __html: text }} 
         fontSize={{ base: '1.15rem', md: '1.4rem' }}
-        // fontFamily='figtree'
         lineHeight={{ base: '148%', md: '148%' }}
         fontWeight={400}
         color={color}
@@ -26,7 +24,6 @@ export default function BodyLarge({ text, textColor, color, children, thin }) {
       ></Text> :
       <Text 
         fontSize={{ base: '1.15rem', md: '1.4rem' }}
-        // fontFamily='figtree'
         lineHeight={{ base: '148%', md: '148%' }}
         color={color}
         fontWeight={400}

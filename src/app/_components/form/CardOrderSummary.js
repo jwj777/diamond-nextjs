@@ -11,6 +11,7 @@ import { MdDelete } from "react-icons/md";
 import LabelMedium from "../typography/LabelMedium";
 import BodyMedium from "../typography/BodyMedium";
 import TitleLarge from '../typography/TitleLarge';
+import BodySmall from '../typography/BodySmall';
 
 const CardOrderSummary = ({ 
   cartCount, 
@@ -22,8 +23,11 @@ const CardOrderSummary = ({
   handleCheckout, 
   cartDetails, 
   clearCart, 
-  handleRemoveItem 
+  handleRemoveItem,
+  warningMessage
 }) => {
+
+  console.log("Cart Details on Summary", cartDetails)
 
   return (
     <Box>
@@ -58,9 +62,17 @@ const CardOrderSummary = ({
           <BodyMedium>{`$${calculateTotalPriceWithShippingAndInsurance()}`}</BodyMedium>
         </Box>
       </Box>
+
+      {warningMessage && (
+        <Box mb="5">
+          <Text color="red.500" fontSize='1.1rem' fontWeight='600'>{warningMessage}</Text>
+        </Box>
+      )}
+
       <Button size={{ base: "md", md: "lg" }} variant="primaryLight" type="submit" onClick={(e) => handleCheckout()}>
         {"Place Your Order"}
       </Button>
+
       <Box mt="12" mb="8">
         <Box display="flex" justifyContent="space-between" mb="2">
           <TitleLarge color="neutral.10">Items In Order</TitleLarge>
@@ -72,7 +84,7 @@ const CardOrderSummary = ({
           {Object.keys(cartDetails).length ? (
             <>
               {Object.keys(cartDetails).map((item, index) => (
-                <Box key={index} bg="white" p="4" pt='3' mb="5" borderRadius="0.8rem">
+                <Box key={index} bg="white" p="4" pt='2' mb="5" borderRadius="0.8rem">
                   <Box display={"flex"} justifyContent={"space-between"} alignItems="center">
                     <LabelMedium>
                       {`${cartDetails[item].product_data.year} 
@@ -82,12 +94,19 @@ const CardOrderSummary = ({
                     <Link href="#/" onClick={(e) => {
                       e.preventDefault();
                       handleRemoveItem(cartDetails[item].id);
-                    }} color="red.500" variant="noDeco" size="mdText" ml="4" mb="2">
-                      <Icon as={MdDelete} w="6" h="6" color="primary.40" />
+                    }} variant="noDeco" size="mdText" ml="4" mb="2">
+                      <Box display='flex' alignItems='center' mt='2'>
+                        <Icon as={MdDelete} w="4" h="4" color="primary.40" mr='2px' mb='2px' />
+                        <BodySmall color='primary.40'>Delete</BodySmall>
+                      </Box>
                     </Link>
                   </Box>
                   <Box mt='-1' mb='1'>
                     <BodyMedium>{`${cartDetails[item].product_data.desc}`}</BodyMedium>
+                  </Box>
+                  <Box display={"flex"} justifyContent={"space-between"}>
+                    <LabelMedium>Slab Style:</LabelMedium>
+                    <BodyMedium>{cartDetails[item].product_data.slabStyle}</BodyMedium>
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Declared Value:</LabelMedium>

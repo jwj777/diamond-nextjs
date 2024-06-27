@@ -39,7 +39,6 @@ export default function ProfileClient() {
         setLoading(false);
       }
     }
-
     fetchSubscriptions();
   }, [user, isLoading]);
 
@@ -120,7 +119,10 @@ export default function ProfileClient() {
                     </Box>
                   
                   ) : (
-                    <BodyMedium color={"white"}>No Subscription.</BodyMedium>
+                    <Box mt='4'>
+                      <BodyMedium color={"white"} mb='2'>No Subscription.</BodyMedium>
+                      <Link href='/page/pricing' variant='primaryDarkText' size='mdText'>Subscribe To a Plan</Link>
+                    </Box>
                   )}
                 </Box>
                 <Box position="relative" mt='16'>

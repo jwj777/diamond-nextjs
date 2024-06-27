@@ -1,9 +1,7 @@
-// FormFields.js
 import React from 'react';
 import {
   Box,
   Select,
-  Input,
 } from "@chakra-ui/react";
 import InputFloatLight from "./inputFloatLight";
 import InputFloatWithPrefix from "./InputFloatPrefix";

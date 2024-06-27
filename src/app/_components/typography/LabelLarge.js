@@ -11,7 +11,6 @@ export default function LabelLarge({ children, textColor, color }) {
     <Text 
       className="overline"
       fontSize={{ base: '1.05rem', md: '1.15rem' }}
-      fontFamily='Alliance'
       fontWeight='300'
       textTransform='uppercase'
       letterSpacing='9px'

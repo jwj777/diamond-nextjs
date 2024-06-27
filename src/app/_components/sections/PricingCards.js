@@ -16,7 +16,7 @@ async function getPlans() {
       throw new Error(`Failed to fetch plans, status: ${response.status}`);
     }
     const plans = await response.json();
-    console.log("Fetched plans:", plans);
+    // console.log("Fetched plans:", plans);
     return plans?.data;
   } catch (error) {
     console.error("Error fetching plans:", error);
@@ -60,7 +60,7 @@ export default function PricingCards({ data }) {
           return product;
         });
 
-        console.log("Combined data:", combinedData);
+        // console.log("Combined data:", combinedData);
 
         setProducts(combinedData);
         setPlans(plansData);
@@ -136,8 +136,8 @@ export default function PricingCards({ data }) {
     return <p>Error: {error}</p>;
   }
 
-  console.log("subscriptions", products);
-  console.log("plans", plans);
+  // console.log("subscriptions", products);
+  // console.log("plans", plans);
 
   const handleSubscribe = async (priceId) => {
     setLoading(true);
