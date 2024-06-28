@@ -4,6 +4,7 @@ import { Box, Text, Button, Link, Spinner } from "@chakra-ui/react";
 import PricingCard from "../card/PricingCard";
 import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect } from "react";
+import BodyMedium from "../typography/BodyMedium";
 
 async function getPlans() {
   try {
@@ -126,8 +127,11 @@ export default function PricingCards({ data }) {
 
   if (loading) {
     return (
-      <Box>
-        <Spinner color="primary.80" emptyColor="neutral.30" />
+      <Box display='flex' justifyContent='center' pt='0' pb='24'>
+        <Box textAlign={'center'}>
+          <Spinner color="primary.80" emptyColor="neutral.30" size='xl' mb='2' />
+          <BodyMedium color='primary.80'>Loading Plans</BodyMedium>
+        </Box>
       </Box>
     );
   }
@@ -179,7 +183,7 @@ export default function PricingCards({ data }) {
   };
 
   return (
-    <Box display="flex" flexWrap="wrap" alignItems="stretch" ml="-2" mb="24">
+    <Box display="flex" flexWrap="wrap" alignItems="stretch" ml="-2" mb="16">
       {products.length > 0 ? (
         <>
           {products.map(
