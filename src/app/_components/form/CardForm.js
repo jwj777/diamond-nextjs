@@ -219,13 +219,13 @@ function CardForm({ data }) {
       console.log("Updated cartDetails:", cartDetails);
   
       // Clear form fields
-      setName("");
-      setBrandSet("");
-      setYear("");
-      setNumber("");
-      setDesc("");
-      setValue("");
-      setSlabStyle("");
+      // setName("");
+      // setBrandSet("");
+      // setYear("");
+      // setNumber("");
+      // setDesc("");
+      // setValue("");
+      // setSlabStyle("");
   
       // Clear warning message
       setWarningMessage("");
