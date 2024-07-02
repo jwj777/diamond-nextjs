@@ -575,7 +575,7 @@ function CardForm({ data }) {
           <ModalCloseButton />
           <ModalBody>
             <Text>
-              The total declared value of your cart exceeds the maximum of $100,000. Contact us about this order so we can provide more personalized services. 
+              The total declared value of your cart exceeds the maximum of $50,000. Contact us about this order so we can provide more personalized services. 
             </Text>
           </ModalBody>
           <ModalFooter>
