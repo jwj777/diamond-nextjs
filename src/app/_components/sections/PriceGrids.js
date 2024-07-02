@@ -53,8 +53,8 @@ function PriceGrids({ priceGridStandard, priceGridBulk }) {
 
   return (
     <Box>
-      {renderTable(priceGridStandard, "Standard Pricing")}
-      {renderTable(priceGridBulk, "Bulk Pricing")}
+      {renderTable(priceGridStandard, "Single Card Pricing (1-9 Cards)")}
+      {renderTable(priceGridBulk, "Bulk Pricing (10 or More Cards)")}
     </Box>
   );
 }

@@ -13,6 +13,7 @@ import BodyMedium from "../typography/BodyMedium";
 import TitleLarge from '../typography/TitleLarge';
 import BodySmall from '../typography/BodySmall';
 
+
 const CardOrderSummary = ({ 
   cartCount, 
   calculateTotalDeclaredValue, 
@@ -27,7 +28,11 @@ const CardOrderSummary = ({
   warningMessage
 }) => {
 
-  console.log("Cart Details on Summary", cartDetails)
+  // console.log("Cart Details on Summary", cartDetails)
+
+  const formatNumberWithCommas = (number) => {
+    return number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   return (
     <Box>
@@ -110,7 +115,7 @@ const CardOrderSummary = ({
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Declared Value:</LabelMedium>
-                    <BodyMedium>${cartDetails[item].product_data.value}</BodyMedium>
+                    <BodyMedium>${formatNumberWithCommas(parseFloat(cartDetails[item].product_data.value))}</BodyMedium>
                   </Box>
                   <Box display={"flex"} justifyContent={"space-between"}>
                     <LabelMedium>Grading Fee:</LabelMedium>

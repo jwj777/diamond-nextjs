@@ -20,7 +20,10 @@ export default function PricingCard({ data, title, price, children, highlight, f
           <HeadlineLarge color='primary.90'>{price}</HeadlineLarge>
         </Box>
         {
-          title === 'Standard' ? null :
+          title === 'Standard' ?  
+          <Box mb='53px'>
+          </Box>      
+          :
           <Box opacity='0.9' mt='-4'>
             <BodyMedium color='primary.90'>Per Year</BodyMedium>
           </Box>

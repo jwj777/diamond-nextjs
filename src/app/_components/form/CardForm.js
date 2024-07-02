@@ -34,6 +34,7 @@ import BodyMedium from "../typography/BodyMedium";
 import TitleMedium from "../typography/TitleMedium";
 import { loadStripe } from '@stripe/stripe-js'; // Import loadStripe
 
+
 function CardForm({ data }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [subscriptions, setSubscriptions] = useState([]);
@@ -51,7 +52,6 @@ function CardForm({ data }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cartUpdated, setCartUpdated] = useState(false);
-
   const [name, setName] = useState("");
   const [brandSet, setBrandSet] = useState("");
   const [year, setYear] = useState("");
@@ -66,6 +66,7 @@ function CardForm({ data }) {
   const [isClient, setIsClient] = useState(false);
   const { user, isLoading } = useUser();
   const [warningMessage, setWarningMessage] = useState("");
+  const [isExceedingLimit, setIsExceedingLimit] = useState(false);
 
   useEffect(() => {
     console.log(activeTab)
@@ -89,11 +90,19 @@ function CardForm({ data }) {
     fetchSubscriptions();
   }, [user, isLoading]);
 
+
+  const formatNumberWithCommas = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+
   const calculateTotalDeclaredValue = () => {
     return Object.values(cartDetails)
       .reduce((total, item) => total + parseInt(item.product_data.value), 0)
       .toFixed(2);
   };
+
+  const totalDeclaredValue = calculateTotalDeclaredValue();
 
   const calculatePrice = (declaredValue, subscriptionLevel, numberOfCards) => {
     const fees = activeTab == 0 ? standardFees : bulkFees;
@@ -216,17 +225,6 @@ function CardForm({ data }) {
         product_metadata: { year, brandSet, number, desc, value, slabStyle },
       });
   
-      console.log("Updated cartDetails:", cartDetails);
-  
-      // Clear form fields
-      // setName("");
-      // setBrandSet("");
-      // setYear("");
-      // setNumber("");
-      // setDesc("");
-      // setValue("");
-      // setSlabStyle("");
-  
       // Clear warning message
       setWarningMessage("");
   
@@ -254,6 +252,16 @@ function CardForm({ data }) {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    if (totalDeclaredValue > 100000) {
+      setIsExceedingLimit(true);
+      onOpen();
+    } else {
+      setIsExceedingLimit(false);
+      onClose();
+    }
+  }, [totalDeclaredValue, onOpen, onClose]);
+
 
   useEffect(() => {
     if ((name && brandSet && year) && (number || desc)) {
@@ -268,27 +276,24 @@ function CardForm({ data }) {
 
   // handleCheckout
   const handleCheckout = async () => {
-    console.log('handleCheckout triggered');
-  
-    setLoading(true);
-    setError(null);
-  
-    const numberOfCards = Object.keys(cartDetails).length;
-  
-    if (currentForm === "bulk" && numberOfCards < 10) {
-      setWarningMessage("There is a 10 card minimum for bulk orders");
-      setLoading(false);
+    if (totalDeclaredValue > 100000) {
+      setIsExceedingLimit(true);
+      onOpen();
       return;
     }
-  
+
+    setLoading(true);
+    setError(null);
+
     try {
       const customerRes = await fetch(`/api/stripe/customer?email=${user.email}`);
       const customerData = await customerRes.json();
-  
+
+      const numberOfCards = Object.keys(cartDetails).length;
       const declaredValue = calculateTotalDeclaredValue();
       const shippingCost = calculateShippingCost(numberOfCards, declaredValue);
       const totalOrderCost = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, "")) + parseFloat(shippingCost);
-  
+
       const response = await fetch("/api/stripe/product", {
         method: "POST",
         headers: {
@@ -296,7 +301,7 @@ function CardForm({ data }) {
         },
         body: JSON.stringify({ cartDetails, customerId: customerData.id, totalOrderCost }),
       });
-  
+
       const data = await response.json();
       if (data.sessionId) {
         const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
@@ -527,9 +532,12 @@ function CardForm({ data }) {
           borderRadius="20"
         >
           <CardOrderSummary
-            cartCount={cartCount}
-            calculateTotalDeclaredValue={calculateTotalDeclaredValue}
-            formattedTotalPrice={formattedTotalPrice}
+            // cartCount={cartCount}
+            // calculateTotalDeclaredValue={calculateTotalDeclaredValue}
+            // formattedTotalPrice={formattedTotalPrice}
+            cartCount={formatNumberWithCommas(cartCount)}
+            calculateTotalDeclaredValue={() => formatNumberWithCommas(calculateTotalDeclaredValue())}
+            formattedTotalPrice={formatNumberWithCommas(formattedTotalPrice)}
             shippingCost={shippingCost}
             insurance={insurance}
             calculateTotalPriceWithShippingAndInsurance={calculateTotalPriceWithShippingAndInsurance}
@@ -559,6 +567,23 @@ function CardForm({ data }) {
         </ModalFooter>
       </ModalContent>
     </Modal>
+
+    <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Declared Value Maximum Exceeded</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>
+              The total declared value of your cart exceeds the maximum of $100,000. Contact us about this order so we can provide more personalized services. 
+            </Text>
+          </ModalBody>
+          <ModalFooter>
+            <Link href="/page/contact" mr='4'>Contact Us</Link>
+            <Link onClick={onClose}>Close</Link>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
     </>
 
