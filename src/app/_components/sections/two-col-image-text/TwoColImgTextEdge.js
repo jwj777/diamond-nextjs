@@ -28,7 +28,6 @@ export default function TwoColImgTextEdge({ data }) {
 
           <Box 
             maxW='3xl'
-            // pr='20'
             pr={ data.Image_Position == 'left' ? '24' : '0' }
             pl={ data.Image_Position == 'right' ? '24' : '0' }
           >
@@ -49,7 +48,6 @@ export default function TwoColImgTextEdge({ data }) {
           </Box>
           
           <Box 
-            // position="relative"
             pr={ data.Image_Position == 'left' ? '24' : '0' }
             pl={ data.Image_Position == 'right' ? '24' : '0' }
             overflow='hidden'       

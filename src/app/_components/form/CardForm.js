@@ -253,7 +253,7 @@ function CardForm({ data }) {
   }, []);
 
   useEffect(() => {
-    if (totalDeclaredValue > 100000) {
+    if (totalDeclaredValue > 50000) {
       setIsExceedingLimit(true);
       onOpen();
     } else {
