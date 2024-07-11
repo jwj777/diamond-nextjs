@@ -37,6 +37,7 @@ import { loadStripe } from '@stripe/stripe-js'; // Import loadStripe
 
 function CardForm({ data }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isExceedingOpen, onOpen: onExceedingOpen, onClose: onExceedingClose } = useDisclosure();
   const [subscriptions, setSubscriptions] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
   const [pendingTabIndex, setPendingTabIndex] = useState(null);
@@ -60,9 +61,10 @@ function CardForm({ data }) {
   const [value, setValue] = useState("");
   const [slabStyle, setSlabStyle] = useState("");
   const [ebayUrl, setEbayUrl] = useState("");
-  const [insurance, setInsurance] = useState(0);
+  // const [insurance, setInsurance] = useState(0);
   const [shippingCost, setShippingCost] = useState(0);
-  const [resetInputState, setResetInputState] = useState(false);
+  const [selectedShippingOption, setSelectedShippingOption] = useState('2day');
+  // const [resetInputState, setResetInputState] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const { user, isLoading } = useUser();
   const [warningMessage, setWarningMessage] = useState("");
@@ -104,78 +106,159 @@ function CardForm({ data }) {
 
   const totalDeclaredValue = calculateTotalDeclaredValue();
 
-  const calculatePrice = (declaredValue, subscriptionLevel, numberOfCards) => {
-    const fees = activeTab == 0 ? standardFees : bulkFees;
-    if (!fees) {
-      console.error("Fees data is not available");
-      return null;
-    }
-    const levels = Object.keys(fees)
-      .map(parseFloat)
-      .sort((a, b) => a - b);
-    const levelIdx = levels.findIndex((level) => declaredValue <= level);
-    const level = levels[levelIdx === -1 ? levels.length - 1 : levelIdx];
-    const levelString = level.toString();
+  // const calculatePrice = (declaredValue, subscriptionLevel, numberOfCards) => {
+  //   const fees = activeTab == 0 ? standardFees : bulkFees;
+  //   if (!fees) {
+  //     console.error("Fees data is not available");
+  //     return null;
+  //   }
+  //   const levels = Object.keys(fees)
+  //     .map(parseFloat)
+  //     .sort((a, b) => a - b);
+  //   const levelIdx = levels.findIndex((level) => declaredValue <= level);
+  //   const level = levels[levelIdx === -1 ? levels.length - 1 : levelIdx];
+  //   const levelString = level.toString();
 
-    if (fees[levelString] && fees[levelString][subscriptionLevel]) {
-      return fees[levelString][subscriptionLevel];
+  //   if (fees[levelString] && fees[levelString][subscriptionLevel]) {
+  //     return fees[levelString][subscriptionLevel];
+  //   } else {
+  //     return null;
+  //   }
+  // };
+
+  const calculatePrice = (declaredValue, subscriptionLevel, isBulk) => {
+    let price;
+  
+    if (isBulk) {
+      switch (subscriptionLevel) {
+        case 'Standard':
+          price = declaredValue * 0.035;
+          break;
+        case 'Club':
+          price = declaredValue * 0.032;
+          break;
+        case 'Premium':
+          price = declaredValue * 0.029;
+          break;
+        case "Dealer's":
+          price = declaredValue * 0.026;
+          break;
+        default:
+          console.error("Invalid subscription level");
+          return null;
+      }
     } else {
-      return null;
-    }
-  };
-
-  const calculateShippingCost = (numberOfItems, declaredValue) => {
-    const shippingRates = declaredValue >= 1500 ? fedexShipping : uspsShipping;
-    let remainingItems = numberOfItems;
-    let totalCost = 0;
-
-    while (remainingItems > 0) {
-      if (remainingItems <= shippingRates.smallBox.capacity) {
-        totalCost += shippingRates.smallBox.cost;
-        remainingItems -= shippingRates.smallBox.capacity;
-      } else if (remainingItems <= shippingRates.mediumBox.capacity) {
-        totalCost += shippingRates.mediumBox.cost;
-        remainingItems -= shippingRates.mediumBox.capacity;
-      } else {
-        totalCost += shippingRates.largeBox.cost;
-        remainingItems -= shippingRates.largeBox.capacity;
+      switch (subscriptionLevel) {
+        case 'Standard':
+          price = declaredValue * 0.04;
+          break;
+        case 'Club':
+          price = declaredValue * 0.037;
+          break;
+        case 'Premium':
+          price = declaredValue * 0.034;
+          break;
+        case "Dealer's":
+          price = declaredValue * 0.031;
+          break;
+        default:
+          console.error("Invalid subscription level");
+          return null;
       }
     }
-
-    return totalCost.toFixed(2);
+  
+    return price.toFixed(2);
   };
+
+
+  const calculateShippingCost = (numberOfItems, declaredValue, option = '2day') => {
+    if (declaredValue <= 500) {
+      if (numberOfItems >= 1 && numberOfItems <= 4) {
+        return 15;
+      } else if (numberOfItems >= 5 && numberOfItems <= 20) {
+        return 25;
+      }
+    } else {
+      const fedexRates = [
+        { range: [1, 9], standard: 20, overnight: 75 },
+        { range: [10, 20], standard: 25, overnight: 85 },
+        { range: [21, 40], standard: 30, overnight: 95 },
+        { range: [41, 75], standard: 40, overnight: 115 },
+      ];
+
+      for (const rate of fedexRates) {
+        if (numberOfItems >= rate.range[0] && numberOfItems <= rate.range[1]) {
+          return option === 'overnight' ? rate.overnight : rate.standard;
+        }
+      }
+    }
+    return 0;
+  };
+
+  const updateShippingCost = (option) => {
+    const numberOfItems = Object.keys(cartDetails).length;
+    const declaredValue = calculateTotalDeclaredValue();
+    const shippingCostValue = calculateShippingCost(numberOfItems, declaredValue, option);
+    setShippingCost(shippingCostValue);
+  };
+
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const declaredValue = calculateTotalDeclaredValue();
-      const insuranceCostValue = getInsuranceCost(declaredValue);
-      setInsurance(insuranceCostValue);
-
-      const numberOfItems = Object.keys(cartDetails).length;
-      const shippingCostValue = calculateShippingCost(numberOfItems, declaredValue);
-      setShippingCost(shippingCostValue);
-    }
-  }, [cartDetails]);
-
-  function getInsuranceCost(declaredValue) {
-    declaredValue = Math.ceil(declaredValue / 100) * 100;
-    if (insuranceCost.hasOwnProperty(declaredValue.toString())) {
-      return insuranceCost[declaredValue.toString()].Cost;
-    } else {
-      return null;
-    }
-  }
-
-  const calculateTotalPriceWithShippingAndInsurance = () => {
-    const totalDeclaredValue = calculateTotalDeclaredValue();
-    const insuranceCostValue = getInsuranceCost(totalDeclaredValue);
     const numberOfItems = Object.keys(cartDetails).length;
-    const shippingCostValue = calculateShippingCost(numberOfItems, totalDeclaredValue);
+    const declaredValue = calculateTotalDeclaredValue();
+    const shippingCostValue = calculateShippingCost(numberOfItems, declaredValue, selectedShippingOption);
+    setShippingCost(shippingCostValue);
+  }, [cartDetails, selectedShippingOption]);
+
+
+  const calculateTotalPriceWithShipping = () => {
     const total = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, "")) +
-      (insuranceCostValue ? insuranceCostValue : 0) +
-      (shippingCostValue ? parseFloat(shippingCostValue) : 0);
+      (shippingCost ? parseFloat(shippingCost) : 0);
     return total.toFixed(2);
   };
+
+
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const declaredValue = calculateTotalDeclaredValue();
+  //     const insuranceCostValue = getInsuranceCost(declaredValue);
+  //     setInsurance(insuranceCostValue);
+
+  //     const numberOfItems = Object.keys(cartDetails).length;
+  //     const shippingCostValue = calculateShippingCost(numberOfItems, declaredValue);
+  //     setShippingCost(shippingCostValue);
+  //   }
+  // }, [cartDetails]);
+
+  // function getInsuranceCost(declaredValue) {
+  //   declaredValue = Math.ceil(declaredValue / 100) * 100;
+  //   if (insuranceCost.hasOwnProperty(declaredValue.toString())) {
+  //     return insuranceCost[declaredValue.toString()].Cost;
+  //   } else {
+  //     return null;
+  //   }
+  // }
+
+  // const calculateTotalPriceWithShippingAndInsurance = () => {
+  //   const totalDeclaredValue = calculateTotalDeclaredValue();
+  //   const insuranceCostValue = getInsuranceCost(totalDeclaredValue);
+  //   const numberOfItems = Object.keys(cartDetails).length;
+  //   const shippingCostValue = calculateShippingCost(numberOfItems, totalDeclaredValue);
+  //   const total = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, "")) +
+  //     (insuranceCostValue ? insuranceCostValue : 0) +
+  //     (shippingCostValue ? parseFloat(shippingCostValue) : 0);
+  //   return total.toFixed(2);
+  // };
+
+
+  // const calculateTotalPriceWithShippingAndInsurance = () => {
+  //   const numberOfItems = Object.keys(cartDetails).length;
+  //   const declaredValue = calculateTotalDeclaredValue();
+  //   const shippingCostValue = calculateShippingCost(numberOfItems, declaredValue);
+  //   const total = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, "")) +
+  //     (shippingCostValue ? parseFloat(shippingCostValue) : 0);
+  //   return total.toFixed(2);
+  // };
 
 
   // addToCart Function
@@ -193,15 +276,16 @@ function CardForm({ data }) {
   
       const subscriptionLevel = subscriptions[0].product.name;
       const declaredValue = parseFloat(value);
-      const numberOfCards = Object.keys(cartDetails).length + 1;
-      const price = calculatePrice(declaredValue, subscriptionLevel, numberOfCards);
+      const isBulk = activeTab !== 0; // Assuming 0 is the index for standard orders
+      const price = calculatePrice(declaredValue, subscriptionLevel, isBulk);
   
       if (price === null) {
         alert("Error calculating price.");
         return;
       }
   
-      const insuranceCostValue = getInsuranceCost(declaredValue);
+      // const insuranceCostValue = getInsuranceCost(declaredValue);
+
       const product = {
         name,
         description: desc,
@@ -209,7 +293,7 @@ function CardForm({ data }) {
         price: price * 100,
         currency: "USD",
         metadata: {
-          insuranceCost: insuranceCostValue,
+          // insuranceCost: insuranceCostValue,
           year,
           brandSet,
           number,
@@ -238,9 +322,11 @@ function CardForm({ data }) {
       alert("There was an error adding the item to the cart.");
     }
   };
+
+  const isCartEmpty = () => {
+    return Object.keys(cartDetails).length === 0;
+  };
   
-
-
   useEffect(() => {
     if (cartUpdated) {
       setCartUpdated(false);
@@ -252,15 +338,16 @@ function CardForm({ data }) {
     setIsClient(true);
   }, []);
 
+
   useEffect(() => {
     if (totalDeclaredValue > 50000) {
       setIsExceedingLimit(true);
-      onOpen();
+      onExceedingOpen();
     } else {
       setIsExceedingLimit(false);
-      onClose();
+      onExceedingClose();
     }
-  }, [totalDeclaredValue, onOpen, onClose]);
+  }, [totalDeclaredValue, onExceedingOpen, onExceedingClose]);
 
 
   useEffect(() => {
@@ -361,7 +448,11 @@ function CardForm({ data }) {
   };
 
 
-  // Test Comment
+const handleShippingOptionChange = (option) => {
+  setSelectedShippingOption(option);
+  updateShippingCost(option);
+};
+
 
   return (
     <>
@@ -532,20 +623,19 @@ function CardForm({ data }) {
           borderRadius="20"
         >
           <CardOrderSummary
-            // cartCount={cartCount}
-            // calculateTotalDeclaredValue={calculateTotalDeclaredValue}
-            // formattedTotalPrice={formattedTotalPrice}
             cartCount={formatNumberWithCommas(cartCount)}
             calculateTotalDeclaredValue={() => formatNumberWithCommas(calculateTotalDeclaredValue())}
+            declaredValue={totalDeclaredValue}
             formattedTotalPrice={formatNumberWithCommas(formattedTotalPrice)}
             shippingCost={shippingCost}
-            insurance={insurance}
-            calculateTotalPriceWithShippingAndInsurance={calculateTotalPriceWithShippingAndInsurance}
+            calculateTotalPriceWithShipping={calculateTotalPriceWithShipping}
             handleCheckout={handleCheckout}
             cartDetails={cartDetails}
             clearCart={clearCart}
             handleRemoveItem={handleRemoveItem}
-            warningMessage={warningMessage} 
+            warningMessage={warningMessage}
+            selectedShippingOption={selectedShippingOption}
+            handleShippingOptionChange={handleShippingOptionChange}
           />
         </GridItem>
       )}
@@ -568,7 +658,7 @@ function CardForm({ data }) {
       </ModalContent>
     </Modal>
 
-    <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
+    <Modal closeOnOverlayClick={false} isOpen={isExceedingOpen} onClose={onExceedingClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Declared Value Maximum Exceeded</ModalHeader>

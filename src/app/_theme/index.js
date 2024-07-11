@@ -2,6 +2,7 @@ import { extendTheme } from "@chakra-ui/react";
 import { Button } from "./components/Button";
 import { Input } from "./components/Input";
 import { Link } from "./components/Link";
+import { radioTheme } from "./components/Radio";
 import { tabsTheme } from "./tabsTheme";
 
 
@@ -22,6 +23,7 @@ const theme = extendTheme({
     Input, 
     Link,
     Tabs: tabsTheme,
+    Radio: radioTheme,
   },
   
   sizes: {

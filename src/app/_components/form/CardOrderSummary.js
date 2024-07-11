@@ -6,12 +6,15 @@ import {
   Button,
   Link,
   Icon,
+  RadioGroup,
+  Radio
 } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 import LabelMedium from "../typography/LabelMedium";
 import BodyMedium from "../typography/BodyMedium";
 import TitleLarge from '../typography/TitleLarge';
 import BodySmall from '../typography/BodySmall';
+import TitleSmall from '../typography/TitleSmall';
 
 
 const CardOrderSummary = ({ 
@@ -19,20 +22,22 @@ const CardOrderSummary = ({
   calculateTotalDeclaredValue, 
   formattedTotalPrice, 
   shippingCost, 
-  insurance, 
-  calculateTotalPriceWithShippingAndInsurance, 
+  calculateTotalPriceWithShipping, 
   handleCheckout, 
   cartDetails, 
   clearCart, 
   handleRemoveItem,
-  warningMessage
+  warningMessage,
+  declaredValue, 
+  selectedShippingOption, 
+  handleShippingOptionChange 
 }) => {
-
-  // console.log("Cart Details on Summary", cartDetails)
 
   const formatNumberWithCommas = (number) => {
     return number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
+
+  const totalDeclaredValue = calculateTotalDeclaredValue();
 
   return (
     <Box>
@@ -49,22 +54,38 @@ const CardOrderSummary = ({
           <BodyMedium>${calculateTotalDeclaredValue()}</BodyMedium>
         </Box>
       </Box>
+
+      {declaredValue > 500 && (
+        <Box mb='6' p="7" pb="7" bg="neutral.90" borderRadius="1rem">
+          <TitleSmall>Fedex Shipping Options</TitleSmall>
+          <RadioGroup 
+            name='shipping-options'
+            value={selectedShippingOption}
+            onChange={(value) => handleShippingOptionChange(value)}
+            mt='2'
+          >
+            <Radio value='2day' mr='4'>
+              Standard 2-Day
+            </Radio>
+            <Radio value='overnight'>
+              Standard Overnight
+            </Radio>
+          </RadioGroup>
+        </Box>
+      )}
+
       <Box mb="6" p="7" bg="neutral.90" borderRadius="1rem">
         <Box display={"flex"} justifyContent={"space-between"} mb="1">
           <LabelMedium>Grading Fees:</LabelMedium>
           <BodyMedium>{formattedTotalPrice}</BodyMedium>
         </Box>
-        <Box display={"flex"} justifyContent={"space-between"} mb="1">
+        <Box display={"flex"} justifyContent={"space-between"} mb="2">
           <LabelMedium>Shipping:</LabelMedium>
           <BodyMedium>${shippingCost}</BodyMedium>
         </Box>
-        <Box display={"flex"} justifyContent={"space-between"} mb="2">
-          <LabelMedium>Insurance:</LabelMedium>
-          <BodyMedium>{insurance !== null ? `$${insurance.toFixed(2)}` : "$0.00"}</BodyMedium>
-        </Box>
         <Box display={"flex"} justifyContent={"space-between"} borderTop="1px" borderColor="neutral.80" pt="2">
           <LabelMedium>Order Total:</LabelMedium>
-          <BodyMedium>{`$${calculateTotalPriceWithShippingAndInsurance()}`}</BodyMedium>
+          <BodyMedium>{`$${calculateTotalPriceWithShipping()}`}</BodyMedium>
         </Box>
       </Box>
 
