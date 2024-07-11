@@ -5,7 +5,7 @@ import HeroGeneral from "./HeroGeneral";
 import HeroHome from "./HeroHome";
 
 
-export default function HeroHeaderHome({ data, children, contentType }) {
+export default function HeroHeaderHome({ data, cardList }) {
 
   // console.log('HeaderHeroGeneral')
   // console.log(data)
@@ -23,7 +23,7 @@ export default function HeroHeaderHome({ data, children, contentType }) {
       </Box>
 
       <Box>
-        <HeroHome data={data} />
+        <HeroHome data={data} cardList={cardList} />
       </Box>
 
     </Box>

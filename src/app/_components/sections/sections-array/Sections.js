@@ -17,9 +17,9 @@ export default function Sections({ data }) {
 
     <Box>
       {
-        data.__component == 'section.card-list' ?
-        <TradingCardList data={data} />
-        : data.__component == 'section.two-column-image-text-edge' ?
+        // data.__component == 'section.card-list' ?
+        // <TradingCardList data={data} />
+        data.__component == 'section.two-column-image-text-edge' ?
         <TwoColImgTextEdge data={data} />
         : data.__component == 'section.section-basic-cards-2' ?
         <BasicCardList data={data} />

@@ -13,9 +13,16 @@ export default async function Home() {
   
   return (
     <main className={styles.main}>
-      <PageContainerHome data={data}>
+      <PageContainerHome 
+        data={data} 
+        cardList={
+          data.attributes.Sections.filter(obj => {
+            return obj.__component == 'section.card-list'
+          })
+        }
+      >
 
-        <Box position='relative' bottom={{ base: '0', xl: '40' }} mb={{ base: '0', xl: '-40' }}>
+        <Box position='relative' bottom={{ base: '0', xl: '0' }} mb={{ base: '0', xl: '0' }}>
           {
             data.attributes.Sections.map((item, index) => {
               return(

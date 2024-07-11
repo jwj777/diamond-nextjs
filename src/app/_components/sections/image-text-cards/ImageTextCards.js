@@ -14,10 +14,10 @@ export default function ImageTextCards({ data }) {
 
   return (
 
-    <Box py='28'>
+    <Box py='32'>
       <Box 
         display='flex'
-        justifyContent={{ base: 'center', xl: 'flex-start' }}
+        justifyContent={{ base: 'center', xl: 'center' }}
       >
         <Box 
           display={{ base: 'none', xl: 'block' }}
@@ -30,15 +30,16 @@ export default function ImageTextCards({ data }) {
         >
           <Image 
             src={'https://diamondgrade.s3.us-east-1.amazonaws.com/' + data.Image.data.attributes.hash + data.Image.data.attributes.ext}
-            height='960px'
-            width='520px'
+            // height='960px'
+            width='680px'
+            // textAlign='right'
             objectFit='cover'
             alt=""
           />
         </Box>
         <Box 
           maxW='4xl'
-          mt={{ base: '0', xl: '16' }} 
+          mt={{ base: '0', xl: '10' }} 
           pr={{ base: '0', xl: '20' }}
           px={{ base: '8', lg: '0' }}
         >  

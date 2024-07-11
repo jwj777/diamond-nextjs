@@ -5,14 +5,14 @@ import HeroHeaderHome from "./hero-header/HeroHeaderHome";
 import Footer from "./footer/Footer";
 
 
-export default function PageContainerHome({ data, children, contentType }) {
+export default function PageContainerHome({ data, children, cardList }) {
 
   return (
 
     <Box>
-      <HeroHeaderHome data={data} />
+      <HeroHeaderHome data={data} cardList={cardList} />
       
-      {children}
+        {children}
 
       <Footer />
 
