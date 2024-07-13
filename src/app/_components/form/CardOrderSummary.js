@@ -1,5 +1,5 @@
 // OrderSummary.js
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Text,
@@ -7,7 +7,8 @@ import {
   Link,
   Icon,
   RadioGroup,
-  Radio
+  Radio,
+  Checkbox
 } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 import LabelMedium from "../typography/LabelMedium";
@@ -30,8 +31,12 @@ const CardOrderSummary = ({
   warningMessage,
   declaredValue, 
   selectedShippingOption, 
-  handleShippingOptionChange 
+  handleShippingOptionChange,
+  // handleTermsAndConditions,
+  // agreeToTerms
 }) => {
+
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const formatNumberWithCommas = (number) => {
     return number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -55,7 +60,7 @@ const CardOrderSummary = ({
         </Box>
       </Box>
 
-      {declaredValue > 500 && (
+      
         <Box mb='6' p="7" pb="7" bg="neutral.90" borderRadius="1rem">
           <TitleSmall>Fedex Shipping Options</TitleSmall>
           <RadioGroup 
@@ -64,6 +69,11 @@ const CardOrderSummary = ({
             onChange={(value) => handleShippingOptionChange(value)}
             mt='2'
           >
+            {declaredValue < 500 && (
+              <Radio value='usps' mr='4'>
+                USPS Priority
+              </Radio>
+            )}
             <Radio value='2day' mr='4'>
               Standard 2-Day
             </Radio>
@@ -72,7 +82,7 @@ const CardOrderSummary = ({
             </Radio>
           </RadioGroup>
         </Box>
-      )}
+      
 
       <Box mb="6" p="7" bg="neutral.90" borderRadius="1rem">
         <Box display={"flex"} justifyContent={"space-between"} mb="1">
@@ -95,7 +105,26 @@ const CardOrderSummary = ({
         </Box>
       )}
 
-      <Button size={{ base: "md", md: "lg" }} variant="primaryLight" type="submit" onClick={(e) => handleCheckout()}>
+      <Box display={"flex"} alignItems="center" mb="6">
+        <Checkbox
+          borderColor='neutral.40' 
+          isChecked={termsAccepted}
+          onChange={(e) => setTermsAccepted(e.target.checked)}
+        >
+          <Text as='span'>I agree to the</Text>
+        </Checkbox>
+        <Link href="/page/terms" target="_blank" variant='primaryLightText' size='mdText' ml="2">
+          terms and conditions
+        </Link>
+      </Box>
+
+      <Button 
+        size={{ base: "md", md: "lg" }} 
+        variant="primaryLight"
+        type="submit" 
+        onClick={(e) => handleCheckout()}
+        isDisabled={!termsAccepted}
+      >
         {"Place Your Order"}
       </Button>
 

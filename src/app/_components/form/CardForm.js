@@ -68,6 +68,7 @@ function CardForm({ data }) {
   const { user, isLoading } = useUser();
   const [warningMessage, setWarningMessage] = useState("");
   const [isExceedingLimit, setIsExceedingLimit] = useState(false);
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
 
   useEffect(() => {
     console.log(activeTab)
@@ -153,19 +154,36 @@ function CardForm({ data }) {
 
   const calculateShippingCost = (numberOfItems, declaredValue, option = '2day') => {
     if (declaredValue <= 500) {
-      if (numberOfItems >= 1 && numberOfItems <= 4) {
-        return 15;
-      } else if (numberOfItems >= 5 && numberOfItems <= 20) {
-        return 25;
+      // USPS Priority
+      if (option === 'usps') {
+        if (numberOfItems >= 1 && numberOfItems <= 4) {
+          return 15;
+        } else if (numberOfItems >= 5 && numberOfItems <= 20) {
+          return 25;
+        }
       }
-    } else {
+      // FedEx Standard 2-Day or Overnight
       const fedexRates = [
         { range: [1, 9], standard: 20, overnight: 75 },
         { range: [10, 20], standard: 25, overnight: 85 },
         { range: [21, 40], standard: 30, overnight: 95 },
         { range: [41, 75], standard: 40, overnight: 115 },
       ];
-
+  
+      for (const rate of fedexRates) {
+        if (numberOfItems >= rate.range[0] && numberOfItems <= rate.range[1]) {
+          return option === 'overnight' ? rate.overnight : rate.standard;
+        }
+      }
+    } else {
+      // FedEx Standard 2-Day or Overnight for values over $500
+      const fedexRates = [
+        { range: [1, 9], standard: 20, overnight: 75 },
+        { range: [10, 20], standard: 25, overnight: 85 },
+        { range: [21, 40], standard: 30, overnight: 95 },
+        { range: [41, 75], standard: 40, overnight: 115 },
+      ];
+  
       for (const rate of fedexRates) {
         if (numberOfItems >= rate.range[0] && numberOfItems <= rate.range[1]) {
           return option === 'overnight' ? rate.overnight : rate.standard;
@@ -174,6 +192,7 @@ function CardForm({ data }) {
     }
     return 0;
   };
+  
 
   const updateShippingCost = (option) => {
     const numberOfItems = Object.keys(cartDetails).length;
@@ -298,8 +317,32 @@ function CardForm({ data }) {
   }, [name, brandSet, year, number, desc]);
 
 
+  const sendToWebhook = async (data) => {
+    try {
+      console.log('Sending the following data to webhook:', data); // Log the data to verify
+      const response = await fetch('/api/webhook', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to send data to webhook');
+      }
+  
+      const responseData = await response.json();
+      console.log('Data sent to webhook successfully:', responseData);
+    } catch (error) {
+      console.error('Error sending data to webhook:', error);
+    }
+  };
+
+
   // handleCheckout
   const handleCheckout = async () => {
+
     if (totalDeclaredValue > 100000) {
       setIsExceedingLimit(true);
       onOpen();
@@ -317,6 +360,18 @@ function CardForm({ data }) {
       const declaredValue = calculateTotalDeclaredValue();
       const shippingCost = calculateShippingCost(numberOfCards, declaredValue);
       const totalOrderCost = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, "")) + parseFloat(shippingCost);
+
+      const orderData = {
+        customer: customerData.id,
+        cartDetails,
+        totalOrderCost,
+        shippingCost,
+        declaredValue,
+      };
+
+      await sendToWebhook(orderData);
+
+      console.log('orderData ', orderData)
 
       const response = await fetch("/api/stripe/product", {
         method: "POST",
@@ -345,7 +400,11 @@ function CardForm({ data }) {
     }
     setLoading(false);
   };
-  
+
+
+  const handleTermsAndConditions = (value) => {
+    setAgreeToTerms(value);
+  }
 
   const handleRemoveItem = (id) => {
     console.log("handleRemoveItem called with id: ", id);
@@ -573,6 +632,8 @@ const handleShippingOptionChange = (option) => {
             warningMessage={warningMessage}
             selectedShippingOption={selectedShippingOption}
             handleShippingOptionChange={handleShippingOptionChange}
+            handleTermsAndConditions={handleTermsAndConditions}
+            agreeToTerms={agreeToTerms}
           />
         </GridItem>
       )}
