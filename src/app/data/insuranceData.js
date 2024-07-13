@@ -84,7 +84,7 @@ export const insuranceCost = {
   "8200": { "Cost": 114.80, "Carrier": "Fedex" },
   "8300": { "Cost": 116.20, "Carrier": "Fedex" },
   "8400": { "Cost": 117.60, "Carrier": "Fedex" },
-    "8500": { "Cost": 119.00, "Carrier": "Fedex" },
+  "8500": { "Cost": 119.00, "Carrier": "Fedex" },
   "8600": { "Cost": 120.40, "Carrier": "Fedex" },
   "8700": { "Cost": 121.80, "Carrier": "Fedex" },
   "8800": { "Cost": 123.20, "Carrier": "Fedex" },

@@ -64,8 +64,7 @@ export default function ContactForm({ data }) {
       <form onSubmit={handleSubmit}>
         <Box>
 
-          <InputFloat label="First Name" id={"firstName"} type={"text"} pattern={"^[A-Za-z]+$"} required={true} />
-          <InputFloat label="Last Name" id={"lastName"} type={"text"} pattern={"^[A-Za-z]+$"} required={true} />
+          <InputFloat label="Name" id={"name"} type={"text"} pattern={"^[A-Za-z]+$"} required={true} />
           <InputFloat label="Email" id={"email"} type={"text"} pattern={"^[A-Za-z]+$"} required={true} />
           <Box mb='4'>
             <Select placeholder='How Can We Help' bg='neutral.20' color='neutral.90' borderColor='neutral.40' fontSize='1.2rem' h='16' borderRadius='8'>

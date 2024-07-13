@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Flex } from "@chakra-ui/react";
+import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Flex, Link } from "@chakra-ui/react";
 import TitleSmall from '../typography/TitleSmall';
 import HeadlineSmall from '../typography/HeadlineSmall';
 import BodyMedium from '../typography/BodyMedium';
@@ -46,6 +46,12 @@ function PriceGrids({ priceGridStandard, priceGridBulk }) {
         ))}
 
       </Flex>
+      <Box borderBottom='1px' borderColor='neutral.30' pb='3' pt='3'>
+        <BodyMedium color='neutral.80'>
+          For orders over $50,000 <Link href="/page/contact" variant='primaryDarkText' size='mdText'>contact us</Link>.
+
+        </BodyMedium>
+      </Box>
 
     </Box>
     );

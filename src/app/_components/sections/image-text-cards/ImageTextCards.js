@@ -21,9 +21,10 @@ export default function ImageTextCards({ data }) {
       >
         <Box 
           display={{ base: 'none', xl: 'block' }}
-          borderTopEndRadius='1.5rem'
-          borderBottomEndRadius='1.5rem'
-          height='960px'
+          // borderTopEndRadius='1.5rem'
+          // borderBottomEndRadius='1.5rem'
+          borderRadius='1.5rem'
+          height='660px'
           width='520px'
           overflow='hidden'
           mr='16'
@@ -39,7 +40,7 @@ export default function ImageTextCards({ data }) {
         </Box>
         <Box 
           maxW='4xl'
-          mt={{ base: '0', xl: '10' }} 
+          mt={{ base: '0', xl: '0' }} 
           pr={{ base: '0', xl: '20' }}
           px={{ base: '8', lg: '0' }}
         >  
