@@ -133,7 +133,8 @@ function CardForm({ data }) {
     } else {
       switch (subscriptionLevel) {
         case 'Standard':
-          declaredValue < 500 ? price = 20 : price = declaredValue * 0.04
+          // declaredValue < 500 ? price = 20 : price = declaredValue * 0.04
+          declaredValue < 500 ? price = 16 : price = declaredValue * 0.034;
           break;
         case 'Club':
           declaredValue < 500 ? price = 18 : price = declaredValue * 0.037;
@@ -252,7 +253,6 @@ function CardForm({ data }) {
         price: price * 100,
         currency: "USD",
         metadata: {
-          // insuranceCost: insuranceCostValue,
           year,
           brandSet,
           number,
@@ -320,23 +320,34 @@ function CardForm({ data }) {
   }, [name, brandSet, year, number, desc]);
 
 
+  const formatCartDetails = (cartDetails) => {
+    return Object.values(cartDetails)
+      .map((item, index) => {
+        return `Card ${index + 1}:
+          Name: ${item.product_data.year} ${item.product_data.brandSet} ${item.name}
+          Number: ${item.product_data.number}
+          Description: ${item.product_data.desc}
+          Declared Value: $${item.product_data.value}
+          Slab Style: ${item.product_data.slabStyle}`;
+      })
+      .join('\n\n');
+  };
+
+
+  // sendToWebhook function
   const sendToWebhook = async (data) => {
     try {
       console.log('Sending the following data to webhook:', data); // Log the data to verify
-      const response = await fetch('/api/webhook', {
+      const response = await fetch('https://hooks.zapier.com/hooks/catch/8026392/2b1epr8/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify(data),
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to send data to webhook');
       }
-  
-      const responseData = await response.json();
-      console.log('Data sent to webhook successfully:', responseData);
+
+      console.log('Data sent to webhook successfully');
     } catch (error) {
       console.error('Error sending data to webhook:', error);
     }
@@ -364,14 +375,16 @@ function CardForm({ data }) {
       const shippingCost = calculateShippingCost(numberOfCards, declaredValue);
       const totalOrderCost = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, "")) + parseFloat(shippingCost);
 
+      const formattedCartDetails = formatCartDetails(cartDetails); // Get formatted cart details
+
       const orderData = {
         customer: customerData.id,
-        cartDetails,
+        cartDetails: formattedCartDetails, // Use the formatted cart details string
         totalOrderCost,
         shippingCost,
         declaredValue,
       };
-
+  
       await sendToWebhook(orderData);
 
       console.log('orderData ', orderData)
@@ -602,7 +615,7 @@ const handleShippingOptionChange = (option) => {
       
       <Box mt='8' px='10' maxW='480px'>
         <TitleMedium>Feedback and Support</TitleMedium>
-        <BodyMedium>If you have any questions or want to provide feedback, <Link href='page/contact' variant='primaryLightText' size='mdText'> use our contact form </Link>.
+        <BodyMedium>If you have any questions or want to provide feedback, <Link href='/page/contact' variant='primaryLightText' size='mdText'> use our contact form </Link>.
         </BodyMedium>
       </Box>
 
