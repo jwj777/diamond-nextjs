@@ -106,6 +106,8 @@ function CardForm({ data }) {
 
   const totalDeclaredValue = calculateTotalDeclaredValue();
 
+  
+
 
   const calculatePrice = (declaredValue, subscriptionLevel, isBulk) => {
     let price;
@@ -113,16 +115,16 @@ function CardForm({ data }) {
     if (isBulk) {
       switch (subscriptionLevel) {
         case 'Standard':
-          price = declaredValue * 0.035;
+          declaredValue < 500 ? price = 18 : price = declaredValue * 0.035
           break;
         case 'Club':
-          price = declaredValue * 0.032;
+          declaredValue < 500 ? price = 16 : price = declaredValue * 0.032;
           break;
         case 'Premium':
-          price = declaredValue * 0.029;
+          declaredValue < 500 ? price = 14 : price = declaredValue * 0.029;
           break;
         case "Dealer's":
-          price = declaredValue * 0.026;
+          declaredValue < 500 ? price = 12 : price = declaredValue * 0.026;
           break;
         default:
           console.error("Invalid subscription level");
@@ -131,16 +133,16 @@ function CardForm({ data }) {
     } else {
       switch (subscriptionLevel) {
         case 'Standard':
-          price = declaredValue * 0.04;
+          declaredValue < 500 ? price = 20 : price = declaredValue * 0.04
           break;
         case 'Club':
-          price = declaredValue * 0.037;
+          declaredValue < 500 ? price = 18 : price = declaredValue * 0.037;
           break;
         case 'Premium':
-          price = declaredValue * 0.034;
+          declaredValue < 500 ? price = 16 : price = declaredValue * 0.034;
           break;
         case "Dealer's":
-          price = declaredValue * 0.031;
+          declaredValue < 500 ? price = 14 : price = declaredValue * 0.031;
           break;
         default:
           console.error("Invalid subscription level");
@@ -234,13 +236,14 @@ function CardForm({ data }) {
       const declaredValue = parseFloat(value);
       const isBulk = activeTab !== 0; // Assuming 0 is the index for standard orders
       const price = calculatePrice(declaredValue, subscriptionLevel, isBulk);
+
+      console.log('subscriptionLevel #### ', subscriptionLevel)
   
       if (price === null) {
         alert("Error calculating price.");
         return;
       }
-  
-      // const insuranceCostValue = getInsuranceCost(declaredValue);
+
 
       const product = {
         name,
