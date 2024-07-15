@@ -599,8 +599,7 @@ const handleShippingOptionChange = (option) => {
       
       <Box mt='8' px='10' maxW='480px'>
         <TitleMedium>Feedback and Support</TitleMedium>
-        <BodyMedium>Call us 440-444-0404 or <Link href='page/contact' variant='primaryLightText' size='mdText'> use our contact form </Link> 
-          to send questions and feedback.
+        <BodyMedium>If you have any questions or want to provide feedback, <Link href='page/contact' variant='primaryLightText' size='mdText'> use our contact form </Link>.
         </BodyMedium>
       </Box>
 

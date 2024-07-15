@@ -62,23 +62,31 @@ const CardOrderSummary = ({
 
       
         <Box mb='6' p="7" pb="7" bg="neutral.90" borderRadius="1rem">
-          <TitleSmall>Fedex Shipping Options</TitleSmall>
+          <TitleSmall>Shipping Options</TitleSmall>
           <RadioGroup 
+            display='flex'
             name='shipping-options'
             value={selectedShippingOption}
             onChange={(value) => handleShippingOptionChange(value)}
-            mt='2'
+            mt='3'
           >
+
             {declaredValue < 500 && (
-              <Radio value='usps' mr='4'>
-                USPS Priority
+              <Radio value='usps' mr='2' fontSize='0.9rem'>
+                <Box maxW='76px'>
+                  <BodySmall>USPS Priority</BodySmall>
+                </Box>
               </Radio>
             )}
-            <Radio value='2day' mr='4'>
-              Standard 2-Day
+            <Radio value='2day' mr='2' fontSize='0.9rem'>
+              <Box maxW='122px'>
+               <BodySmall>Fedex Standard 2-Day</BodySmall>
+              </Box>
             </Radio>
-            <Radio value='overnight'>
-              Standard Overnight
+            <Radio value='overnight' fontSize='sm'>
+              <Box maxW='132px'>
+              <BodySmall>Fedex Standard Overnight</BodySmall>
+              </Box>
             </Radio>
           </RadioGroup>
         </Box>
