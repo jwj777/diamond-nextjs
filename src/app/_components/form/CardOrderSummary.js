@@ -17,6 +17,7 @@ import BodyMedium from "../typography/BodyMedium";
 import TitleLarge from '../typography/TitleLarge';
 import BodySmall from '../typography/BodySmall';
 import TitleSmall from '../typography/TitleSmall';
+import TitleMedium from '../typography/TitleMedium';
 
 
 const CardOrderSummary = ({ 
@@ -104,8 +105,8 @@ const CardOrderSummary = ({
           <BodyMedium>${shippingCost}</BodyMedium>
         </Box>
         <Box display={"flex"} justifyContent={"space-between"} borderTop="1px" borderColor="neutral.80" pt="2">
-          <LabelMedium>Order Total:</LabelMedium>
-          <BodyMedium>{`$${calculateTotalPriceWithShipping()}`}</BodyMedium>
+          <TitleMedium>Order Total:</TitleMedium>
+          <TitleMedium>{`$${calculateTotalPriceWithShipping()}`}</TitleMedium>
         </Box>
       </Box>
 

@@ -103,7 +103,7 @@ export default function ProfileClient() {
                       </Box>
                       <Box mb='2'>
                         <BodyMedium color={"white"}>
-                          <Text as='span' fontWeight='600' mr='1' mb='3'>Monthly Fee: </Text>
+                          <Text as='span' fontWeight='600' mr='1' mb='3'>Yearly Fee: </Text>
                           <Text as='span' color='neutral.90'>${subscriptions[0].plan.amount / 100}</Text>
                         </BodyMedium>
                       </Box>
