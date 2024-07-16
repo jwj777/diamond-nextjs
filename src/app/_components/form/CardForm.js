@@ -630,6 +630,7 @@ const handleShippingOptionChange = (option) => {
           mx="2"
           bg="neutral.95"
           p="10"
+          pt='8'
           pb="16"
           borderRadius="20"
         >

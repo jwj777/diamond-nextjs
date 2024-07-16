@@ -6,18 +6,22 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect } from "react";
 import BodyMedium from "../typography/BodyMedium";
 
+
 async function getPlans() {
   try {
-    const url =
-      "https://strapi-production-0074.up.railway.app" +
-      "/api/member-plans?[populate]=*";
+    const url = "https://strapi-production-0074.up.railway.app/api/member-plans?[populate]=*";
     console.log("Fetching plans from URL:", url);
     const response = await fetch(url);
+    console.log("Response status:", response.status); // Log the status code
+
     if (!response.ok) {
+      const errorText = await response.text(); // Get the response text
+      console.error("Failed to fetch plans, response text:", errorText); // Log the response text
       throw new Error(`Failed to fetch plans, status: ${response.status}`);
     }
+
     const plans = await response.json();
-    // console.log("Fetched plans:", plans);
+    console.log("Fetched plans:", plans);
     return plans?.data;
   } catch (error) {
     console.error("Error fetching plans:", error);
@@ -31,8 +35,54 @@ export default function PricingCards({ data }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hasMembership, setHasMembership] = useState(false);
-
   const { user, isLoading } = useUser();
+
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const productsResponse = await fetch("/api/stripe/products");
+  //       if (!productsResponse.ok) {
+  //         throw new Error(
+  //           `Failed to fetch products, status: ${productsResponse.status}`
+  //         );
+  //       }
+  //       const productsData = await productsResponse.json();
+  //       const plansData = await getPlans();
+  
+  //       // Combine the data
+  //       const combinedData = productsData.map((product) => {
+  //         const plan = plansData.find(
+  //           (plan) => {
+  //             console.log(`Comparing product id: ${product.id} with plan Stripe_ID: ${plan.attributes.Stripe_ID}`);
+  //             return plan.attributes.Stripe_ID === product.id;
+  //           }
+  //         );
+  //         if (plan) {
+  //           return {
+  //             ...product,
+  //             highlight: plan.attributes.Highlight,
+  //             features: plan.attributes.Features,
+  //           };
+  //         }
+  //         console.log(`No matching plan found for product id: ${product.id}`);
+  //         return product;
+  //       });
+  
+  //       console.log("Combined data:", combinedData);
+  
+  //       setProducts(combinedData);
+  //       setPlans(plansData);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //       setError(error.message);
+  //       setLoading(false);
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
+
 
   useEffect(() => {
     async function fetchData() {
@@ -45,24 +95,33 @@ export default function PricingCards({ data }) {
         }
         const productsData = await productsResponse.json();
         const plansData = await getPlans();
-
+  
+        console.log("Fetched plans:", plansData);
+  
         // Combine the data
         const combinedData = productsData.map((product) => {
-          const plan = plansData.find(
-            (plan) => plan.attributes.Stripe_ID === product.id
-          );
+          const plan = plansData.find((plan) => {
+            console.log(
+              `Comparing product id: ${product.id} with plan Stripe_ID: ${plan.attributes.Stripe_ID}`
+            );
+            return plan.attributes.Stripe_ID === product.id;
+          });
+  
           if (plan) {
+            console.log(`Match found for product id: ${product.id}`);
             return {
               ...product,
               highlight: plan.attributes.Highlight,
               features: plan.attributes.Features,
             };
+          } else {
+            console.log(`No matching plan found for product id: ${product.id}`);
+            return product;
           }
-          return product;
         });
-
-        // console.log("Combined data:", combinedData);
-
+  
+        console.log("Combined data:", combinedData);
+  
         setProducts(combinedData);
         setPlans(plansData);
         setLoading(false);
@@ -75,28 +134,6 @@ export default function PricingCards({ data }) {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   if (isLoading) return; // Wait until loading is done
-  //   if (!user) return;
-
-  //   async function fetchSubscriptions() {
-  //     try {
-  //       const customerRes = await fetch(`/api/stripe/customer?email=${user.email}`);
-  //       const customerData = await customerRes.json();
-
-  //       const response = await fetch(`/api/stripe/subscriptions?customerId=${customerData.id}`);
-  //       const data = await response.json();
-
-  //       // Check if user has any subscriptions
-  //       if (data && data.length > 0) {
-  //         setHasMembership(true);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching subscriptions:", error);
-  //     }
-  //   }
-  //   fetchSubscriptions();
-  // }, [user, isLoading]);
 
   useEffect(() => {
     if (isLoading) return; // Wait until loading is done
@@ -140,8 +177,6 @@ export default function PricingCards({ data }) {
     return <p>Error: {error}</p>;
   }
 
-  // console.log("subscriptions", products);
-  // console.log("plans", plans);
 
   const handleSubscribe = async (priceId) => {
     setLoading(true);
@@ -182,13 +217,15 @@ export default function PricingCards({ data }) {
     setLoading(false);
   };
 
+  console.log("Products Fijnal ---- ", products.length)
+
   return (
     <Box display="flex" flexWrap="wrap" alignItems="stretch" ml="-2" mb="16">
       {products.length > 0 ? (
         <>
           {products.map(
             (product, index) =>
-              product.metadata.service === "diamond" && (
+              product.metadata.service === "membership" && (
                 <Box key={index}>
                   <PricingCard
                     title={product.name}

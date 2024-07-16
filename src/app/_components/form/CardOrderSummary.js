@@ -8,7 +8,8 @@ import {
   Icon,
   RadioGroup,
   Radio,
-  Checkbox
+  Checkbox,
+  Stack
 } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 import LabelMedium from "../typography/LabelMedium";
@@ -46,10 +47,10 @@ const CardOrderSummary = ({
 
   return (
     <Box>
-      <Box mb="4">
+      <Box mb="6">
         <TitleLarge color="neutral.10">Order Summary</TitleLarge>
       </Box>
-      <Box mb="6" p="7" pb="5" bg="neutral.90" borderRadius="1rem">
+      <Box mb="4" p="6" pt='5' pb="3" bg="neutral.90" borderRadius="1rem">
         <Box display={"flex"} justifyContent={"space-between"} mb="1">
           <LabelMedium>Total Items:</LabelMedium>
           <BodyMedium>{cartCount}</BodyMedium>
@@ -61,7 +62,7 @@ const CardOrderSummary = ({
       </Box>
 
       
-        <Box mb='6' p="7" pb="7" bg="neutral.90" borderRadius="1rem">
+        <Box mb='4' p="6" py="5" bg="neutral.90" borderRadius="1rem">
           <TitleSmall>Shipping Options</TitleSmall>
           <RadioGroup 
             display='flex'
@@ -70,29 +71,30 @@ const CardOrderSummary = ({
             onChange={(value) => handleShippingOptionChange(value)}
             mt='3'
           >
-
+            <Stack>
             {declaredValue < 500 && (
               <Radio value='usps' mr='2' fontSize='0.9rem'>
-                <Box maxW='76px'>
-                  <BodySmall>USPS Priority</BodySmall>
+                <Box>
+                  <BodyMedium>USPS Priority</BodyMedium>
                 </Box>
               </Radio>
             )}
             <Radio value='2day' mr='2' fontSize='0.9rem'>
-              <Box maxW='122px'>
-               <BodySmall>Fedex Standard 2-Day</BodySmall>
+              <Box>
+               <BodyMedium>Fedex Standard 2-Day</BodyMedium>
               </Box>
             </Radio>
             <Radio value='overnight' fontSize='sm'>
-              <Box maxW='132px'>
-              <BodySmall>Fedex Standard Overnight</BodySmall>
+              <Box>
+              <BodyMedium>Fedex Standard Overnight</BodyMedium>
               </Box>
             </Radio>
+            </Stack>
           </RadioGroup>
         </Box>
       
 
-      <Box mb="6" p="7" bg="neutral.90" borderRadius="1rem">
+      <Box mb="6" p="6" py='5' bg="neutral.90" borderRadius="1rem">
         <Box display={"flex"} justifyContent={"space-between"} mb="1">
           <LabelMedium>Grading Fees:</LabelMedium>
           <BodyMedium>{formattedTotalPrice}</BodyMedium>

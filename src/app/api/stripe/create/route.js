@@ -16,6 +16,7 @@ export const POST = async (req) => {
         },
       ],
       customer: customerId,
+      allow_promotion_codes: true,
       success_url: `${process.env.AUTH0_BASE_URL}/account`,
       cancel_url: `${process.env.AUTH0_BASE_URL}`,
     });
