@@ -93,42 +93,42 @@ export default async function Services({ params }) {
                   <HeaderItem>Grading Services</HeaderItem>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
-                  <Cell col='1'>2 1/2" X 3 1/2"</Cell>
+                  <Cell col='1'>{'2 1/2" X 3 1/2"'}</Cell>
                   <Cell width='640px'>STANDARD SIZE</Cell>
                   <Cell>Yes</Cell>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
-                  <Cell col='1'>2 5/8" X 3 3/4"</Cell>
+                  <Cell col='1'>{'2 5/8" X 3 3/4"'}</Cell>
                   <Cell width='640px'>SIZE EQUAL TO VINTAGE TOPPS 1952-1956 & 1988 TOPPS BIG</Cell>
                   <Cell>Yes</Cell>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
-                  <Cell col='1'>2" X 2 1/2"</Cell>
+                  <Cell col='1'>{'2" X 2 1/2"'}</Cell>
                   <Cell width='640px'>SIZE EQUAL TO 1948-1950 BOWMAN</Cell>
                   <Cell>Yes</Cell>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
-                  <Cell col='1'>2 1/8" X 3 1/8"</Cell>
+                  <Cell col='1'>{'2 1/8" X 3 1/8"'}</Cell>
                   <Cell width='640px'>SIZE EQUAL TO 1951-1952 BOWMAN</Cell>
                   <Cell>Yes</Cell>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
-                  <Cell col='1'>2 1/2" X 3 3/4"</Cell>
+                  <Cell col='1'>{'2 1/2" X 3 3/4"'}</Cell>
                   <Cell width='640px'>SIZE EQUAL TO 1953-1955 & 1989 BOWMAN</Cell>
                   <Cell>Yes</Cell>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
-                  <Cell col='1'>1 7/16" X 2 5/8"</Cell>
+                  <Cell col='1'>{'1 7/16" X 2 5/8"'}</Cell>
                   <Cell width='640px'>SIZE EQUAL TO T206/ALLEN AND GINTER MINI</Cell>
                   <Cell>Yes</Cell>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
-                  <Cell col='1'>2 1/4" X 3 1/8"</Cell>
+                  <Cell col='1'>{'2 1/4" X 3 1/8"'}</Cell>
                   <Cell width='640px'>TOPPS MINI</Cell>
                   <Cell>COMING SOON</Cell>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
-                  <Cell col='1'>2 3/8" X 2 7/8"</Cell>
+                  <Cell col='1'>{'2 3/8" X 2 7/8"'}</Cell>
                   <Cell width='640px'>GOUDEY</Cell>
                   <Cell>COMING SOON</Cell>
                 </Box>
