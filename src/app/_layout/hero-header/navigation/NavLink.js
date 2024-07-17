@@ -2,7 +2,7 @@
 import { Box, Link, Icon } from "@chakra-ui/react";
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons'
 
-export default function NavLink({ href, label, onClick, isSubMenuVisible, dropDown }) {
+export default function NavLink({ href, label, onClick, isSubMenuVisible, isSubMenuCardVisible, dropDown }) {
 
   // console.log('NavLink')
   // console.log(isSubMenuVisible)
@@ -27,8 +27,8 @@ export default function NavLink({ href, label, onClick, isSubMenuVisible, dropDo
         >
           {label}
           {
-            dropDown && isSubMenuVisible ? <ChevronUpIcon />
-            : dropDown && !isSubMenuVisible ? <ChevronDownIcon />
+            dropDown && (isSubMenuVisible || isSubMenuCardVisible) ? <ChevronUpIcon ml='1' />
+            : dropDown && (!isSubMenuVisible || isSubMenuCardVisible) ? <ChevronDownIcon ml='1' />
             : null
           }  
         </Link>

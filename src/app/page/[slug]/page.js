@@ -25,11 +25,6 @@ export default async function Page({ params }) {
 
       <Box bg='neutral.4' pt='0'>
           <XlContainer>
-            {/* {
-              data.attributes.slug == 'pricing' ?
-                <MemberPlans plans={plansData} />
-              : null
-            } */}
             {
               data.attributes.slug == 'pricing' ?
                 <PricingCards />
@@ -59,7 +54,10 @@ async function getPageBySlug(params) {
     const response =
       await fetch(process.env.BASE_URL + `/api/general-pages?filters[slug][$eq]=${slug}&populate[Sections][populate]=*&populate[HeroImage][populate]=*
       &populate[Sections][on][section.card-list][populate][Cards][populate]=
-      &populate[Sections][on][section.two-column-image-text-edge][populate]=*`);
+      &populate[Sections][on][section.two-column-image-text-edge][populate]=*
+      &populate[Sections][on][section.shipping-guide][populate][Guides][populate]=*
+      &populate[Sections][on][section.text][populate]=*
+      `);
 
     if (!response.ok) {
       throw new Error("Failed to fetch data");

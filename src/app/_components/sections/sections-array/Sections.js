@@ -6,6 +6,7 @@ import BodyLarge from "../../typography/BodyLarge";
 import TwoColImgTextEdge from "../two-col-image-text/TwoColImgTextEdge";
 import BasicCardList from "../basic-cards/BasicCardList";
 import ImageTextCards from "../image-text-cards/ImageTextCards";
+import ShippingGuide from "../shipping-guide/ShippingGuide";
 
 
 export default function Sections({ data }) {
@@ -17,14 +18,16 @@ export default function Sections({ data }) {
 
     <Box>
       {
-        // data.__component == 'section.card-list' ?
-        // <TradingCardList data={data} />
         data.__component == 'section.two-column-image-text-edge' ?
-        <TwoColImgTextEdge data={data} />
+          <TwoColImgTextEdge data={data} />
         : data.__component == 'section.section-basic-cards-2' ?
-        <BasicCardList data={data} />
+          <BasicCardList data={data} />
         : data.__component == 'section.image-and-text-cards' ?
           <ImageTextCards data={data} />
+        : data.__component == 'section.shipping-guide' ?
+          <ShippingGuide data={data} />
+        // : data.__component == 'section.text' ?
+        //   <TextSection data={data} />
         : null
       }
     </Box>

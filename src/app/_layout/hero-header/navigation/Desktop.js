@@ -7,12 +7,18 @@ import MobileNavDrawer from "./mobile-nav/MobileNavDrawer";
 export default function Desktop() {
 
   const [isSubMenuVisible, setSubMenuVisible] = useState(false);
+  const [isSubMenuCardVisible, setSubMenuCardVisible] = useState(false);
   const navRef = useRef(); // Ref for the menu to handle clicks outside
 
   // Toggle submenu visibility
   const toggleSubMenu = () => {
-    console.log('toggleSubMenu')
     setSubMenuVisible(!isSubMenuVisible);
+    isSubMenuCardVisible ? setSubMenuCardVisible(false) : null;
+  };
+
+  const toggleSubMenuCard = () => {
+    setSubMenuCardVisible(!isSubMenuCardVisible);
+    isSubMenuVisible ? setSubMenuVisible(false) : null;
   };
 
   // Click outside handler
@@ -39,17 +45,27 @@ export default function Desktop() {
         <Box
           display='flex'
         >
-          <NavLink href="/page/pricing" label='Services & Prices' />
-          <Box>
-            <NavLink href="#" label='Resources' onClick={toggleSubMenu} isSubMenuVisible={isSubMenuVisible} dropDown={true} />
-            {isSubMenuVisible && (
-              <Box position="absolute" bg="white" boxShadow="md" borderRadius='16' mt='8' p="4" display='flex' flexDirection='column'>
+          {/* <NavLink href="/page/pricing" label='Memberships & Prices' /> */}
+          <Box position='relative' zIndex='3'>
+            <NavLink href="#" label='Card Grading' onClick={toggleSubMenuCard} isSubMenuCardVisible={isSubMenuCardVisible} dropDown={true} />
+            {isSubMenuCardVisible && (
+              <Box position="absolute" bg="white" boxShadow="md" borderRadius='16' mt='6' p="4" display='flex' flexDirection='column' width='240px'>
+                <Link href="/page/pricing" variant='noDeco'>Memberships & Prices</Link>
+                <Link href="/page/services" variant='noDeco'>What We Grade</Link>
+                <Link href="/page/shipping-fees" variant='noDeco'>Shipping Fees</Link>
                 <Link href="/page/grading-standards" variant='noDeco'>Grading Standards</Link>
-                {/* <Link href="/page/philosophy" variant='noDeco'>Philosophy</Link> */}
-                <Link href="/page/faq" variant='noDeco'>FAQs</Link>
               </Box>
             )}
           </Box>
+          {/* <Box>
+            <NavLink href="#" label='Resources' onClick={toggleSubMenu} isSubMenuVisible={isSubMenuVisible} dropDown={true} />
+            {isSubMenuVisible && (
+              <Box position="absolute" bg="white" boxShadow="md" borderRadius='16' mt='6' p="4" display='flex' flexDirection='column'>
+                <Link href="/page/grading-standards" variant='noDeco'>Grading Standards</Link>
+                <Link href="/page/grading-standards" variant='noDeco'>Grading Standards</Link>
+              </Box>
+            )}
+          </Box> */}
           <NavLink href="/page/about" label='About' />
           <NavLink href="/page/contact" label='Contact Us' />
         </Box>

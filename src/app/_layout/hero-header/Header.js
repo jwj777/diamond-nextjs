@@ -18,16 +18,20 @@ export default function Header({ data, children, contentType }) {
         py="6"
       >
 
-      <Box display={{ base: 'block', xl: 'none' }} mr='8'>
-        <MobileNavDrawer />
-      </Box>
+        <Box display={{ base: 'block', xl: 'none' }} mr='8'>
+          <MobileNavDrawer />
+        </Box>
 
-
-        <Box display="flex" alignItems="center" flexGrow="2">
-          <Box mr="12" maxW="260px">
-            <Link href="/" variant="noDeco">
-              <Image src="/logo-gold.png" fill alt="" />
-            </Link>
+        <Box display='flex' alignItems='center'>
+          <Box display="flex" alignItems="center">
+            <Box mr="16" maxW="260px">
+              <Link href="/" variant="noDeco">
+                <Image src="/logo-gold.png" fill alt="" />
+              </Link>
+            </Box>
+          </Box>
+          <Box mr="16" display={{ base: 'none', xl: 'flex' }}>
+            <Desktop />
           </Box>
         </Box>
 
@@ -36,9 +40,7 @@ export default function Header({ data, children, contentType }) {
           gap={5} 
           alignItems="center"
         >
-          <Box mr="16" display={{ base: 'none', xl: 'flex' }}>
-            <Desktop />
-          </Box>
+
 
           <Box display={{ base: 'none', md: 'flex' }}>
             {!user ? (
@@ -50,11 +52,8 @@ export default function Header({ data, children, contentType }) {
                 <Link href="/form/submit-card" variant="neutralDark" mr='4'>
                   Submit a Card
                 </Link>
-                <Link href="/account" variant="neutralDark" mr='4'>
+                <Link href="/account" variant="neutralDark">
                   My Account
-                </Link>
-                <Link href="/api/auth/logout" variant="neutralDark">
-                  Logout
                 </Link>
               </>
             )}

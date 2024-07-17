@@ -3,7 +3,7 @@ import { Box, Text } from '@chakra-ui/react'
 // import styles from "./typography.module.css"
 
 
-export default function BodyLarge({ text, textColor, color, children, thin }) {
+export default function BodyLarge({ text, textColor, color, children, thin, mb }) {
 
   textColor ? color = textColor : null
   color ? color = color : color = 'neutral.10'
@@ -28,6 +28,7 @@ export default function BodyLarge({ text, textColor, color, children, thin }) {
         color={color}
         fontWeight={400}
         letterSpacing={'0px'}
+        mb={mb}
       >{children}</Text>
 }
     </Box>

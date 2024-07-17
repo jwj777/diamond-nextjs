@@ -61,7 +61,7 @@ function CardForm({ data }) {
   const [value, setValue] = useState("");
   const [slabStyle, setSlabStyle] = useState("");
   const [ebayUrl, setEbayUrl] = useState("");
-  const [shippingCost, setShippingCost] = useState(0);
+  const [shippingCost, setShippingCost] = useState(0.00);
   const [selectedShippingOption, setSelectedShippingOption] = useState('2day');
   const [resetInputState, setResetInputState] = useState(false);
   const [isClient, setIsClient] = useState(false);
@@ -106,8 +106,6 @@ function CardForm({ data }) {
 
   const totalDeclaredValue = calculateTotalDeclaredValue();
 
-  
-
 
   const calculatePrice = (declaredValue, subscriptionLevel, isBulk) => {
     let price;
@@ -120,7 +118,7 @@ function CardForm({ data }) {
         case 'Club':
           declaredValue < 500 ? price = 16 : price = declaredValue * 0.032;
           break;
-        case 'Premium':
+        case 'Diamond Premium':
           declaredValue < 500 ? price = 14 : price = declaredValue * 0.029;
           break;
         case "Dealer's":
@@ -136,17 +134,18 @@ function CardForm({ data }) {
           // declaredValue < 500 ? price = 20 : price = declaredValue * 0.04
           declaredValue < 500 ? price = 16 : price = declaredValue * 0.034;
           break;
-        case 'Club':
+        case 'Diamond Club':
           declaredValue < 500 ? price = 18 : price = declaredValue * 0.037;
           break;
-        case 'Premium':
+        case 'Diamond Premium':
           declaredValue < 500 ? price = 16 : price = declaredValue * 0.034;
           break;
-        case "Dealer's":
+        case "Dealers Club":
           declaredValue < 500 ? price = 14 : price = declaredValue * 0.031;
           break;
         default:
-          console.error("Invalid subscription level");
+          console.error("Invalid subscription level standard");
+          console.log("subscriptionLevel --- ", subscriptionLevel )
           return null;
       }
     }
