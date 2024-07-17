@@ -34,22 +34,22 @@ export default async function Services({ params }) {
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
                   <Cell col='1'>{'TCG (GAMING)'}</Cell>
-                  <Cell width='640px'>ALL GAMING BRANDS - MAGIC THE GATHERING, POKEMON, YU GI OH ETC.</Cell>
+                  <Cell width='640px'>{'ALL GAMING BRANDS - MAGIC THE GATHERING, POKEMON, YU GI OH ETC.'}</Cell>
                   <Cell>No</Cell>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
                   <Cell col='1'>NON-SPORTS CARDS</Cell>
-                  <Cell width='640px'>NOT SPORTS RELATED - STAR WARS, MARVEL, MOVIE THEMED, TV SERIES CARDS, TOY RELATED THEMES, ACTORS, PRESIDENTS, HISTORIC EVENT CARDS ETC.</Cell>
+                  <Cell width='640px'>{'NOT SPORTS RELATED - STAR WARS, MARVEL, MOVIE THEMED, TV SERIES CARDS, TOY RELATED THEMES, ACTORS, PRESIDENTS, HISTORIC EVENT CARDS ETC.'}</Cell>
                   <Cell>Yes</Cell>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
                   <Cell col='1'>SPORTS CARDS</Cell>
-                  <Cell width='640px'>ALL SPORTS RELATED ITEMS - i.e. BASEBALL, FOOTBALL, BASKETBALL, GOLF, SOCCER , OLYMPICS ETC.</Cell>
+                  <Cell width='640px'>{'ALL SPORTS RELATED ITEMS - i.e. BASEBALL, FOOTBALL, BASKETBALL, GOLF, SOCCER , OLYMPICS ETC.'}</Cell>
                   <Cell>Yes</Cell>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
                   <Cell col='1'>CERTIFIED AUTOGRAPHS</Cell>
-                  <Cell width='640px'>ANY AUTOGRAPHS DESIGNED WITH THE LICENSED SET AND OR CERTIFIED BY THE MANUFACTURER</Cell>
+                  <Cell width='640px'>{'ANY AUTOGRAPHS DESIGNED WITH THE LICENSED SET AND OR CERTIFIED BY THE MANUFACTURER'}</Cell>
                   <Cell>Yes</Cell>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
