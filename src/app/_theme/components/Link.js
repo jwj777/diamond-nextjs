@@ -116,12 +116,12 @@ const primaryDarkText = defineStyle({
 })
 
 const neutralDark = defineStyle({
-  bg: 'neutral.90',
-  color: 'neutral.0',
+  bg: 'neutral.20',
+  color: 'neutral.90',
   borderRadius: '10rem',
   width: 'fit-content',
     _hover: {
-      bg: 'neutral.95',
+      bg: 'neutral.90',
       color: 'neutral.10',
       textDecor: 'none',
   }
@@ -142,7 +142,6 @@ const neutralDarkAlt = defineStyle({
 const mobileLink = defineStyle({
   textDecoration: 'none',
   color: 'neutral.90',
-  fontSize: 'xl',
   borderRadius: '10rem',
   _hover: {
     textDecoration: 'none',

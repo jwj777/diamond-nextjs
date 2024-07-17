@@ -13,7 +13,18 @@ export default function PricingCard({ data, title, price, children, highlight, f
 
   return (
 
-    <Box maxW='290px' mx='2' bg='neutral.15' pb='8' borderRadius='20' textAlign={'center'} height='100%'>
+    <Box 
+      width={{
+        base: '100%', 
+        md: '290px' 
+      }}
+      mx='2' 
+      bg='neutral.15' 
+      pb='8' 
+      borderRadius='20' 
+      textAlign={'center'} 
+      height='100%'
+    >
       <Box px='5' pt='10'>
         <TitleLarge color='neutral.90'>{title}</TitleLarge>
         <Box mt='6'>

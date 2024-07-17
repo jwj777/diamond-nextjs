@@ -29,7 +29,7 @@ body {
   padding-left: var(--gutter-full);
 }
 
-@media (min-width: 410px) {
+@media (max-width: 410px) {
   .fullContainer {
     padding-right: var(--gutter-sm);
     padding-left: var(--gutter-sm);

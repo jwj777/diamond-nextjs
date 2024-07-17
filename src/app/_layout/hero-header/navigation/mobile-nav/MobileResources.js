@@ -16,14 +16,14 @@ export default function MobileResources({ color }) {
       defaultIndex={[1]} 
       allowMultiple 
       borderRadius='2rem' 
-      bg='neutral.12'
-      mb='6'
+      bg='neutral.15'
+      mb='8'
     >
       <AccordionItem border='0'>
           <AccordionButton 
             color='neutral.90' 
             bg='neutral.20'
-            py='5'
+            py='4'
             px='8'
             borderRadius='10rem'
             _hover={{ color: 'neutral.100' }}
@@ -33,8 +33,8 @@ export default function MobileResources({ color }) {
             </Box>
             <AccordionIcon />
           </AccordionButton>
-        <AccordionPanel pb={4}>
-          <Box mt='6' ml='4'>
+        <AccordionPanel pb='2'>
+          <Box mt='6'>
             <MobileNavLink href='/page/services' label='Grading Standards' color={color} />
             <MobileNavLink href='/page/shipping-guide' label='What We Grade' color={color} />
           </Box>

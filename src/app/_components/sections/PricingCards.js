@@ -217,16 +217,15 @@ export default function PricingCards({ data }) {
     setLoading(false);
   };
 
-  console.log("Products Fijnal ---- ", products.length)
 
   return (
-    <Box display="flex" flexWrap="wrap" alignItems="stretch" ml="-2" mb="16">
+    <Box display="flex" flexWrap="wrap" alignItems="stretch" justifyContent='center' ml="-2" mb="16">
       {products.length > 0 ? (
         <>
           {products.map(
             (product, index) =>
               product.metadata.service === "membership" && (
-                <Box key={index}>
+                <Box key={index} mb='4'>
                   <PricingCard
                     title={product.name}
                     highlight={product.highlight}

@@ -16,14 +16,14 @@ export default function MobileGrading({ color }) {
       defaultIndex={[1]} 
       allowMultiple 
       borderRadius='2rem' 
-      bg='neutral.12'
+      bg='neutral.15'
       mb='6'
     >
       <AccordionItem border='0'>
           <AccordionButton 
             color='neutral.90' 
             bg='neutral.20'
-            py='5'
+            py='4'
             px='8'
             borderRadius='10rem'
             _hover={{ color: 'neutral.100' }}
@@ -33,7 +33,7 @@ export default function MobileGrading({ color }) {
             </Box>
             <AccordionIcon />
           </AccordionButton>
-        <AccordionPanel pb={4}>
+        <AccordionPanel px='0' pb='2'>
           <Box mt='6' ml='4'>
             <MobileNavLink href='/page/pricing' label='Memberships & Prices' color={color} />
             <MobileNavLink href='/page/services' label='What We Grade' color={color} />

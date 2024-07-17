@@ -42,6 +42,7 @@ export default function MobileNavDrawer({ data }) {
         ref={btnRef}
         onClick={onOpen}
         bg='none'
+        p='4'
         _hover={{
           bg: 'none'
         }}
@@ -61,7 +62,7 @@ export default function MobileNavDrawer({ data }) {
       >
         <DrawerOverlay />
         <DrawerContent background='neutral.4' maxW={{ base: '84%', lg: '440px' }}>
-            <DrawerCloseButton color='neutral.90' fontSize='lg' mt='12' mr='6' />
+            <DrawerCloseButton color='neutral.90' fontSize='lg' mt='42px' mr='6' />
           <DrawerBody 
             className='mobileDrawerBody'
             px='8'
@@ -70,7 +71,7 @@ export default function MobileNavDrawer({ data }) {
           >
 
             <Box>
-              <Box mr="12" maxW="260px" mb='8'>
+              <Box mr="12" maxW="184px" mb='8'>
                 <Link href="/" variant="noDeco">
                   <Image src="/logo-gold.png" fill alt="" />
                 </Link>
@@ -91,7 +92,7 @@ export default function MobileNavDrawer({ data }) {
                     </Box>
                   ) : (
                     <Box display='flex' flexDirection='column'>
-                      <Link href="/form/submit-card" variant="neutralDark" mb='4'>
+                      <Link href="/form/submit-card" variant="neutralDarkAlt" mb='4'>
                         Submit a Card
                       </Link>
                       <Link href="/account" variant="neutralDark" mb='4'>

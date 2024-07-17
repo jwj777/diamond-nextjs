@@ -26,6 +26,7 @@ export default function ShippingGuide({ data }) {
             data.Guides.map((item, index) => {
               return(
                 <Box 
+                  key={index}
                   display='flex' 
                   alignItems='center'
                   mb='8' 

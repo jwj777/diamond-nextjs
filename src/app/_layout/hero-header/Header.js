@@ -18,13 +18,13 @@ export default function Header({ data, children, contentType }) {
         py="6"
       >
 
-        <Box display={{ base: 'block', xl: 'none' }} mr='8'>
+        <Box display={{ base: 'block', xl: 'none' }} mr='4' ml='-2'>
           <MobileNavDrawer />
         </Box>
 
         <Box display='flex' alignItems='center'>
           <Box display="flex" alignItems="center">
-            <Box mr="16" maxW="260px">
+            <Box mr={{ base: '4', sm: '4', md: '16' }} maxW="240px">
               <Link href="/" variant="noDeco">
                 <Image src="/logo-gold.png" fill alt="" />
               </Link>
