@@ -24,11 +24,11 @@ export default function HeroGeneral({ data, colorScheme, children }) {
       <Box position='relative' zIndex='2'>
         <Box display='flex' justifyContent='space-between'>
 
-          <Box flex='2'>
-            <Box width='3xl' mb='6'>
+          <Box>
+            <Box maxW='3xl' mb='6'>
               <DisplayLarge color={colorScheme + '.on-surface'}>{data.attributes.Headline}</DisplayLarge>
             </Box>
-            <Box width='4xl' flex='2'>
+            <Box maxW='4xl' flex='2'>
               <BodyLarge color={colorScheme + '.on-surface'}>{data.attributes.Subheading}</BodyLarge>
             </Box>
           </Box>

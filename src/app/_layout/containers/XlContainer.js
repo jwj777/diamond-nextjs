@@ -7,6 +7,7 @@ export default function XlContainer({ children }) {
   return (
 
         <Box 
+        className='xlContainer'
           maxW='1216px'
           mx='auto'
           display='flex'
@@ -14,18 +15,17 @@ export default function XlContainer({ children }) {
           alignItems='flex-start'
           flex='1'
         >
-          <Box
-            width='100%'
-            px={{
-              sm: 8,
-              md: 24,
-              lg: 16,
-              xl: 4,
-              '2xl': 0
-            }}
-          >
-            {children}
-          </Box>
+            <Box
+              px={{
+                sm: 8,
+                md: 24,
+                lg: 16,
+                xl: 4,
+                '2xl': 0
+              }}
+            >
+              {children}
+            </Box>
         </Box>
   
 

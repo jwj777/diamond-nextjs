@@ -63,6 +63,17 @@ const noDeco = defineStyle({
   },
 })
 
+const subMenu = defineStyle({
+  textDecoration: 'none',
+  color: 'neutral.90',
+  fontSize: '1.1rem',
+  mb: '1',
+  _hover: {
+    textDecoration: 'underline',
+    color: 'neutral.100',
+  },
+})
+
 const primaryLight = defineStyle({
   bg: 'primary.40',
   color: 'primary.95',
@@ -105,9 +116,22 @@ const primaryDarkText = defineStyle({
 })
 
 const neutralDark = defineStyle({
+  bg: 'neutral.90',
+  color: 'neutral.0',
+  borderRadius: '10rem',
+  width: 'fit-content',
+    _hover: {
+      bg: 'neutral.95',
+      color: 'neutral.10',
+      textDecor: 'none',
+  }
+})
+
+const neutralDarkAlt = defineStyle({
   bg: 'primary.90',
   color: 'neutral.0',
   borderRadius: '10rem',
+  width: 'fit-content',
     _hover: {
       bg: 'primary.95',
       color: 'primary.10',
@@ -134,7 +158,9 @@ export const Link = defineStyleConfig({
     primaryDark,
     primaryDarkText,
     neutralDark,
+    neutralDarkAlt,
     mobileLink,
+    subMenu,
   },
   sizes: { sm, md, mdText, lg, xl, xxl },
   defaultProps: { variant: 'primaryLight', size: 'md' }

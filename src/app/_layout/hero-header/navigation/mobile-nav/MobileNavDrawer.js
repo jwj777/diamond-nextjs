@@ -15,6 +15,8 @@ import { FiMenu } from "react-icons/fi";
 import React from 'react'
 import MobileNavLink from './MobileNavLink';
 import { useUser } from '@auth0/nextjs-auth0/client';
+import MobileGrading from './MobileGrading';
+import MobileResources from './MobileResources';
 
 
 export default function MobileNavDrawer({ data }) {
@@ -75,10 +77,10 @@ export default function MobileNavDrawer({ data }) {
               </Box>
 
               <Box ml='-3'>
-                <MobileNavLink href='/page/pricing' label='Pricing' />
-                <MobileNavLink href='/page/grading-standards' label='Grading Standards' />
+                <MobileGrading />
+                <MobileResources />
                 <MobileNavLink href='/page/about' label='About' />
-                <MobileNavLink href='/page/pricing' label='Contact Us' />
+                <MobileNavLink href='/page/contact' label='Contact Us' />
 
                 <Box mt='16' ml='4' display='flex' flexDir={'column'}>
                   {!user ? (
@@ -88,7 +90,7 @@ export default function MobileNavDrawer({ data }) {
                       </Link>
                     </Box>
                   ) : (
-                    <>
+                    <Box display='flex' flexDirection='column'>
                       <Link href="/form/submit-card" variant="neutralDark" mb='4'>
                         Submit a Card
                       </Link>
@@ -98,7 +100,7 @@ export default function MobileNavDrawer({ data }) {
                       <Link href="/api/auth/logout" variant="neutralDark" mb='4'>
                         Logout
                       </Link>
-                    </>
+                    </Box>
                   )}
                 </Box>
 

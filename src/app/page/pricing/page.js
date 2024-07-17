@@ -28,7 +28,7 @@ export default async function Page({ params }) {
 
 
       <Box bg='neutral.4' pt='0'>
-          <XlContainer>
+          {/* <XlContainer> */}
 
             <PricingCards />
 
@@ -37,7 +37,7 @@ export default async function Page({ params }) {
               <PriceGrids priceGridStandard={priceGridStandard} priceGridBulk={priceGridBulk} />
             </Box>
 
-        </XlContainer>
+        {/* </XlContainer> */}
       </Box>
 
 

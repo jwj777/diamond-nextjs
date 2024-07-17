@@ -1,9 +1,10 @@
 import React from 'react';
-import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Flex, Link } from "@chakra-ui/react";
+import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import TitleSmall from '../typography/TitleSmall';
-import HeadlineSmall from '../typography/HeadlineSmall';
 import BodyMedium from '../typography/BodyMedium';
 import BodySuper from '../typography/BodySuper';
+
+const cellWidth ='140px';
 
 function PriceGrids({ priceGridStandard, priceGridBulk }) {
 
@@ -16,44 +17,49 @@ function PriceGrids({ priceGridStandard, priceGridBulk }) {
     const declaredValues = Object.keys(data[tiers[0]]);
 
     return (
-     <Box mb={8} bg='neutral.10' p='10' borderRadius='1.5rem'>
-      <BodySuper color='neutral.95'>{title}</BodySuper>
+      <Box mb={8} bg='neutral.10' p='10' borderRadius='1.5rem'>
+        <BodySuper color='neutral.95'>{title}</BodySuper>
 
-      <Flex direction="column" mt='8'>
-
-        <Flex borderBottom='1px' borderColor='neutral.30' pb='2'>
-          <Box flex="1" p={2} fontWeight="bold" >
-            <TitleSmall color='primary.90'>Declared Value</TitleSmall>
-          </Box>
-          {tiers.map((tier) => (
-            <Box key={tier} flex="1" p={2} textAlign={'center'}>
-              <BodyMedium color='primary.90'>{tier}</BodyMedium>
-            </Box>
-          ))}
-        </Flex>
-
-        {declaredValues.map((value) => (
-          <Flex key={value} borderBottom="1px" borderColor='neutral.30' py='1'>
-            <Box flex="1" p={2}>
-            <BodyMedium color='neutral.98'>{'$' + value}</BodyMedium>
-            </Box>
-            {tiers.map((tier) => (
-              <Box key={tier} flex="1" p={2} textAlign={'center'}>
-                <BodyMedium color='neutral.80'>{'$' + data[tier][value]}</BodyMedium>
+        <Box 
+          overflowX={{ 
+            base: 'auto',
+            lg: 'visible'
+          }}
+        >
+          <Flex direction="column" mt='8'>
+            <Flex borderBottom='1px' borderColor='neutral.30' pb='2' minWidth="fit-content">
+              <Box flex="1" p={2} fontWeight="bold" minWidth={cellWidth}>
+                <TitleSmall color='primary.90'>Declared Value</TitleSmall>
               </Box>
+              {tiers.map((tier) => (
+                <Box key={tier} flex="1" p={2} textAlign={'center'} minWidth={cellWidth}>
+                  <BodyMedium color='primary.90'>{tier}</BodyMedium>
+                </Box>
+              ))}
+            </Flex>
+
+            {declaredValues.map((value) => (
+              <Flex key={value} borderBottom="1px" borderColor='neutral.30' py='1' minWidth="fit-content">
+                <Box flex="1" p={2} minWidth={cellWidth}>
+                  <BodyMedium color='neutral.98'>{'$' + value}</BodyMedium>
+                </Box>
+                {tiers.map((tier) => (
+                  <Box key={tier} flex="1" p={2} textAlign={'center'} minWidth={cellWidth}>
+                    <BodyMedium color='neutral.80'>{'$' + data[tier][value]}</BodyMedium>
+                  </Box>
+                ))}
+              </Flex>
             ))}
           </Flex>
-        ))}
+        </Box>
 
-      </Flex>
-      <Box borderBottom='1px' borderColor='neutral.30' pb='3' pt='3'>
-        <BodyMedium color='neutral.80'>
-          For orders over $50,000 <Link href="/page/contact" variant='primaryDarkText' size='mdText'>contact us</Link>.
+        <Box borderBottom='1px' borderColor='neutral.30' pb='6' pt='3'>
+          <BodyMedium color='neutral.80'>
+            For orders over $50,000 <Link href="/page/contact" variant='primaryDarkText' size='mdText'>contact us</Link>.
+          </BodyMedium>
+        </Box>
 
-        </BodyMedium>
       </Box>
-
-    </Box>
     );
   };
 

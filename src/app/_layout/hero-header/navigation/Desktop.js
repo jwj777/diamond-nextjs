@@ -40,32 +40,51 @@ export default function Desktop() {
 
   return (
 
-    <Box>
+    <Box position='relative' zIndex='3'>
       <Box ref={navRef}>
         <Box
           display='flex'
         >
           {/* <NavLink href="/page/pricing" label='Memberships & Prices' /> */}
-          <Box position='relative' zIndex='3'>
+          <Box>
             <NavLink href="#" label='Card Grading' onClick={toggleSubMenuCard} isSubMenuCardVisible={isSubMenuCardVisible} dropDown={true} />
             {isSubMenuCardVisible && (
-              <Box position="absolute" bg="white" boxShadow="md" borderRadius='16' mt='6' p="4" display='flex' flexDirection='column' width='240px'>
-                <Link href="/page/pricing" variant='noDeco'>Memberships & Prices</Link>
-                <Link href="/page/services" variant='noDeco'>What We Grade</Link>
-                <Link href="/page/shipping-fees" variant='noDeco'>Shipping Fees</Link>
-                <Link href="/page/grading-standards" variant='noDeco'>Grading Standards</Link>
+              <Box 
+                position="absolute" 
+                left='-12px' 
+                bg="neutral.15" 
+                boxShadow="lg" 
+                borderRadius='16' 
+                mt='6' p="5" pb='5'
+                display='flex' 
+                flexDirection='column' 
+                width='260px'
+              >
+                <Link href="/page/pricing" variant='subMenu'>Memberships & Prices</Link>
+                <Link href="/page/services" variant='subMenu'>What We Grade</Link>
+                <Link href="/page/shipping-fees" variant='subMenu'>Shipping Fees</Link>
               </Box>
             )}
           </Box>
-          {/* <Box>
+          <Box>
             <NavLink href="#" label='Resources' onClick={toggleSubMenu} isSubMenuVisible={isSubMenuVisible} dropDown={true} />
             {isSubMenuVisible && (
-              <Box position="absolute" bg="white" boxShadow="md" borderRadius='16' mt='6' p="4" display='flex' flexDirection='column'>
-                <Link href="/page/grading-standards" variant='noDeco'>Grading Standards</Link>
-                <Link href="/page/grading-standards" variant='noDeco'>Grading Standards</Link>
+              <Box
+              position="absolute" 
+              left='180px' 
+              bg="neutral.15" 
+              boxShadow="lg" 
+              borderRadius='16' 
+              mt='6' p="5" pb='5'
+              display='flex' 
+              flexDirection='column' 
+              width='240px'
+              >
+                <Link href="/page/grading-standards" variant='subMenu'>Grading Standards</Link>
+                <Link href="/page/shipping-guide" variant='subMenu'>Shipping Guide</Link>
               </Box>
             )}
-          </Box> */}
+          </Box>
           <NavLink href="/page/about" label='About' />
           <NavLink href="/page/contact" label='Contact Us' />
         </Box>
