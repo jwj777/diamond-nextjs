@@ -44,7 +44,7 @@ export default function PricingCard({ data, title, price, children, highlight, f
             Estimated Turnaround Time: 
           </BodyMedium>
           <BodyMedium color='neutral.95'>
-            <Text fontWeight='600'>
+            <Text fontWeight='400'>
               {highlight}
             </Text>
           </BodyMedium>
