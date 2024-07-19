@@ -40,7 +40,7 @@ export default function GradeItems({ data, filter }) {
   return (
 
     <Box mb='4' width='100%'>
-      <AccordionItem bg='neutral.95' border='0px' borderRadius='2.5rem' width='100%'>
+      <AccordionItem bg='primary.95' border='0px' borderRadius='2.5rem' width='100%'>
         <h2>
           <AccordionButton 
             borderRadius='2rem' 

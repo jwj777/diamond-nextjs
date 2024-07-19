@@ -32,7 +32,7 @@ export default function GradeAccordion({ gradeData }) {
 
           <Box 
             maxW='400px'
-            bg='neutral.95' 
+            bg='primary.95' 
             p='6'
             px='8' 
             borderRadius='2rem'

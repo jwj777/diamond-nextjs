@@ -7,7 +7,7 @@ export default function FilterButton({ label, updateFilter, onClick }) {
 
     <Box>
       <Button 
-        variant='neutralLight' 
+        variant='primaryDark' 
         mr='4' 
         mb='4'
         onClick={() => updateFilter(label)}
