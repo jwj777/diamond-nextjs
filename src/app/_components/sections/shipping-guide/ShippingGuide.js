@@ -34,7 +34,7 @@ export default function ShippingGuide({ data }) {
                   borderRadius='1.5rem' 
                 >
                   
-                  <Box width='320px' mr='8' overflow='hidden' borderTopLeftRadius='1.5rem' borderBottomLeftRadius='1.5rem'>
+                  <Box width='400px' mr='8' overflow='hidden' borderTopLeftRadius='1.5rem' borderBottomLeftRadius='1.5rem'>
                     <Image 
                       src={
                         process.env.NEXT_PUBLIC_AWS_BASE_URL
