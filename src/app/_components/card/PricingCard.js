@@ -55,7 +55,7 @@ export default function PricingCard({ data, title, price, children, highlight, f
           features.map((feature, index) => {
             return(
               <Box key={index} mb='4'>
-                <BodySmall color='neutral.100'>{feature.Text}</BodySmall>
+                <BodyMedium color='neutral.100'>{feature.Text}</BodyMedium>
               </Box>
             )
           })
