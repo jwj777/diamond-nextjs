@@ -35,7 +35,7 @@ export default async function Services({ params }) {
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
                   <Cell col='1'>{'TCG (GAMING)'}</Cell>
                   <Cell width='640px'>{'ALL GAMING BRANDS - MAGIC THE GATHERING, POKEMON, YU GI OH ETC.'}</Cell>
-                  <Cell>No</Cell>
+                  <Cell>COMING SOON</Cell>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
                   <Cell col='1'>NON-SPORTS CARDS</Cell>
