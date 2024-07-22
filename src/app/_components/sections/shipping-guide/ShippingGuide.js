@@ -13,7 +13,7 @@ export default function ShippingGuide({ data }) {
 
   return(
 
-    <Box mt='16' mb='24'>
+    <Box mt='16' mb='16'>
       <XlContainer>
         <Box>
           <Box maxW='4xl' mb='16'>
@@ -29,9 +29,10 @@ export default function ShippingGuide({ data }) {
                   key={index}
                   display='flex' 
                   alignItems='center'
-                  mb='8' 
+                  mt='8' 
                   bg='neutral.95'
                   borderRadius='1.5rem' 
+                  height='300px'
                 >
                   
                   <Box width='400px' mr='8' overflow='hidden' borderTopLeftRadius='1.5rem' borderBottomLeftRadius='1.5rem'>
@@ -42,6 +43,7 @@ export default function ShippingGuide({ data }) {
                         + item.Image.data.attributes.ext
                       }
                       objectFit='contain'
+                      height='300px'
                     />
                   </Box>
                   <Box maxW='780px'>

@@ -153,6 +153,9 @@ function CardForm({ data }) {
     return price.toFixed(2);
   };
 
+  const getDefaultShippingOption = (declaredValue) => {
+    return declaredValue < 500 ? 'usps' : '2day';
+  };
 
   const calculateShippingCost = (numberOfItems, declaredValue, option = '2day') => {
     if (declaredValue <= 500) {
@@ -205,11 +208,11 @@ function CardForm({ data }) {
 
 
   useEffect(() => {
-    const numberOfItems = Object.keys(cartDetails).length;
     const declaredValue = calculateTotalDeclaredValue();
-    const shippingCostValue = calculateShippingCost(numberOfItems, declaredValue, selectedShippingOption);
-    setShippingCost(shippingCostValue);
-  }, [cartDetails, selectedShippingOption]);
+    const defaultOption = getDefaultShippingOption(declaredValue);
+    setSelectedShippingOption(defaultOption);
+    updateShippingCost(defaultOption);
+  }, [cartDetails]);
 
 
   const calculateTotalPriceWithShipping = () => {

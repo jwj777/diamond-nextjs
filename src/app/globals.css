@@ -52,3 +52,16 @@ body {
 textarea::placeholder {
   color: var(--neutral-100);
 }
+
+.ckEditor h2 {
+  font-size: 2.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.ckEditor ul {
+  padding-left: 1rem;
+}
+
+.ckEditor li {
+  margin-bottom: 8px;
+}

@@ -7,6 +7,7 @@ import TwoColImgTextEdge from "../two-col-image-text/TwoColImgTextEdge";
 import BasicCardList from "../basic-cards/BasicCardList";
 import ImageTextCards from "../image-text-cards/ImageTextCards";
 import ShippingGuide from "../shipping-guide/ShippingGuide";
+import TextSection from "../TextSection";
 
 
 export default function Sections({ data }) {
@@ -26,6 +27,8 @@ export default function Sections({ data }) {
           <ImageTextCards data={data} />
         : data.__component == 'section.shipping-guide' ?
           <ShippingGuide data={data} />
+        : data.__component == 'section.text' ?
+          <TextSection data={data} />
         // : data.__component == 'section.text' ?
         //   <TextSection data={data} />
         : null

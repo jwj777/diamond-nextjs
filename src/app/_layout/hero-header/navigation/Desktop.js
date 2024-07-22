@@ -60,7 +60,7 @@ export default function Desktop() {
                 flexDirection='column' 
                 width='260px'
               >
-                <Link href="/page/pricing" variant='subMenu'>Memberships & Prices</Link>
+                <Link href="/page/pricing" variant='subMenu'>Memberships & Pricing</Link>
                 <Link href="/page/services" variant='subMenu'>What We Grade</Link>
                 <Link href="/page/shipping-fees" variant='subMenu'>Shipping Fees</Link>
               </Box>

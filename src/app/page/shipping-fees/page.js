@@ -30,7 +30,7 @@ export default async function ShippingFees({ params }) {
             <Box bg='neutral.15' maxW={'800px'} p='8' borderRadius='1.25rem' mb='8'>
               <Box mb='8'>
                 <Box mb='-6px'><TitleLarge color='neutral.100'>USPS Priority Mail</TitleLarge></Box>
-                <BodyMedium color='neutral.80'>For orders with a declared of $500 or less.</BodyMedium>
+                <BodyMedium color='neutral.80'>For orders with a total declared value of $500 or less.</BodyMedium>
               </Box>
 
               <Box  >
@@ -53,7 +53,7 @@ export default async function ShippingFees({ params }) {
             <Box bg='neutral.15' maxW={'960px'} p='8' borderRadius='1.25rem'>
               <Box mb='8'>
                 <Box mb='-6px'><TitleLarge color='neutral.100'>Fedex</TitleLarge></Box>
-                <BodyMedium color='neutral.80'>For orders with a declared greater than $500.</BodyMedium>
+                <BodyMedium color='neutral.80'>For orders with a total declared value greater than $500.</BodyMedium>
               </Box>
 
               <Box>
