@@ -9,6 +9,7 @@ import BodyMedium from "../_components/typography/BodyMedium";
 import Footer from "../_layout/footer/Footer";
 import XlContainer from "../_layout/containers/XlContainer";
 import TitleMedium from "../_components/typography/TitleMedium";
+import TitleSmall from "../_components/typography/TitleSmall";
 
 export default function ProfileClient() {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -84,6 +85,10 @@ export default function ProfileClient() {
                     <Text as='span' fontWeight='600' mr='1'>Username: </Text>
                     <Text as='span' color='neutral.90'>{user.nickname}</Text>
                   </BodyMedium>
+                </Box>
+                <Box mt='8'>
+                  <BodyMedium color='neutral.90' >Request Order Status</BodyMedium>
+                  <Link href="mailto:dgsales@diamondgradecards.com" variant='primaryDarkText' size='mdText'>dgsales@diamondgradecards.com</Link>
                 </Box>
               </Box>
               <Box 

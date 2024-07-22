@@ -46,7 +46,7 @@ export default function ShippingGuide({ data }) {
                       height='300px'
                     />
                   </Box>
-                  <Box maxW='780px'>
+                  <Box maxW='780px' pr='16'>
                     <BodyLarge mb='4'>{item.Heading}</BodyLarge>
                     <BodyMedium>{item.Description}</BodyMedium>
                   </Box>
