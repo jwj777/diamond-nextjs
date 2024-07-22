@@ -88,7 +88,7 @@ export default function ProfileClient() {
                 </Box>
                 <Box mt='8'>
                   <BodyMedium color='neutral.90' >Request Order Status</BodyMedium>
-                  <Link href="mailto:dgsales@diamondgradecards.com" variant='primaryDarkText' size='mdText'>dgsales@diamondgradecards.com</Link>
+                  <Link href="mailto:support@diamondgradecards.com" variant='primaryDarkText' size='mdText'>support@diamondgradecards.com</Link>
                 </Box>
               </Box>
               <Box 
