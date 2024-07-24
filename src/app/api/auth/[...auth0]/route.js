@@ -11,14 +11,12 @@ import { handleAuth, handleLogin } from '@auth0/nextjs-auth0';
 //   }),
 // });
 
-export default handleAuth({
-  login: async (req, res) => {
-    try {
-      await handleLogin(req, res, {
-        returnTo: '/account',
-      });
-    } catch (error) {
-      res.status(error.status || 500).end(error.message);
-    }
-  },
+
+export const GET = handleAuth({
+  login: handleLogin({
+    returnTo: "/account",
+    authorizationParams: {
+      redirect_uri: 'https://www.diamondgradecards.com/api/auth/callback',
+    },
+  }),
 });

@@ -44,9 +44,10 @@ export default function Header({ data, children, contentType }) {
 
           <Box display={{ base: 'none', md: 'flex' }}>
             {!user ? (
-              <Link href={`/api/auth/login?returnTo=${encodeURIComponent('/account')}&redirect_uri=https%3A%2F%2Fwww.diamondgradecards.com%2Fapi%2Fauth%2Fcallback`} variant="neutralDark">
+              <Link href={`/api/auth/login?returnTo=${encodeURIComponent('/account')}`} variant="neutralDark">
                 Sign Up / Login
               </Link>
+
 
             ) : (
               <>
