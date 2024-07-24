@@ -2,7 +2,7 @@
 import { Box, Link } from "@chakra-ui/react";
 import NavLink from "./NavLink";
 import React, { useState, useRef, useEffect } from 'react';
-import MobileNavDrawer from "./mobile-nav/MobileNavDrawer";
+
 
 export default function Desktop() {
 
@@ -45,7 +45,6 @@ export default function Desktop() {
         <Box
           display='flex'
         >
-          {/* <NavLink href="/page/pricing" label='Memberships & Prices' /> */}
           <Box>
             <NavLink href="#" label='Card Grading' onClick={toggleSubMenuCard} isSubMenuCardVisible={isSubMenuCardVisible} dropDown={true} />
             {isSubMenuCardVisible && (
@@ -86,6 +85,27 @@ export default function Desktop() {
             )}
           </Box>
           <NavLink href="/page/about" label='About' />
+
+          <Box mr='1rem'>
+            <Link 
+              href='https://dgc-store.com/'
+              onClick={toggleSubMenu}
+              color='neutral.95'
+              textDecor='none'
+              fontSize='1.2rem;'
+              fontWeight='400'
+              py='4'
+              variant='none'
+              _hover={{
+                textDecoration: 'none',
+                color: 'primary.90',
+              }}
+            >
+              DGC Store 
+            </Link>
+          </Box>
+
+          
           <NavLink href="/page/contact" label='Contact Us' />
         </Box>
       </Box>

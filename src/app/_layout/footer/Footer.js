@@ -66,16 +66,10 @@ export default function Footer({ colorScheme }) {
             
           </Box>
 
-          <Box display='flex' alignItems='center'>
-            <Link href='#' variant='neutralDark'>Sign Up Today</Link>
-          </Box>
-
         </Box>
 
         <Box 
           maxW='5xl'
-          // borderTop='1px'
-          // borderColor={colorScheme + '.outline-dim'}
           pt='4'
           pb='12'
         >
