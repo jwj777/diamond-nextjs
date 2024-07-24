@@ -14,6 +14,7 @@ export default function ImageTextCards({ data }) {
 
   return (
 
+    <XlContainer>
     <Box py='32'>
       <Box 
         display='flex'
@@ -24,24 +25,24 @@ export default function ImageTextCards({ data }) {
           // borderTopEndRadius='1.5rem'
           // borderBottomEndRadius='1.5rem'
           borderRadius='1.5rem'
-          height='660px'
-          width='520px'
+          height='720px'
+          width='480px'
           overflow='hidden'
           mr='16'
         >
           <Image 
             src={'https://diamondgrade.s3.us-east-1.amazonaws.com/' + data.Image.data.attributes.hash + data.Image.data.attributes.ext}
-            // height='960px'
-            width='680px'
+            height='720px'
+            width='480px'
             // textAlign='right'
             objectFit='cover'
             alt=""
           />
         </Box>
         <Box 
-          maxW='4xl'
+          maxW='780px'
           mt={{ base: '0', xl: '0' }} 
-          pr={{ base: '0', xl: '20' }}
+          pr={{ base: '0', xl: '8' }}
           px={{ base: '8', lg: '0' }}
         >  
           <Box mb='16'>
@@ -72,6 +73,7 @@ export default function ImageTextCards({ data }) {
         </Box>
       </Box>
     </Box>
+    </XlContainer>
 
   )
 

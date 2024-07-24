@@ -13,7 +13,7 @@ export default function TextCard({ data }) {
 
 
       <Box 
-        maxW={{ base: 'auto', md: '380px'}} 
+        maxW={{ base: 'auto', md: '320px'}} 
         mx='4' mb='8' 
         bg='neutral.95' 
         p='8' pb='10' pt='7'

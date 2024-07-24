@@ -16,7 +16,7 @@ export default function PricingCard({ data, title, price, children, highlight, f
     <Box 
       width={{
         base: '100%', 
-        md: '290px' 
+        md: '314px' 
       }}
       mx='2' 
       bg='neutral.15' 

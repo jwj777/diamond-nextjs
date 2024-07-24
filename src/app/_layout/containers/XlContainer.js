@@ -7,7 +7,7 @@ export default function XlContainer({ children }) {
   return (
 
         <Box 
-          maxW='1216px'
+          maxW='1316px'
           mx='auto'
           display='flex'
           flexDirection='column'

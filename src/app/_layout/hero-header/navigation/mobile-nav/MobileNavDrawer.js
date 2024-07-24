@@ -81,6 +81,7 @@ export default function MobileNavDrawer({ data }) {
                 <MobileGrading />
                 <MobileResources />
                 <MobileNavLink href='/page/about' label='About' />
+                <MobileNavLink href='https://dgc-store.com/' label='DGC Store' />
                 <MobileNavLink href='/page/contact' label='Contact Us' />
 
                 <Box mt='16' ml='4' display='flex' flexDir={'column'}>
