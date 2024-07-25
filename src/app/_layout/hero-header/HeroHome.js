@@ -5,6 +5,7 @@ import XlContainer from "../containers/XlContainer";
 import BodyLarge from "@/app/_components/typography/BodyLarge";
 import HeadlineLargeAlt from "@/app/_components/typography/HeadlineLargeAlt";
 import TradingCardList from "@/app/_components/sections/card-list/TradingCardList";
+import HeadlineLarge from "@/app/_components/typography/HeadlineLarge";
 
 
 export default function HeroHome({ data, children, cardList }) {
@@ -17,7 +18,8 @@ export default function HeroHome({ data, children, cardList }) {
 
     <Box 
       display='flex'
-      pt='32' pb='32' 
+      pt={{ base: '20', sm: '24', md: '32' }} 
+      pb={{ base: '20', sm: '24', md: '32' }} 
       background={'none'}
     >
 
@@ -31,7 +33,7 @@ export default function HeroHome({ data, children, cardList }) {
                 />
               </Box>
               <Box display='flex' justifyContent='center' mb='4'>
-                <HeadlineLargeAlt color='neutral.100'>Raising The Standard</HeadlineLargeAlt>
+                <HeadlineLarge color='neutral.100'>Raising The Standard</HeadlineLarge>
               </Box>
               <Box maxW='3xl' align='center' mx='auto'>
                 <BodyLarge color='neutral.70'>There’s no higher evaluation than a Gem-Mint Diamond 10 graded card through DiamondGrade</BodyLarge>
