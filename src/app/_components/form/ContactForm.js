@@ -58,7 +58,7 @@ export default function ContactForm({ data }) {
       {
         formSubmit ? 
         <Box pt='8' pb='16'>
-          <BodyLarge color='neutral.100'>Thank you for contacting us. We'll respond to you as soon as possible.</BodyLarge>
+          <BodyLarge color='neutral.100'>{`Thank you for contacting us. We'll respond to you as soon as possible.`}</BodyLarge>
         </Box>
         :
         <form onSubmit={handleSubmit}>
