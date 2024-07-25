@@ -65,3 +65,8 @@ textarea::placeholder {
 .ckEditor li {
   margin-bottom: 8px;
 }
+
+.contactForm option {
+  background: #32302C !important;
+  padding: 1px 0;
+}

@@ -3,6 +3,13 @@ import { Box, Image } from "@chakra-ui/react";
 import PageContainerHome from "./_layout/PageContainerHome";
 import Sections from "./_components/sections/sections-array/Sections";
 
+
+export const metadata = {
+  title: 'DiamondGrade Cards - Raising The Standard',
+  description: '...',
+}
+
+
 export default async function Home() {
 
   let data = await getData()
