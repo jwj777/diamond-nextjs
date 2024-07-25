@@ -56,9 +56,11 @@ export default function Footer({ colorScheme }) {
                 ml='-4'
                 mb={{ base: '8', xl: '0' }}
               >
-                <NavLinkFooter href="/page/pricing" label='Services & Prices' />
+                <NavLinkFooter href="/page/pricing" label='Memberships & Pricing' />
+                <NavLinkFooter href="/page/services" label='What We Grade' />
+                <NavLinkFooter href="/page/shipping-fees" label='Shipping Fees' />
                 <NavLinkFooter href="/page/grading-standards" label='Grading Standards' />
-                <NavLinkFooter href="/page/faq" label='FAQs' />
+                <NavLinkFooter href="/page/shipping-guide" label='Shipping Guide' />
                 <NavLinkFooter href="/page/about" label='About' />
                 <NavLinkFooter href="/page/contact" label='Contact Us' />
               </Box>

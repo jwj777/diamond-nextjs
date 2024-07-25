@@ -35,7 +35,7 @@ export default function MobileGrading({ color }) {
           </AccordionButton>
         <AccordionPanel px='0' pb='2'>
           <Box mt='6' ml='4'>
-            <MobileNavLink href='/page/pricing' label='Memberships & Prices' color={color} />
+            <MobileNavLink href='/page/pricing' label='Memberships & Pricing' color={color} />
             <MobileNavLink href='/page/services' label='What We Grade' color={color} />
             <MobileNavLink href='/page/shipping-fees' label='Shipping Fees' color={color}/>
           </Box>
