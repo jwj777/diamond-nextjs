@@ -40,10 +40,11 @@ export default function Desktop() {
 
   return (
 
-    <Box position='relative' zIndex='3'>
+    <Box position='relative' zIndex='3' mt='1'>
       <Box ref={navRef}>
         <Box
           display='flex'
+          flexWrap='wrap'
         >
           <Box>
             <NavLink href="#" label='Card Grading' onClick={toggleSubMenuCard} isSubMenuCardVisible={isSubMenuCardVisible} dropDown={true} />
