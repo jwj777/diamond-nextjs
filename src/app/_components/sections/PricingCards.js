@@ -10,9 +10,9 @@ import BodyMedium from "../typography/BodyMedium";
 async function getPlans() {
   try {
     const url = "https://strapi-production-0074.up.railway.app/api/member-plans?[populate]=*";
-    console.log("Fetching plans from URL:", url);
+    // console.log("Fetching plans from URL:", url);
     const response = await fetch(url);
-    console.log("Response status:", response.status); // Log the status code
+    // console.log("Response status:", response.status);
 
     if (!response.ok) {
       const errorText = await response.text(); // Get the response text
@@ -21,7 +21,6 @@ async function getPlans() {
     }
 
     const plans = await response.json();
-    console.log("Fetched plans:", plans);
     return plans?.data;
   } catch (error) {
     console.error("Error fetching plans:", error);
@@ -38,89 +37,42 @@ export default function PricingCards({ data }) {
   const { user, isLoading } = useUser();
 
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const productsResponse = await fetch("/api/stripe/products");
-  //       if (!productsResponse.ok) {
-  //         throw new Error(
-  //           `Failed to fetch products, status: ${productsResponse.status}`
-  //         );
-  //       }
-  //       const productsData = await productsResponse.json();
-  //       const plansData = await getPlans();
-  
-  //       // Combine the data
-  //       const combinedData = productsData.map((product) => {
-  //         const plan = plansData.find(
-  //           (plan) => {
-  //             console.log(`Comparing product id: ${product.id} with plan Stripe_ID: ${plan.attributes.Stripe_ID}`);
-  //             return plan.attributes.Stripe_ID === product.id;
-  //           }
-  //         );
-  //         if (plan) {
-  //           return {
-  //             ...product,
-  //             highlight: plan.attributes.Highlight,
-  //             features: plan.attributes.Features,
-  //           };
-  //         }
-  //         console.log(`No matching plan found for product id: ${product.id}`);
-  //         return product;
-  //       });
-  
-  //       console.log("Combined data:", combinedData);
-  
-  //       setProducts(combinedData);
-  //       setPlans(plansData);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //       setError(error.message);
-  //       setLoading(false);
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
-
-
   useEffect(() => {
     async function fetchData() {
       try {
         const productsResponse = await fetch("/api/stripe/products");
+        // console.log("Fetched products:", productsResponse);
+
         if (!productsResponse.ok) {
           throw new Error(
             `Failed to fetch products, status: ${productsResponse.status}`
           );
         }
+
         const productsData = await productsResponse.json();
         const plansData = await getPlans();
-  
-        console.log("Fetched plans:", plansData);
   
         // Combine the data
         const combinedData = productsData.map((product) => {
           const plan = plansData.find((plan) => {
-            console.log(
-              `Comparing product id: ${product.id} with plan Stripe_ID: ${plan.attributes.Stripe_ID}`
-            );
+            // console.log(
+            //   `Comparing product id: ${product.id} with plan Stripe_ID: ${plan.attributes.Stripe_ID}`
+            // );
             return plan.attributes.Stripe_ID === product.id;
           });
   
           if (plan) {
-            console.log(`Match found for product id: ${product.id}`);
+            // console.log(`Match found for product id: ${product.id}`);
             return {
               ...product,
               highlight: plan.attributes.Highlight,
               features: plan.attributes.Features,
             };
           } else {
-            console.log(`No matching plan found for product id: ${product.id}`);
+            // console.log(`No matching plan found for product id: ${product.id}`);
             return product;
           }
         });
-  
-        console.log("Combined data:", combinedData);
   
         setProducts(combinedData);
         setPlans(plansData);

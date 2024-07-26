@@ -73,7 +73,7 @@ const CardFormFields = ({ name, setName, brandSet, setBrandSet, year, setYear, n
           required={true}
         />
       </Box>
-      {/* <Box mb="4" mr="4" minW="180px" h="16">
+      <Box mb="4" mr="4" minW="180px" h="16">
         <Select
           placeholder="-- Slab Style --"
           bg="neutral.90"
@@ -86,9 +86,9 @@ const CardFormFields = ({ name, setName, brandSet, setBrandSet, year, setYear, n
           onChange={(e) => setSlabStyle(e.target.value)}
         >
           <option value="Clear Acrylic">Clear Acrylic</option>
-          <option value="Black Acrylic">Black Acrylic</option>
+          {/* <option value="Black Acrylic">Black Acrylic</option> */}
         </Select>
-      </Box> */}
+      </Box>
     </>
   );
 };
