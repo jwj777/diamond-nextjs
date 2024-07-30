@@ -69,39 +69,30 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 export const POST = async (req) => {
   try {
     const body = await req.json();
-    const { cartDetails, customerId } = body;
+    const { cartDetails, customerId, totalOrderCost } = body;
 
     console.log("Received body:", JSON.stringify(body, null, 2));
 
-    if (!cartDetails || !customerId) {
-      throw new Error("Missing cartDetails or customerId");
+    if (!cartDetails || !customerId || !totalOrderCost) {
+      throw new Error("Missing cartDetails, customerId, or totalOrderCost");
     }
 
-    const line_items = Object.keys(cartDetails).map((item) => {
-      const cartItem = cartDetails[item];
-      
-      if (!cartItem.product_data) {
-        throw new Error(`Missing product_data for item ${item}`);
-      }
-
-      return {
+    // Create a single line item for the total order cost
+    const line_items = [
+      {
         price_data: {
           currency: "usd",
           product_data: {
-            name: cartItem.name,
-            description: `${cartItem.name} ${cartItem.product_data.year} ${cartItem.product_data.brandSet} ${cartItem.product_data.value}`,
-            metadata: cartItem.product_data, // Ensure metadata is included here
+            name: "Total Order Cost",
+            description: "Total cost including grading fees and shipping",
           },
-          unit_amount: cartItem.price, // Stripe expects the amount in cents
+          unit_amount: Math.round(totalOrderCost * 100), // Convert total order cost to cents
         },
-        quantity: cartItem.quantity,
-      };
-    });
+        quantity: 1,
+      },
+    ];
 
     console.log("Line items:", JSON.stringify(line_items, null, 2));
-
-    const totalAmount = line_items.reduce((acc, item) => acc + (item.price_data.unit_amount * item.quantity), 0);
-    console.log("Total amount:", totalAmount);
 
     const sessionParams = {
       payment_method_types: ["card"],
@@ -130,3 +121,4 @@ export const POST = async (req) => {
     });
   }
 };
+

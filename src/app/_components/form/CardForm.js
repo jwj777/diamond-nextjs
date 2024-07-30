@@ -352,36 +352,42 @@ function CardForm({ data }) {
   };
 
 
-  // handleCheckout
   const handleCheckout = async () => {
-
     const numberOfCards = Object.keys(cartDetails).length;
-
+  
     if (currentForm === "bulk" && numberOfCards < 10) {
       alert("A bulk order must contain 10 or more cards.");
       return;
     }
-
+  
     if (totalDeclaredValue > 100000) {
       setIsExceedingLimit(true);
       onOpen();
       return;
     }
-
+  
     setLoading(true);
     setError(null);
-
+  
     try {
       const customerRes = await fetch(`/api/stripe/customer?email=${user.email}`);
       const customerData = await customerRes.json();
-
-      const numberOfCards = Object.keys(cartDetails).length;
+      console.log("Customer data: ", customerData);
+  
       const declaredValue = calculateTotalDeclaredValue();
-      const shippingCost = calculateShippingCost(numberOfCards, declaredValue);
-      const totalOrderCost = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, "")) + parseFloat(shippingCost);
-
+      console.log("Declared value: ", declaredValue);
+      
+      const shippingCost = parseFloat(calculateShippingCost(numberOfCards, declaredValue));
+      console.log("Shipping cost: ", shippingCost);
+      
+      const gradingFees = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, ""));
+      console.log("Grading fees: ", gradingFees);
+      
+      const totalOrderCost = gradingFees + shippingCost;
+      console.log("Total order cost: ", totalOrderCost);
+  
       const formattedCartDetails = formatCartDetails(cartDetails); // Get formatted cart details
-
+  
       const orderData = {
         customer: customerData.id,
         cartDetails: formattedCartDetails, // Use the formatted cart details string
@@ -391,9 +397,9 @@ function CardForm({ data }) {
       };
   
       await sendToWebhook(orderData);
-
-      console.log('orderData ', orderData)
-
+  
+      console.log('Order data: ', orderData);
+  
       const response = await fetch("/api/stripe/product", {
         method: "POST",
         headers: {
@@ -401,8 +407,9 @@ function CardForm({ data }) {
         },
         body: JSON.stringify({ cartDetails, customerId: customerData.id, totalOrderCost }),
       });
-
+  
       const data = await response.json();
+      console.log("Stripe session response: ", data);
       if (data.sessionId) {
         const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
         clearCart();
@@ -421,6 +428,8 @@ function CardForm({ data }) {
     }
     setLoading(false);
   };
+  
+  
 
 
   const handleTermsAndConditions = (value) => {
