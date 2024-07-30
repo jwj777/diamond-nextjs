@@ -23,10 +23,6 @@ import {
 import { useState, useEffect } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useShoppingCart } from "use-shopping-cart";
-import { insuranceCost } from "@/app/data/insuranceData";
-import { uspsShipping, fedexShipping } from "@/app/data/shippingData";
-import bulkFees from '@/app/data/BulkFeeData.js';
-import standardFees from '@/app/data/StandardFeeData.js';
 import CardFormFields from "./CardFormFields"; // Import FormFields component
 import CardOrderSummary from "./CardOrderSummary"; // Import OrderSummary component
 import TitleLarge from "../typography/TitleLarge";
