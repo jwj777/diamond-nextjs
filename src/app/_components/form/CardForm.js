@@ -317,7 +317,7 @@ function CardForm({ data }) {
       const url = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(query)}&LH_Sold=1`;
       setEbayUrl(url);
     } else {
-      console.log('Missing information:', { name, brandSet, year, number, desc });
+      // console.log('Missing information:', { name, brandSet, year, number, desc });
     }
   }, [name, brandSet, year, number, desc]);
 
@@ -358,6 +358,13 @@ function CardForm({ data }) {
 
   // handleCheckout
   const handleCheckout = async () => {
+
+    const numberOfCards = Object.keys(cartDetails).length;
+
+    if (currentForm === "bulk" && numberOfCards < 10) {
+      alert("A bulk order must contain 10 or more cards.");
+      return;
+    }
 
     if (totalDeclaredValue > 100000) {
       setIsExceedingLimit(true);

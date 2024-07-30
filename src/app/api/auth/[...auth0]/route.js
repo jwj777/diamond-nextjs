@@ -16,7 +16,7 @@ export const GET = handleAuth({
   login: handleLogin({
     returnTo: "/account",
     authorizationParams: {
-      redirect_uri: 'https://www.diamondgradecards.com/api/auth/callback',
+      redirect_uri: process.env.AUTH0_BASE_URL + '/api/auth/callback',
     },
   }),
 });
