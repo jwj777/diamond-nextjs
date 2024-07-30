@@ -377,7 +377,7 @@ function CardForm({ data }) {
       const declaredValue = calculateTotalDeclaredValue();
       console.log("Declared value: ", declaredValue);
       
-      const shippingCost = parseFloat(calculateShippingCost(numberOfCards, declaredValue));
+      const shippingCost = parseFloat(calculateShippingCost(numberOfCards, declaredValue, selectedShippingOption));
       console.log("Shipping cost: ", shippingCost);
       
       const gradingFees = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, ""));
@@ -430,8 +430,6 @@ function CardForm({ data }) {
   };
   
   
-
-
   const handleTermsAndConditions = (value) => {
     setAgreeToTerms(value);
   }
