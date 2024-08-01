@@ -28,7 +28,6 @@ export default function Footer({ colorScheme }) {
             lg: 'row'
           }}
           pt='8'
-          pb='8'
         >    
           <Box
             display='flex'
@@ -70,13 +69,21 @@ export default function Footer({ colorScheme }) {
 
         </Box>
 
-        <Box 
-          maxW='5xl'
-          pt='4'
-          pb='12'
-        >
-          <BodyMedium color={colorScheme + '.outline'}>©2024 Diamond Grade Cards LLC. All rights reserved</BodyMedium>
-        </Box>
+        <Box display='flex' alignItems='center' borderTop='1px' borderColor='neutral.40' mt='6' pt='4' pb='12'>
+          <Box display='flex' flexWrap='wrap' alignItems='center' mt='4' mb='4' mr='8'>
+            <Box mr='8'>
+              <Link href="/page/privacy-policy" variant='primaryDarkText' size='mdText' color='neutral.60'>Privacy Policy</Link>
+            </Box>
+            <Link href="/page/terms" variant='primaryDarkText' size='mdText' color='neutral.60'>Terms and Conditions</Link>
+          </Box>  
+          <Box 
+            maxW='5xl'
+            mt='4' mb='4'
+          >
+            <BodyMedium color={colorScheme + '.outline'}>©2024 Diamond Grade Cards LLC. All rights reserved</BodyMedium>
+          </Box>
+        </Box>           
+
 
       </FullContainer>
     </Box>
