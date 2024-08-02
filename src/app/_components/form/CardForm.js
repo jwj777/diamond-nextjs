@@ -29,6 +29,9 @@ import TitleLarge from "../typography/TitleLarge";
 import BodyMedium from "../typography/BodyMedium";
 import TitleMedium from "../typography/TitleMedium";
 import { loadStripe } from '@stripe/stripe-js'; // Import loadStripe
+import HeadlineSmall from "../typography/HeadlineSmall";
+import BodyLarge from "../typography/BodyLarge";
+import HeadlineMedium from "../typography/HeadlineMedium";
 
 
 function CardForm({ data }) {
@@ -61,7 +64,7 @@ function CardForm({ data }) {
   const [selectedShippingOption, setSelectedShippingOption] = useState('2day');
   const [resetInputState, setResetInputState] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const { user, isLoading } = useUser();
+  const {user, isLoading } = useUser();
   const [warningMessage, setWarningMessage] = useState("");
   const [isExceedingLimit, setIsExceedingLimit] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
@@ -480,192 +483,220 @@ const handleShippingOptionChange = (option) => {
 
   return (
     <>
-    <Grid templateColumns="repeat(4, 1fr)">
-      <GridItem
-        colSpan={2}
-        maxW="680px"
-        mb="16"
-        mt='24'
-        mr='4' 
-        bg="neutral.95"
-        
-        pb="16"
-        borderRadius="20"
-      >
-      <Tabs variant='neutralLight' onChange={handleTabChange} index={activeTab} >
-        <TabList mb='4'>
-          <Tab textAlign={'left'}>
-            <Text fontWeight='600'>Standard Order <Text fontWeight='400' as='span'>{'(1-9 Cards)'}</Text></Text>
-          </Tab>
-          <Tab>
-            <Text fontWeight='600'>Bulk Order <Text fontWeight='400' as='span'>{'(10 or More)'}</Text></Text>
-          </Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel pl="10">
 
+    {
 
-              <Box>
-                <Box mb='6'>
-                  <TitleLarge color="neutral.10">
-                    Standard Order Form
-                  </TitleLarge>
-                  <BodyMedium color="neutral.10">
-                    {data?.attributes?.Form_Subheading}
-                  </BodyMedium>
-                </Box>
-                <Box mb='10'>
-                  <Link variant='primaryLightText' size='mdText' onClick={clearFormFields}>Clear Form Fields</Link>
-                </Box>
-              </Box>
+      user ? 
 
-              <Box>
-                <CardFormFields
-                  name={name}
-                  setName={setName}
-                  brandSet={brandSet}
-                  setBrandSet={setBrandSet}
-                  year={year}
-                  setYear={setYear}
-                  number={number}
-                  setNumber={setNumber}
-                  desc={desc}
-                  setDesc={setDesc}
-                  value={value}
-                  setValue={setValue}
-                  slabStyle={slabStyle}
-                  setSlabStyle={setSlabStyle}
-                />
-                <Box mt="4">
-                  {ebayUrl ? (
-                    <Link
-                      href={ebayUrl}
-                      isExternal
-                      variant="primaryLightText"
-                      size="mdText"
-                    >
-                      See {year + " " + brandSet + " " + name + " " + number} examples on eBay
-                    </Link>
-                  ) : null}
-                </Box>
-              </Box>
-
-              <Button
-                mt="4"
-                size={{ base: "md", md: "lg" }}
-                type="submit"
-                variant="primaryLight"
-                onClick={addToCart}
-              >
-                {"Add to Order"}
-              </Button>
-      
-          </TabPanel>
-          <TabPanel pl="10">
-
-            <Box>
-
-              <Box mb='6'>
-                <TitleLarge color="neutral.10">
-                  Bulk Order Form
-                </TitleLarge>
-                <BodyMedium color="neutral.10">
-                  Enter 10 or more items to receive bulk order discounts.
-                </BodyMedium>
-              </Box>
-
-              <Box mb='10'>
-              <Link variant='primaryLightText' size='mdText' onClick={clearFormFields}>Clear Form Fields</Link>
-              </Box>
-
-            </Box>
-
-              <Box>
-                <CardFormFields
-                  name={name}
-                  setName={setName}
-                  brandSet={brandSet}
-                  setBrandSet={setBrandSet}
-                  year={year}
-                  setYear={setYear}
-                  number={number}
-                  setNumber={setNumber}
-                  desc={desc}
-                  setDesc={setDesc}
-                  value={value}
-                  setValue={setValue}
-                  slabStyle={slabStyle}
-                  setSlabStyle={setSlabStyle}
-                />
-                <Box mt="4">
-                  {ebayUrl ? (
-                    <Link
-                      href={ebayUrl}
-                      isExternal
-                      variant="primaryLightText"
-                      size="mdText"
-                    >
-                      See {year + " " + brandSet + " " + name + " " + number} examples on eBay
-                    </Link>
-                  ) : null}
-                </Box>
-              </Box>
-
-              <Button
-                mt="4"
-                size={{ base: "md", md: "lg" }}
-                type="submit"
-                variant="primaryLight"
-                onClick={addToCart}
-              >
-                {"Add to Order"}
-              </Button>
-           
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-      
-      <Box mt='8' px='10' maxW='480px'>
-        <TitleMedium>Feedback and Support</TitleMedium>
-        <BodyMedium>If you have any questions or want to provide feedback, <Link href='/page/contact' variant='primaryLightText' size='mdText'> use our contact form </Link>.
-        </BodyMedium>
-      </Box>
-
-      </GridItem>
-
-      {isClient && (
+      <Grid templateColumns="repeat(4, 1fr)">
         <GridItem
           colSpan={2}
           maxW="680px"
-          mt="24"
-          mb="20"
-          mx="2"
+          mb="16"
+          mt='24'
+          mr='4' 
           bg="neutral.95"
-          p="10"
-          pt='8'
+          
           pb="16"
           borderRadius="20"
         >
-          <CardOrderSummary
-            cartCount={formatNumberWithCommas(cartCount)}
-            calculateTotalDeclaredValue={() => formatNumberWithCommas(calculateTotalDeclaredValue())}
-            declaredValue={totalDeclaredValue}
-            formattedTotalPrice={formatNumberWithCommas(formattedTotalPrice)}
-            shippingCost={shippingCost}
-            calculateTotalPriceWithShipping={calculateTotalPriceWithShipping}
-            handleCheckout={handleCheckout}
-            cartDetails={cartDetails}
-            clearCart={clearCart}
-            handleRemoveItem={handleRemoveItem}
-            warningMessage={warningMessage}
-            selectedShippingOption={selectedShippingOption}
-            handleShippingOptionChange={handleShippingOptionChange}
-            handleTermsAndConditions={handleTermsAndConditions}
-            agreeToTerms={agreeToTerms}
-          />
+
+        <Tabs variant='neutralLight' onChange={handleTabChange} index={activeTab} >
+          <TabList mb='4'>
+            <Tab textAlign={'left'}>
+              <Text fontWeight='600'>Standard Order <Text fontWeight='400' as='span'>{'(1-9 Cards)'}</Text></Text>
+            </Tab>
+            <Tab>
+              <Text fontWeight='600'>Bulk Order <Text fontWeight='400' as='span'>{'(10 or More)'}</Text></Text>
+            </Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel pl="10">
+
+
+                <Box>
+                  <Box mb='6'>
+                    <TitleLarge color="neutral.10">
+                      Standard Order Form
+                    </TitleLarge>
+                    <BodyMedium color="neutral.10">
+                      {data?.attributes?.Form_Subheading}
+                    </BodyMedium>
+                  </Box>
+                  <Box mb='10'>
+                    <Link variant='primaryLightText' size='mdText' onClick={clearFormFields}>Clear Form Fields</Link>
+                  </Box>
+                </Box>
+
+                <Box>
+                  <CardFormFields
+                    name={name}
+                    setName={setName}
+                    brandSet={brandSet}
+                    setBrandSet={setBrandSet}
+                    year={year}
+                    setYear={setYear}
+                    number={number}
+                    setNumber={setNumber}
+                    desc={desc}
+                    setDesc={setDesc}
+                    value={value}
+                    setValue={setValue}
+                    slabStyle={slabStyle}
+                    setSlabStyle={setSlabStyle}
+                  />
+                  <Box mt="4">
+                    {ebayUrl ? (
+                      <Link
+                        href={ebayUrl}
+                        isExternal
+                        variant="primaryLightText"
+                        size="mdText"
+                      >
+                        See {year + " " + brandSet + " " + name + " " + number} examples on eBay
+                      </Link>
+                    ) : null}
+                  </Box>
+                </Box>
+
+                <Button
+                  mt="4"
+                  size={{ base: "md", md: "lg" }}
+                  type="submit"
+                  variant="primaryLight"
+                  onClick={addToCart}
+                >
+                  {"Add to Order"}
+                </Button>
+        
+            </TabPanel>
+            <TabPanel pl="10">
+
+              <Box>
+
+                <Box mb='6'>
+                  <TitleLarge color="neutral.10">
+                    Bulk Order Form
+                  </TitleLarge>
+                  <BodyMedium color="neutral.10">
+                    Enter 10 or more items to receive bulk order discounts.
+                  </BodyMedium>
+                </Box>
+
+                <Box mb='10'>
+                <Link variant='primaryLightText' size='mdText' onClick={clearFormFields}>Clear Form Fields</Link>
+                </Box>
+
+              </Box>
+
+                <Box>
+                  <CardFormFields
+                    name={name}
+                    setName={setName}
+                    brandSet={brandSet}
+                    setBrandSet={setBrandSet}
+                    year={year}
+                    setYear={setYear}
+                    number={number}
+                    setNumber={setNumber}
+                    desc={desc}
+                    setDesc={setDesc}
+                    value={value}
+                    setValue={setValue}
+                    slabStyle={slabStyle}
+                    setSlabStyle={setSlabStyle}
+                  />
+                  <Box mt="4">
+                    {ebayUrl ? (
+                      <Link
+                        href={ebayUrl}
+                        isExternal
+                        variant="primaryLightText"
+                        size="mdText"
+                      >
+                        See {year + " " + brandSet + " " + name + " " + number} examples on eBay
+                      </Link>
+                    ) : null}
+                  </Box>
+                </Box>
+
+                <Button
+                  mt="4"
+                  size={{ base: "md", md: "lg" }}
+                  type="submit"
+                  variant="primaryLight"
+                  onClick={addToCart}
+                >
+                  {"Add to Order"}
+                </Button>
+            
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+        
+        <Box mt='8' px='10' maxW='480px'>
+          <TitleMedium>Feedback and Support</TitleMedium>
+          <BodyMedium>If you have any questions or want to provide feedback, <Link href='/page/contact' variant='primaryLightText' size='mdText'> use our contact form </Link>.
+          </BodyMedium>
+        </Box>
+
         </GridItem>
-      )}
-    </Grid>
+
+        {isClient && (
+          <GridItem
+            colSpan={2}
+            maxW="680px"
+            mt="24"
+            mb="20"
+            mx="2"
+            bg="neutral.95"
+            p="10"
+            pt='8'
+            pb="16"
+            borderRadius="20"
+          >
+            <CardOrderSummary
+              cartCount={formatNumberWithCommas(cartCount)}
+              calculateTotalDeclaredValue={() => formatNumberWithCommas(calculateTotalDeclaredValue())}
+              declaredValue={totalDeclaredValue}
+              formattedTotalPrice={formatNumberWithCommas(formattedTotalPrice)}
+              shippingCost={shippingCost}
+              calculateTotalPriceWithShipping={calculateTotalPriceWithShipping}
+              handleCheckout={handleCheckout}
+              cartDetails={cartDetails}
+              clearCart={clearCart}
+              handleRemoveItem={handleRemoveItem}
+              warningMessage={warningMessage}
+              selectedShippingOption={selectedShippingOption}
+              handleShippingOptionChange={handleShippingOptionChange}
+              handleTermsAndConditions={handleTermsAndConditions}
+              agreeToTerms={agreeToTerms}
+            />
+          </GridItem>
+        )}
+      </Grid>
+
+      : // if not user (user not logged in)
+
+      <Box 
+      bg="neutral.95"
+      p="12"
+      pb='16'
+      borderRadius="20"
+      mt='24' 
+      mb='32'
+      mx='auto'
+      textAlign='center'
+      maxW='480px'
+    >
+      <Box mb='8'>
+        <HeadlineMedium>Sign Up Or Login</HeadlineMedium>
+        <BodyLarge>Login or create an account to submit cards for grading</BodyLarge>
+      </Box>
+      <Link href="/api/auth/login?returnTo=%2Faccount" variant='primaryLight'>Sign Up / Login</Link>
+    </Box>
+
+    }
 
     <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />

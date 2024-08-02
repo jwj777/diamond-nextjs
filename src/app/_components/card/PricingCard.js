@@ -6,10 +6,9 @@ import BodyMedium from "../typography/BodyMedium";
 import BodySmall from "../typography/BodySmall";
 
 
-export default function PricingCard({ data, title, price, children, highlight, features }) {
+export default function PricingCard({ data, title, price, children, highlight, features, isAnnual, product }) {
   
-  // console.log('Trading Card')
-  // console.log(data.CardImage.data.attributes.url)
+  console.log("product ", product)
 
   return (
 
@@ -28,7 +27,7 @@ export default function PricingCard({ data, title, price, children, highlight, f
       <Box px='5' pt='10'>
         <TitleLarge color='neutral.90'>{title}</TitleLarge>
         <Box mt='6'>
-          <HeadlineLarge color='primary.90'>{price}</HeadlineLarge>
+          <HeadlineLarge color='primary.90'>{product.id == 'prod_QXnFIxIXPwSySv' ? 'Free' : price}</HeadlineLarge>
         </Box>
         {
           title === 'Standard' ?  
@@ -36,7 +35,7 @@ export default function PricingCard({ data, title, price, children, highlight, f
           </Box>      
           :
           <Box opacity='0.9' mt='-4'>
-            <BodyMedium color='primary.90'>Per Year</BodyMedium>
+            <BodyMedium color='primary.90'>{isAnnual ? 'Per Year' : 'Per Month'}</BodyMedium>
           </Box>
         }
         <Box mt='7' mb='6'>

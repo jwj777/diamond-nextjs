@@ -44,9 +44,14 @@ export default function Header({ data, children, contentType }) {
 
           <Box display={{ base: 'none', md: 'flex' }}>
             {!user ? (
-              <Link href={`/api/auth/login?returnTo=${encodeURIComponent('/account')}`} variant="neutralDark">
-                Sign Up / Login
-              </Link>
+              <Box>
+                <Link href="/form/submit-card" variant="neutralDark" mr='4'>
+                  Submit a Card
+                </Link>
+                <Link href={`/api/auth/login?returnTo=${encodeURIComponent('/account')}`} variant="neutralDark">
+                  Sign Up / Login
+                </Link>
+              </Box>
 
 
             ) : (

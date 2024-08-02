@@ -1,10 +1,11 @@
 "use client";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { Box, Text, Button, Link, Spinner } from "@chakra-ui/react";
+import { Box, Text, Button, Link, Spinner, Switch } from "@chakra-ui/react";
 import PricingCard from "../card/PricingCard";
 import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect } from "react";
 import BodyMedium from "../typography/BodyMedium";
+import BodyLarge from "../typography/BodyLarge";
 
 
 async function getPlans() {
@@ -34,6 +35,7 @@ export default function PricingCards({ data }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hasMembership, setHasMembership] = useState(false);
+  const [isAnnual, setIsAnnual] = useState(false);
   const { user, isLoading } = useUser();
 
 
@@ -55,21 +57,23 @@ export default function PricingCards({ data }) {
         // Combine the data
         const combinedData = productsData.map((product) => {
           const plan = plansData.find((plan) => {
-            // console.log(
-            //   `Comparing product id: ${product.id} with plan Stripe_ID: ${plan.attributes.Stripe_ID}`
-            // );
             return plan.attributes.Stripe_ID === product.id;
           });
-  
+        
           if (plan) {
-            // console.log(`Match found for product id: ${product.id}`);
+            const monthlyPrice = product.prices.find(price => price.recurring.interval === 'month');
+            const yearlyPrice = product.prices.find(price => price.recurring.interval === 'year');
+        
             return {
               ...product,
               highlight: plan.attributes.Highlight,
               features: plan.attributes.Features,
+              monthlyPrice: monthlyPrice ? monthlyPrice.unit_amount / 100 : null,
+              yearlyPrice: yearlyPrice ? yearlyPrice.unit_amount / 100 : null,
+              monthlyPriceId: monthlyPrice ? monthlyPrice.id : null,
+              yearlyPriceId: yearlyPrice ? yearlyPrice.id : null,
             };
           } else {
-            // console.log(`No matching plan found for product id: ${product.id}`);
             return product;
           }
         });
@@ -171,48 +175,68 @@ export default function PricingCards({ data }) {
 
 
   return (
-    <Box display="flex" flexWrap="wrap" alignItems="stretch" justifyContent='center' ml="-2" mb="16">
-      {products.length > 0 ? (
-        <>
-          {products.map(
-            (product, index) =>
-              product.metadata.service === "membership" && (
-                <Box key={index} mb='4'>
-                  <PricingCard
-                    title={product.name}
-                    highlight={product.highlight}
-                    price={
-                      product.prices[0].unit_amount
-                        ? "$" + product.prices[0].unit_amount / 100
-                        : "Free"
-                    }
-                    features={product.features}
-                  >
-                    <Box display={"flex"} justifyContent={"center"} mb="8">
-                      {user ? (
-                        <Button
-                          display="block"
-                          onClick={() => handleSubscribe(product.prices[0].id)}
-                          disabled={loading}
-                          variant="primaryDark"
-                          size="md"
-                        >
-                          Subscribe to Plan
-                        </Button>
-                      ) : (
-                        <Link href="/api/auth/login" variant="primaryDark">
-                          Sign Up Today
-                        </Link>
-                      )}
-                    </Box>
-                  </PricingCard>
-                </Box>
-              )
-          )}
-        </>
-      ) : (
-        <p>No Products found.</p>
-      )}
+
+    <Box>
+
+      <Box display='flex' alignItems='center' mb='8'>
+        <Switch 
+          size='lg' 
+          mr='4'  
+          isChecked={isAnnual}
+          onChange={() => setIsAnnual(!isAnnual)}
+        />
+        <BodyLarge color='neutral.90'>Pay Annually and <Text as='span' color='primary.90'>Save Up To 35%</Text></BodyLarge>
+      </Box>
+      
+      <Box display="flex" flexWrap="wrap" alignItems="stretch" justifyContent='center' ml="-2" mb="16">
+        {products.length > 0 ? (
+          <>
+            {products.map(
+              (product, index) =>
+                product.metadata.service === "membership" && (
+                  <Box key={index} mb='4'>
+                    <PricingCard
+                      title={product.name}
+                      highlight={product.highlight}
+                      isAnnual={isAnnual}
+                      product={product}
+                      price={
+                        isAnnual
+                          ? product.yearlyPrice
+                            ? "$" + product.yearlyPrice
+                            : "Not Available"
+                          : product.monthlyPrice
+                            ? "$" + product.monthlyPrice
+                            : "Not Available"
+                      }
+                      features={product.features}
+                    >
+                      <Box display={"flex"} justifyContent={"center"} mb="8">
+                        {user ? (
+                          <Button
+                            display="block"
+                            onClick={() => handleSubscribe(isAnnual ? product.yearlyPriceId : product.monthlyPriceId)}
+                            disabled={loading}
+                            variant="primaryDark"
+                            size="md"
+                          >
+                            Subscribe to Plan
+                          </Button>
+                        ) : (
+                          <Link href="/api/auth/login" variant="primaryDark">
+                            Sign Up Today
+                          </Link>
+                        )}
+                      </Box>
+                    </PricingCard>
+                  </Box>
+                )
+            )}
+          </>
+        ) : (
+          <p>No Products found.</p>
+        )}
+      </Box>
     </Box>
   );
 }
