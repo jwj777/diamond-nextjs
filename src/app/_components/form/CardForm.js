@@ -246,7 +246,6 @@ function CardForm({ data }) {
         return;
       }
 
-
       const product = {
         name,
         description: desc,
@@ -375,22 +374,11 @@ function CardForm({ data }) {
     try {
       const customerRes = await fetch(`/api/stripe/customer?email=${user.email}`);
       const customerData = await customerRes.json();
-      console.log("Customer data: ", customerData);
-  
       const declaredValue = calculateTotalDeclaredValue();
-      console.log("Declared value: ", declaredValue);
-      
       const shippingCost = parseFloat(calculateShippingCost(numberOfCards, declaredValue, selectedShippingOption));
-      console.log("Shipping cost: ", shippingCost);
-      
       const gradingFees = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, ""));
-      console.log("Grading fees: ", gradingFees);
-      
       const totalOrderCost = gradingFees + shippingCost;
-      console.log("Total order cost: ", totalOrderCost);
-  
       const formattedCartDetails = formatCartDetails(cartDetails); // Get formatted cart details
-  
       const orderData = {
         customer: customerData.id,
         cartDetails: formattedCartDetails, // Use the formatted cart details string
@@ -417,7 +405,7 @@ function CardForm({ data }) {
         const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
         clearCart();
         const { error } = await stripe.redirectToCheckout({
-          sessionId: data.sessionId,
+          sessionId: data.sessionId
         });
         if (error) {
           setError(error.message);

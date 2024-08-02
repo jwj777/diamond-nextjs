@@ -101,6 +101,7 @@ export const POST = async (req) => {
       success_url: `${process.env.AUTH0_BASE_URL}/account`,
       cancel_url: `${process.env.AUTH0_BASE_URL}`,
       mode: "payment",
+      allow_promotion_codes: true,
     };
 
     const session = await stripe.checkout.sessions.create(sessionParams);
