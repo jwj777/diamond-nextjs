@@ -25,8 +25,19 @@ export default async function ShippingFees({ params }) {
       <Box bg='neutral.4' pt='0' pb='24' mt='-8'>
         <XlContainer>
 
+        <Box bg='neutral.15' maxW={'800px'} p='8' borderRadius='1.25rem' mb='8'>
+          <Box mb='4'>
+          <TitleLarge color='neutral.100'>Shipping Address</TitleLarge>
+            <BodyMedium color='neutral.90'>Ship all orders to the following address:</BodyMedium>
+          </Box>
+          <BodyMedium color='neutral.90'>DIAMOND GRADE CARDS LLC.</BodyMedium> 
+          <BodyMedium color='neutral.90'>1040 SW LUTTRELL RD. STE E</BodyMedium>
+          <BodyMedium color='neutral.90'>BLUE SPRINGS, MO 64015</BodyMedium>
+        </Box>
+
           <Box>
 
+            
             <Box bg='neutral.15' maxW={'800px'} p='8' borderRadius='1.25rem' mb='8'>
               <Box mb='8'>
                 <Box mb='-6px'><TitleLarge color='neutral.100'>USPS Priority Mail</TitleLarge></Box>
