@@ -35,7 +35,7 @@ export default function MobileResources({ color }) {
           </AccordionButton>
         <AccordionPanel pb='2'>
           <Box mt='6'>
-            <MobileNavLink href='/page/services' label='Grading Standards' color={color} />
+            <MobileNavLink href='/page/grading-standards' label='Grading Standards' color={color} />
             <MobileNavLink href='/page/shipping-guide' label='Shipping Guidelines' color={color} />
           </Box>
         </AccordionPanel>
