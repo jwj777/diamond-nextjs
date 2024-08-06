@@ -480,7 +480,7 @@ const handleShippingOptionChange = (option) => {
         <GridItem
           colSpan={2}
           maxW="680px"
-          mb="16"
+          mb="24"
           mt='24'
           mr='4' 
           bg="neutral.95"

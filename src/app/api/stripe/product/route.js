@@ -97,7 +97,7 @@ export const POST = async (req) => {
               slabStyle: item.product_data.slabStyle,
             },
           },
-          unit_amount: item.price, // Stripe expects the amount in cents
+          unit_amount: 0, // Stripe expects the amount in cents
         },
         quantity: 1,
       };
@@ -116,7 +116,7 @@ export const POST = async (req) => {
       invoice_creation: {
         enabled: true,
         invoice_data: {
-          description: `Please print out this invoice and send it in with your order to the address listed below:\n\n1040 SW Luttrell Rd\nE-1\nBlue Springs, Missouri 64015\nUnited States`,
+          description: `Please print out this invoice and send it in with your order to the address listed below:\n\nDiamond Grade Cards LLC\n1040 SW Luttrell Rd\nE-1\nBlue Springs, Missouri 64015\nUnited States`,
         }
       },
     };

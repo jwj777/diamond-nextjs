@@ -23,6 +23,9 @@ export default function TwoColImgTextEdge({ data }) {
           flexDirection={
             data.Image_Position == 'left' ? 'row-reverse' : 'row'
           }
+          justifyContent={
+            data.Image_Position == 'left' ? 'left' : 'right'
+          }
           py='36'
         >
 
