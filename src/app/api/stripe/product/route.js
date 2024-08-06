@@ -87,7 +87,7 @@ export const POST = async (req) => {
           currency: "usd",
           product_data: {
             name: `${item.product_data.year} ${item.product_data.brandSet} ${item.name} ${item.product_data.number} ${item.description} Declared Value: ${item.product_data.value}, Slab Style: ${item.product_data.slabStyle}`,
-            // description: `Card Submitted: ${item.product_data.year} ${item.product_data.brandSet} ${item.name} ${item.product_data.number} ${item.description}, Declared Value: ${item.product_data.value}, Slab Style: ${item.product_data.slabStyle}`,
+            description: `Please print out this invoice and send it in with your order to the address listed below`,
             metadata: {
               year: item.product_data.year,
               brandSet: item.product_data.brandSet,
@@ -97,7 +97,7 @@ export const POST = async (req) => {
               slabStyle: item.product_data.slabStyle,
             },
           },
-          unit_amount: item.price, // Stripe expects the amount in cents
+          unit_amount: 0, // Stripe expects the amount in cents
         },
         quantity: 1,
       };
@@ -115,6 +115,9 @@ export const POST = async (req) => {
       allow_promotion_codes: true,
       invoice_creation: {
         enabled: true,
+        invoice_data: {
+          description: `Please print out this invoice and send it in with your order to the address listed below:\n\n1040 SW Luttrell Rd\nE-1\nBlue Springs, Missouri 64015\nUnited States`,
+        }
       },
     };
 
