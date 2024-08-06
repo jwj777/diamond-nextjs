@@ -97,7 +97,7 @@ export const POST = async (req) => {
               slabStyle: item.product_data.slabStyle,
             },
           },
-          unit_amount: 0, // Stripe expects the amount in cents
+          unit_amount: item.price, // Stripe expects the amount in cents
         },
         quantity: 1,
       };
