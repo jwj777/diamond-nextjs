@@ -70,12 +70,13 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 export const POST = async (req) => {
   try {
     const body = await req.json();
-    const { cartDetails, customerId, totalOrderCost } = body;
+    const { cartDetails, customerId, totalOrderCost, shippingCost } = body; // Ensure shippingCost is destructured
 
     console.log("Received body:", JSON.stringify(body, null, 2));
 
-    if (!cartDetails || !customerId || !totalOrderCost) {
-      throw new Error("Missing cartDetails, customerId, or totalOrderCost");
+    // Check if shippingCost is a valid number
+    if (!cartDetails || !customerId || !totalOrderCost || isNaN(parseFloat(shippingCost))) {
+      throw new Error("Missing cartDetails, customerId, totalOrderCost, or shippingCost");
     }
 
     // Create line items for each product in the cartDetails
@@ -101,6 +102,18 @@ export const POST = async (req) => {
         },
         quantity: 1,
       };
+    });
+
+    // Add a line item for the shipping cost
+    line_items.push({
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: "Shipping",
+        },
+        unit_amount: Math.round(parseFloat(shippingCost) * 100), // Convert shipping cost to cents
+      },
+      quantity: 1,
     });
 
     console.log("Line items:", JSON.stringify(line_items, null, 2));

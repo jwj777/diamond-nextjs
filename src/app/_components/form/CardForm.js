@@ -375,15 +375,15 @@ function CardForm({ data }) {
       const customerRes = await fetch(`/api/stripe/customer?email=${user.email}`);
       const customerData = await customerRes.json();
       const declaredValue = calculateTotalDeclaredValue();
-      const shippingCost = parseFloat(calculateShippingCost(numberOfCards, declaredValue, selectedShippingOption));
+      const shippingCost = parseFloat(calculateShippingCost(numberOfCards, declaredValue, selectedShippingOption)); // Calculate shipping cost
       const gradingFees = parseFloat(formattedTotalPrice.replace(/[^0-9.-]+/g, ""));
-      const totalOrderCost = gradingFees + shippingCost;
+      const totalOrderCost = gradingFees + shippingCost; // Include shipping cost in total order cost
       const formattedCartDetails = formatCartDetails(cartDetails); // Get formatted cart details
       const orderData = {
         customer: customerData.id,
         cartDetails: formattedCartDetails, // Use the formatted cart details string
         totalOrderCost,
-        shippingCost,
+        shippingCost, // Include shipping cost in order data
         declaredValue,
       };
   
@@ -396,7 +396,7 @@ function CardForm({ data }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ cartDetails, customerId: customerData.id, totalOrderCost }),
+        body: JSON.stringify({ cartDetails, customerId: customerData.id, totalOrderCost, shippingCost }), // Send totalOrderCost and shippingCost to Stripe API
       });
   
       const data = await response.json();
@@ -419,6 +419,7 @@ function CardForm({ data }) {
     }
     setLoading(false);
   };
+  
   
   
   const handleTermsAndConditions = (value) => {
