@@ -483,7 +483,7 @@ const handleShippingOptionChange = (option) => {
           colSpan={2}
           maxW="680px"
           mb="24"
-          mt='24'
+          mt='12'
           mr='4' 
           bg="neutral.95"
           
