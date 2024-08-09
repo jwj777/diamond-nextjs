@@ -25,7 +25,7 @@ export default async function SubmitCard({ params }) {
           data.attributes.slug = 'submit-card' ? 
           
           <Box>
-            <Box mb='8'>
+            <Box mt='8'>
               <BodyMedium>{`After your payment, you'll receive an email with your order receipt and your invoice. Please send this invoice in with your cards.`}</BodyMedium>
             </Box>
             <CardForm data={data} />
