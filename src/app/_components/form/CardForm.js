@@ -490,6 +490,10 @@ const handleShippingOptionChange = (option) => {
           borderRadius="20"
         >
 
+        <Box>
+          <BodyMedium>Your order receipt will contain a link to your invoice. Please send this invoice in with your cards.</BodyMedium>
+        </Box>
+
         <Tabs variant='neutralLight' onChange={handleTabChange} index={activeTab} >
           <TabList mb='4'>
             <Tab textAlign={'left'}>
