@@ -477,7 +477,14 @@ const handleShippingOptionChange = (option) => {
 
       user ? 
 
+
+
       <Grid templateColumns="repeat(4, 1fr)">
+
+      <Box mb='8'>
+        <BodyMedium>{`After your payment, you'll receive an email with your order receipt and your invoice. Please send this invoice in with your cards.`}</BodyMedium>
+      </Box>
+
         <GridItem
           colSpan={2}
           maxW="680px"
@@ -489,10 +496,6 @@ const handleShippingOptionChange = (option) => {
           pb="16"
           borderRadius="20"
         >
-
-        <Box>
-          <BodyMedium>{`After your payment, you'll receive an email with your order receipt and your invoice. Please send this invoice in with your cards.`}</BodyMedium>
-        </Box>
 
         <Tabs variant='neutralLight' onChange={handleTabChange} index={activeTab} >
           <TabList mb='4'>
