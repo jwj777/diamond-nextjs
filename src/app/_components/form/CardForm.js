@@ -491,7 +491,7 @@ const handleShippingOptionChange = (option) => {
         >
 
         <Box>
-          <BodyMedium>Your order receipt will contain a link to your invoice. Please send this invoice in with your cards.</BodyMedium>
+          <BodyMedium>After your payment, you'll receive an email with your order receipt and your invoice. Please send this invoice in with your cards.</BodyMedium>
         </Box>
 
         <Tabs variant='neutralLight' onChange={handleTabChange} index={activeTab} >
