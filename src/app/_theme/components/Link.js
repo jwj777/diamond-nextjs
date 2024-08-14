@@ -127,6 +127,14 @@ const neutralDark = defineStyle({
   }
 })
 
+const neutralDarkText = defineStyle({
+  color: 'neutral.90',
+  textDecoration: 'underline',
+    _hover: {
+    color: 'neutral.100',
+  }
+})
+
 const neutralDarkAlt = defineStyle({
   bg: 'primary.90',
   color: 'neutral.0',
@@ -158,6 +166,7 @@ export const Link = defineStyleConfig({
     primaryDarkText,
     neutralDark,
     neutralDarkAlt,
+    neutralDarkText,
     mobileLink,
     subMenu,
   },

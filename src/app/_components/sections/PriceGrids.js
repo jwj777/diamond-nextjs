@@ -8,7 +8,7 @@ const cellWidth ='140px';
 
 function PriceGrids({ priceGridStandard, priceGridBulk }) {
 
-  const renderTable = (data, title) => {
+  const renderTable = (data, title, link_label, link_url) => {
     if (!data) {
       return <Text>No data available</Text>;
     }
@@ -19,6 +19,9 @@ function PriceGrids({ priceGridStandard, priceGridBulk }) {
     return (
       <Box mb={8} bg='neutral.10' p='10' borderRadius='1.5rem'>
         <BodySuper color='neutral.95'>{title}</BodySuper>
+        <Box mt='6' mb='12'>
+          <Link href={link_url} variant='neutralDarkText' size='mdText' target='blank'>{link_label}</Link>
+        </Box>
 
         <Box 
           overflowX={{ 
@@ -53,7 +56,7 @@ function PriceGrids({ priceGridStandard, priceGridBulk }) {
           </Flex>
         </Box>
 
-        <Box borderBottom='1px' borderColor='neutral.30' pb='6' pt='3'>
+        <Box borderBottom='1px' borderColor='neutral.30' pb='3' pt='3'>
           <BodyMedium color='neutral.80'>
             For orders over $50,000 <Link href="/page/contact" variant='primaryDarkText' size='mdText'>contact us</Link>.
           </BodyMedium>
@@ -65,8 +68,8 @@ function PriceGrids({ priceGridStandard, priceGridBulk }) {
 
   return (
     <Box>
-      {renderTable(priceGridStandard, "Single Card Pricing (1-9 Cards)")}
-      {renderTable(priceGridBulk, "Bulk Pricing (10 or More Cards)")}
+      {renderTable(priceGridStandard, "Single Card Pricing (1-9 Cards)", 'See our full "Pro-Rated" single card pricing list', '/single-card-prices.pdf')}
+      {renderTable(priceGridBulk, "Bulk Pricing (10 or More Cards)", 'See our full "Pro-Rated" bulk order pricing list', '/bulk-card-prices.pdf')}
     </Box>
   );
 }
