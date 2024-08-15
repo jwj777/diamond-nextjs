@@ -88,7 +88,7 @@ export default function MobileNavDrawer({ data }) {
                   {!user ? (
                     <Box mb='8'>
                       <Link href="/api/auth/login" variant="neutralDark">
-                        Sign Up Today
+                        Sign Up Today / Login
                       </Link>
                     </Box>
                   ) : (
