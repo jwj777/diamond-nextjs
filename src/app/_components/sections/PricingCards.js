@@ -35,7 +35,7 @@ export default function PricingCards({ data }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hasMembership, setHasMembership] = useState(false);
-  const [isAnnual, setIsAnnual] = useState(false);
+  const [isAnnual, setIsAnnual] = useState(true);
   const { user, isLoading } = useUser();
 
 
@@ -182,11 +182,13 @@ export default function PricingCards({ data }) {
         <Switch 
           size='lg' 
           mr='4'  
-          isChecked={isAnnual}
+          isChecked={!isAnnual}
           onChange={() => setIsAnnual(!isAnnual)}
         />
-        <BodyLarge color='neutral.90'>Pay Annually and <Text as='span' color='primary.90'>Save Up To 35%</Text></BodyLarge>
+        <BodyLarge color='neutral.90'>Monthly Options Available</BodyLarge>
       </Box>
+
+      {/* <BodyLarge color='neutral.90'>{isAnnual ? 'true' : 'false'}</BodyLarge> */}
       
       <Box display="flex" flexWrap="wrap" alignItems="stretch" justifyContent='center' ml="-2" mb="16">
         {products.length > 0 ? (

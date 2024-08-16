@@ -86,11 +86,14 @@ export default function MobileNavDrawer({ data }) {
 
                 <Box mt='16' ml='4' display='flex' flexDir={'column'}>
                   {!user ? (
-                    <Box mb='8'>
-                      <Link href="/api/auth/login" variant="neutralDark">
-                        Sign Up Today / Login
-                      </Link>
+                    <Box>
+                      <Box mb='8'>
+                        <Link href="/api/auth/login" variant="neutralDark">
+                          Sign Up Today / Login
+                        </Link>
+                      </Box>
                     </Box>
+
                   ) : (
                     <Box display='flex' flexDirection='column'>
                       <Link href="/form/submit-card" variant="neutralDarkAlt" mb='4'>

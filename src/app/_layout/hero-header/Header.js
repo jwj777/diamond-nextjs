@@ -6,7 +6,16 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import MobileNavDrawer from "./navigation/mobile-nav/MobileNavDrawer";
 
 export default function Header({ data, children, contentType }) {
+
   const { user, error, isLoading } = useUser();
+
+  const auth0Domain = process.env.AUTH0_ISSUER_BASE_URL; // Auth0 issuer base URL
+  const clientId = process.env.AUTH0_CLIENT_ID; // Auth0 client ID
+  const redirectUri = process.env.REDIRECT_URL; // Redirect URL after sign-up
+
+  console.log(process.env.AUTH0_ISSUER_BASE_URL)
+
+  const signUpUrl = `${auth0Domain}/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=openid%20profile%20email&screen_hint=signup`;
 
   return (
     <FullContainer>
