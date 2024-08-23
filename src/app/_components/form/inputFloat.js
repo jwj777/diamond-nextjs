@@ -25,7 +25,7 @@ export default function InputFloat({ label, id, type, pattern, errorMsg, width, 
 
   return (
  
-      <FormControl mb={{ base: '3', sm: '5' }}>
+      <FormControl mb={{ base: '5', sm: '5' }}>
         <Input 
           type={type} id={id} 
           name={id} 

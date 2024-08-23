@@ -6,7 +6,7 @@ import BodyMedium from "../typography/BodyMedium";
 import BodySmall from "../typography/BodySmall";
 
 
-export default function PricingCard({ data, title, price, children, highlight, features, isAnnual, product }) {
+export default function PricingCard({ data, title, price, children, highlight, features, isAnnual, product, promotion }) {
   
   console.log("product ", product)
 
@@ -45,6 +45,11 @@ export default function PricingCard({ data, title, price, children, highlight, f
           <BodyMedium color='neutral.95'>
             <Text fontWeight='400'>
               {highlight}
+            </Text>
+          </BodyMedium>
+          <BodyMedium color='neutral.95'>
+            <Text fontWeight='400'>
+              {promotion}
             </Text>
           </BodyMedium>
         </Box>

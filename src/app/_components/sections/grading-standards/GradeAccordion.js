@@ -21,7 +21,8 @@ export default function GradeAccordion({ gradeData }) {
   return (
     <Box pt='16' pb='24'>
       <XlContainer>
-        <Box display='flex' alignItems='flex-start'>
+        <Box display='flex' alignItems='flex-start' flexDirection={{ base: 'column-reverse', xl: 'row' }}>
+
           <Box width='100%'>
             <Accordion allowToggle maxW='3xl' borderRadius='2.5rem' border='0px'>
               {gradeData.map((item, index) => (
@@ -31,10 +32,11 @@ export default function GradeAccordion({ gradeData }) {
           </Box>
 
           <Box 
-            maxW='400px'
+            maxW={{ base: '100%', xl: '400px'}}
             bg='primary.95' 
             p='6'
             px='8' 
+            mb='8'
             borderRadius='2rem'
           >
             <Box mb='6'>
@@ -51,6 +53,7 @@ export default function GradeAccordion({ gradeData }) {
               <FilterButton label='Supplemental' updateFilter={updateFilter} />
             </Box>
           </Box>
+
         </Box>
       </XlContainer>
     </Box>

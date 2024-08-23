@@ -50,7 +50,16 @@ export default function ContactForm({ data }) {
 
   return (
 
-    <Box className='contactForm' maxW='600px' mb='32' mx='2' bg='neutral.15' p='10' pb='16' borderRadius='20'>
+    <Box 
+      className='contactForm' 
+      maxW='600px' 
+      mb='32' 
+      mx='2' 
+      bg='neutral.15' 
+      p={{ base: '6', md: '10' }}
+      py={{ base: '8', md: '12' }} 
+      borderRadius={{ base: '16', md: '20'}}
+    >
 
       <Box mb='8'>
         <TitleLarge color='neutral.95'>Contact Diamond Grade Today</TitleLarge>
@@ -72,7 +81,7 @@ export default function ContactForm({ data }) {
               bg='neutral.20' 
               color='neutral.90' 
               borderColor='neutral.40' 
-              fontSize='1.2rem' 
+              fontSize={{ base: '1rem', md: '1.2rem'}} 
               h='16' 
               borderRadius='8'
             >
@@ -94,7 +103,7 @@ export default function ContactForm({ data }) {
               border='1px'
               borderColor='neutral.40'
               placeholder='Additional comments'
-              size='lg'
+              size={{ base: 'md', md: 'lg'}}
               height='120px'
               mt='1'
               p='5'

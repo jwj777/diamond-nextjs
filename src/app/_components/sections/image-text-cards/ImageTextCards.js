@@ -42,8 +42,8 @@ export default function ImageTextCards({ data }) {
         <Box 
           maxW='780px'
           mt={{ base: '0', xl: '0' }} 
-          pr={{ base: '0', xl: '8' }}
-          px={{ base: '8', lg: '0' }}
+          // pr={{ base: '0', xl: '8' }}
+          // px={{ base: '8', lg: '0' }}
         >  
           <Box mb='16'>
             <Box mb='4'>

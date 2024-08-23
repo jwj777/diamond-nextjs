@@ -27,20 +27,22 @@ export default function Header({ data, children, contentType }) {
         py="6"
       >
 
-        <Box display={{ base: 'block', xl: 'none' }} mr='4' ml='-2'>
-          <MobileNavDrawer />
-        </Box>
-
         <Box display='flex' alignItems='center'>
-          <Box display="flex" alignItems="center">
-            <Box mr={{ base: '4', sm: '4', md: '16' }} maxW="240px">
-              <Link href="/" variant="noDeco">
-                <Image src="/logo-gold.png" fill alt="" />
-              </Link>
-            </Box>
+          <Box display={{ base: 'block', xl: 'none' }} mr={{ base: '4', sm: '8' }} ml='-2'>
+            <MobileNavDrawer />
           </Box>
-          <Box mr="16" display={{ base: 'none', xl: 'flex' }}>
-            <Desktop />
+
+          <Box display='flex' alignItems='center'>
+            <Box display="flex" alignItems="center">
+              <Box mr={{ base: '4', sm: '4', md: '16' }} maxW={{ base: '220px', sm: "240px"}}>
+                <Link href="/" variant="noDeco">
+                  <Image src="/logo-gold.png" fill alt="" />
+                </Link>
+              </Box>
+            </Box>
+            <Box mr="16" display={{ base: 'none', xl: 'flex' }}>
+              <Desktop />
+            </Box>
           </Box>
         </Box>
 

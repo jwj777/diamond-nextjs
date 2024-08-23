@@ -32,7 +32,7 @@ export default function HeroHome({ data, children, cardList }) {
                   alt=""
                 />
               </Box>
-              <Box display='flex' justifyContent='center' mb='4'>
+              <Box display='flex' justifyContent='center' textAlign='center' mb='4'>
                 <HeadlineLarge color='neutral.100'>Raising The Standard</HeadlineLarge>
               </Box>
               <Box maxW='3xl' align='center' mx='auto'>

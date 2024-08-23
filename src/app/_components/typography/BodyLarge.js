@@ -16,14 +16,14 @@ export default function BodyLarge({ text, textColor, color, children, thin, mb }
       text ?
       <Text 
         dangerouslySetInnerHTML={{ __html: text }} 
-        fontSize={{ base: '1.15rem', md: '1.4rem' }}
+        fontSize={{ base: '1.15rem', md: '1.3rem' }}
         lineHeight={{ base: '148%', md: '148%' }}
         fontWeight={400}
         color={color}
         letterSpacing={'0px'}
       ></Text> :
       <Text 
-        fontSize={{ base: '1.15rem', md: '1.4rem' }}
+        fontSize={{ base: '1.15rem', md: '1.3rem' }}
         lineHeight={{ base: '148%', md: '148%' }}
         color={color}
         fontWeight={400}

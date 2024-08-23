@@ -11,9 +11,7 @@ import BodyLarge from "../typography/BodyLarge";
 async function getPlans() {
   try {
     const url = "https://strapi-production-0074.up.railway.app/api/member-plans?[populate]=*";
-    // console.log("Fetching plans from URL:", url);
     const response = await fetch(url);
-    // console.log("Response status:", response.status);
 
     if (!response.ok) {
       const errorText = await response.text(); // Get the response text
@@ -37,7 +35,6 @@ export default function PricingCards({ data }) {
   const [hasMembership, setHasMembership] = useState(false);
   const [isAnnual, setIsAnnual] = useState(true);
   const { user, isLoading } = useUser();
-
 
   useEffect(() => {
     async function fetchData() {
@@ -187,8 +184,6 @@ export default function PricingCards({ data }) {
         />
         <BodyLarge color='neutral.90'>Monthly Options Available</BodyLarge>
       </Box>
-
-      {/* <BodyLarge color='neutral.90'>{isAnnual ? 'true' : 'false'}</BodyLarge> */}
       
       <Box display="flex" flexWrap="wrap" alignItems="stretch" justifyContent='center' ml="-2" mb="16">
         {products.length > 0 ? (
