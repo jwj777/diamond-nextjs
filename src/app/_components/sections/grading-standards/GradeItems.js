@@ -58,10 +58,10 @@ export default function GradeItems({ data, filter }) {
               <Box width='268px'>
                 <TitleMedium><Text as='span' mr='2'>{data.attributes.Grade_Name}</Text>{data.attributes.Grade_Number}</TitleMedium>
               </Box>
-              {/* <Box width='300px' pb='3'>
+              <Box maxW='360px' pb='3'>
                 <Text fontWeight='600' mb='1'>{filter == 'All / Reset' ? null : filter}</Text>
                 <BodySmall color='neutral.10'>{filterVariable}</BodySmall>
-              </Box> */}
+              </Box>
             </Box>
             <AccordionIcon w='8' h='8' />
           </AccordionButton>

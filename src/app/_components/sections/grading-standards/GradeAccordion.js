@@ -1,6 +1,6 @@
 'use client'
 import XlContainer from "@/app/_layout/containers/XlContainer";
-import { Box, Button, Accordion } from "@chakra-ui/react";
+import { Box, Button, Accordion, Text } from "@chakra-ui/react";
 import GradeItems from "./GradeItems";
 import FilterButton from "./FilterButton";
 import TitleMedium from "../../typography/TitleMedium";
