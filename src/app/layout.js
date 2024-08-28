@@ -3,6 +3,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { CartProviderWrapper } from "./lib/useCart";
+import { GoogleTagManager } from '@next/third-parties/google' 
 
 
 const figtree = Figtree({
@@ -17,6 +18,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <GoogleTagManager gtmId="GTM-TNXG3MF4" />
       <body className={`${figtree.className}`}>
         <UserProvider>
           <CartProviderWrapper>

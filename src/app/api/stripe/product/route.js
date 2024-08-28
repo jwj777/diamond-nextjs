@@ -41,11 +41,11 @@ export const POST = async (req) => {
     line_items.push({
       price_data: {
         currency: "usd",
-        product_data: {
-          name: "Shipping",
-          // Optional: You could add a product ID for shipping if you want to track it separately in Stripe
-        },
+        product: 'prod_QjuKr5XQzqcim4', // Replace with your actual shipping product ID from Stripe
         unit_amount: Math.round(parseFloat(shippingCost) * 100), // Convert shipping cost to cents
+        // product_data: {
+        //   name: "Shipping",
+        // },
       },
       quantity: 1,
     });
