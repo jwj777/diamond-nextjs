@@ -19,9 +19,9 @@ export default function XlContainer({ children }) {
               px={{
                 base: 8,
                 sm: 8,
-                md: 24,
+                md: 16,
                 lg: 16,
-                xl: 4,
+                xl: 16,
                 '2xl': 0
               }}
             >

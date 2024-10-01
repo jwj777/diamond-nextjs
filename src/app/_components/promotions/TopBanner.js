@@ -13,6 +13,7 @@ export default function TopBanner({ promotions }) {
         bg='primary.90' 
         pt='3' 
         pb='4'
+        px='4'
         _hover={{
           bg: 'primary.80',
           transition: '0.25s ease'

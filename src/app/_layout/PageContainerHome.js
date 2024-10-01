@@ -23,7 +23,10 @@ export default function PageContainerHome({ data, children, promotions, cardList
 
   return (
 
-    <Box>
+    <Box               
+      maxW='100%'
+      overflowX='hidden'
+    >
       {
         activePromotion ?
         <TopBanner promotions={activePromotion} />

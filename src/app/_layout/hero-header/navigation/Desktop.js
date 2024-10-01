@@ -87,7 +87,7 @@ export default function Desktop() {
           </Box>
           <NavLink href="/page/about" label='About' />
 
-          <Box mr='1rem'>
+          <Box mr='1rem' display={{ base: 'none', '2xl': 'block' }}>
             <Link 
               href='https://dgc-store.com/'
               onClick={toggleSubMenu}

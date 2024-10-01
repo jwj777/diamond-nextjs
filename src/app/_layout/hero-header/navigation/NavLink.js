@@ -9,12 +9,12 @@ export default function NavLink({ href, label, onClick, isSubMenuVisible, isSubM
 
   return (
 
-    <Box mr='1rem'>
+    <Box mr={{ base: '0.25rem', '2xl': '1rem'}}>
 
         <Link 
           href={href}
           onClick={onClick}
-          color='neutral.95'
+          color='neutral.90'
           textDecor='none'
           fontSize='1.2rem;'
           fontWeight='400'

@@ -34,7 +34,7 @@ export default function Header({ data, children, contentType }) {
 
           <Box display='flex' alignItems='center'>
             <Box display="flex" alignItems="center">
-              <Box mr={{ base: '4', sm: '4', md: '16' }} maxW={{ base: '220px', sm: "240px"}}>
+              <Box mr={{ base: '4', sm: '4', md: '16' }} maxW={{ base: '220px', sm: "240px" }}>
                 <Link href="/" variant="noDeco">
                   <Image src="/logo-gold.png" fill alt="" />
                 </Link>
@@ -55,7 +55,7 @@ export default function Header({ data, children, contentType }) {
 
           <Box display={{ base: 'none', md: 'flex' }}>
             {!user ? (
-              <Box>
+              <Box width='300px'>
                 <Link href="/form/submit-card" variant="neutralDark" mr='4'>
                   Submit a Card
                 </Link>
