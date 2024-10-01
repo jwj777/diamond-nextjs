@@ -41,7 +41,7 @@ export default function HeroHomeFixedPrice({ activePromotion, cardList }) {
                   <BodyLarge color='neutral.80'>{activePromotion.attributes.Description}</BodyLarge>
                 </Box>                
                 <Box mt='16'>
-                  <Link href='' variant='primaryDark' size='lg'>Sign Up Today</Link>
+                  <Link href='/page/pricing' variant='primaryDark' size='lg'>Sign Up Today</Link>
                 </Box>
               </Box>
             </Box>
