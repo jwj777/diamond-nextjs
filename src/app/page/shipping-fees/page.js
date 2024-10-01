@@ -15,7 +15,7 @@ export default async function ShippingFees({ params }) {
 
   return (
  
-    <PageContainerGeneral data={data} promotions={promotions}>
+    <PageContainerGeneral data={data}>
 
 
       <Box bg='neutral.4' pt='0' pb='24' mt='-8'>
