@@ -113,7 +113,7 @@ function CardForm({ data, promotions }) {
       (promo) => promo.attributes.Promotion_Status === "Active" && promo.attributes.Promotion_Type === "fixed_price_per_card"
     );
   
-    if (activePromotion) {
+    if (activePromotion && declaredValue <= 1500) {
       // If an active promotion exists, override the regular pricing
       price = activePromotion.attributes.Discount_Price;
     } else {
