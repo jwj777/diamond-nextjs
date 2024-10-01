@@ -13,8 +13,8 @@ export default async function GradingStandards({ params }) {
   const data = await getPage(params);
   const grades = await getGrades();
 
-  console.log('GradingStandards')
-  console.log(data)
+  // console.log('GradingStandards')
+  // console.log(data)
 
   return (
  

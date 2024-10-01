@@ -10,10 +10,11 @@ export default async function Services({ params }) {
 
   const pageBySlug = await getPageBySlug(params);
   const data = pageBySlug?.[0];
+  let promotions = await getPromotions()
 
   return (
  
-    <PageContainerGeneral data={data}>
+    <PageContainerGeneral data={data} promotions={promotions}>
 
 
       <Box bg='neutral.4' pt='0' pb='24' mt='-8'>
@@ -167,6 +168,29 @@ async function getPageBySlug(params) {
   } catch (error) {
     console.error("Error fetching pages data:", error);
     throw new Error("Failed to fetch data");
+  }
+}
+
+
+async function getPromotions() {
+  try {
+    // const slug = params.slug;
+    const response =
+      await fetch(process.env.BASE_URL + `/api/promotions?populate[Cards][populate]=*`);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    const promotions = await response.json();
+
+    console.log('promotions ', promotions)
+
+    return promotions?.data;
+    
+  } catch (error) {
+    console.error("Error fetching grade data:", error);
+    throw new Error("Failed to fetch grade data");
   }
 }
 

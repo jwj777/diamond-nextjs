@@ -29,12 +29,11 @@ import TitleLarge from "../typography/TitleLarge";
 import BodyMedium from "../typography/BodyMedium";
 import TitleMedium from "../typography/TitleMedium";
 import { loadStripe } from '@stripe/stripe-js'; // Import loadStripe
-import HeadlineSmall from "../typography/HeadlineSmall";
 import BodyLarge from "../typography/BodyLarge";
 import HeadlineMedium from "../typography/HeadlineMedium";
 
 
-function CardForm({ data }) {
+function CardForm({ data, promotions }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isExceedingOpen, onOpen: onExceedingOpen, onClose: onExceedingClose } = useDisclosure();
   const [subscriptions, setSubscriptions] = useState([]);
@@ -108,44 +107,53 @@ function CardForm({ data }) {
 
   const calculatePrice = (declaredValue, subscriptionLevel, isBulk) => {
     let price;
+
+    // Check if there's an active promotion
+    const activePromotion = promotions?.find(
+      (promo) => promo.attributes.Promotion_Status === "Active" && promo.attributes.Promotion_Type === "fixed_price_per_card"
+    );
   
-    if (isBulk) {
-      switch (subscriptionLevel) {
-        case 'Standard':
-          declaredValue < 500 ? price = 18 : price = declaredValue * 0.035
-          break;
-        case 'Club':
-          declaredValue < 500 ? price = 16 : price = declaredValue * 0.032;
-          break;
-        case 'Diamond Premium':
-          declaredValue < 500 ? price = 14 : price = declaredValue * 0.029;
-          break;
-        case "Dealer's":
-          declaredValue < 500 ? price = 12 : price = declaredValue * 0.026;
-          break;
-        default:
-          console.error("Invalid subscription level");
-          return null;
-      }
+    if (activePromotion) {
+      // If an active promotion exists, override the regular pricing
+      price = activePromotion.attributes.Discount_Price;
     } else {
-      switch (subscriptionLevel) {
-        case 'Standard':
-          // declaredValue < 500 ? price = 20 : price = declaredValue * 0.04
-          declaredValue < 500 ? price = 16 : price = declaredValue * 0.034;
-          break;
-        case 'Diamond Club':
-          declaredValue < 500 ? price = 18 : price = declaredValue * 0.037;
-          break;
-        case 'Diamond Premium':
-          declaredValue < 500 ? price = 16 : price = declaredValue * 0.034;
-          break;
-        case "Dealers Club":
-          declaredValue < 500 ? price = 14 : price = declaredValue * 0.031;
-          break;
-        default:
-          console.error("Invalid subscription level standard");
-          console.log("subscriptionLevel --- ", subscriptionLevel )
-          return null;
+      // Regular pricing logic if no active promotion
+      if (isBulk) {
+        switch (subscriptionLevel) {
+          case 'Standard':
+            price = declaredValue < 500 ? 18 : declaredValue * 0.035;
+            break;
+          case 'Club':
+            price = declaredValue < 500 ? 16 : declaredValue * 0.032;
+            break;
+          case 'Diamond Premium':
+            price = declaredValue < 500 ? 14 : declaredValue * 0.029;
+            break;
+          case "Dealer's":
+            price = declaredValue < 500 ? 12 : declaredValue * 0.026;
+            break;
+          default:
+            console.error("Invalid subscription level");
+            return null;
+        }
+      } else {
+        switch (subscriptionLevel) {
+          case 'Standard':
+            price = declaredValue < 500 ? 16 : declaredValue * 0.034;
+            break;
+          case 'Diamond Club':
+            price = declaredValue < 500 ? 18 : declaredValue * 0.037;
+            break;
+          case 'Diamond Premium':
+            price = declaredValue < 500 ? 16 : declaredValue * 0.034;
+            break;
+          case "Dealers Club":
+            price = declaredValue < 500 ? 14 : declaredValue * 0.031;
+            break;
+          default:
+            console.error("Invalid subscription level standard");
+            return null;
+        }
       }
     }
   
@@ -157,14 +165,19 @@ function CardForm({ data }) {
   };
 
   const calculateShippingCost = (numberOfItems, declaredValue, option = '2day') => {
-    if (declaredValue <= 500) {
+    if (declaredValue <= 1500) {
       // USPS Priority
       if (option === 'usps') {
+        console.log('usps')
         if (numberOfItems >= 1 && numberOfItems <= 4) {
           return 15;
         } else if (numberOfItems >= 5 && numberOfItems <= 20) {
           return 25;
         }
+      }
+      if (option === 'uspsGround') {
+        console.log('uspsGround')
+        return 10;
       }
       // FedEx Standard 2-Day or Overnight
       const fedexRates = [
@@ -509,6 +522,9 @@ const handleShippingOptionChange = (option) => {
                     <TitleLarge color="neutral.10">
                       Standard Order Form
                     </TitleLarge>
+
+                    <BodyMedium></BodyMedium>
+
                     <BodyMedium color="neutral.10">
                       {data?.attributes?.Form_Subheading}
                     </BodyMedium>

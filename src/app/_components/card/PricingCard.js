@@ -6,12 +6,13 @@ import BodyMedium from "../typography/BodyMedium";
 import BodySmall from "../typography/BodySmall";
 
 
-export default function PricingCard({ data, title, price, children, highlight, features, isAnnual, product, promotion }) {
+export default function PricingCard({ title, price, children, highlight, features = [], isAnnual, product, promotion }) {
+
+  const productPrice = product.prices && product.prices[0] ? product.prices[0].unit_amount / 100 : null;
+
+  // console.log("features ", features); 
   
-  console.log("product ", product)
-
   return (
-
     <Box 
       width={{
         base: '100%', 
@@ -27,47 +28,36 @@ export default function PricingCard({ data, title, price, children, highlight, f
       <Box px='5' pt='10'>
         <TitleLarge color='neutral.90'>{title}</TitleLarge>
         <Box mt='6'>
-          <HeadlineLarge color='primary.90'>{product.id == 'prod_QXnFIxIXPwSySv' ? 'Free' : price}</HeadlineLarge>
+        <HeadlineLarge color='primary.90'>
+          {product.id === 'prod_QXnFIxIXPwSySv' ? 'Free' : `$${price}`}  
+        </HeadlineLarge>
         </Box>
         {
           title === 'Standard' ?  
-          <Box mb='53px'>
-          </Box>      
-          :
+          <Box mb='53px'></Box> :
           <Box opacity='0.9' mt='-4'>
             <BodyMedium color='primary.90'>{isAnnual ? 'Per Year' : 'Per Month'}</BodyMedium>
           </Box>
         }
         <Box mt='7' mb='6'>
-          <BodyMedium color='neutral.90'>
-            Estimated Turnaround Time: 
+          <BodyMedium color='neutral.90'>Estimated Turnaround Time: </BodyMedium>
+          <BodyMedium color='neutral.95'>
+            <Text fontWeight='400'>{highlight}</Text>
           </BodyMedium>
           <BodyMedium color='neutral.95'>
-            <Text fontWeight='400'>
-              {highlight}
-            </Text>
-          </BodyMedium>
-          <BodyMedium color='neutral.95'>
-            <Text fontWeight='400'>
-              {promotion}
-            </Text>
+            <Text fontWeight='400'>{promotion}</Text>
           </BodyMedium>
         </Box>
-        {children}
 
-        {
-          features.map((feature, index) => {
-            return(
-              <Box key={index} mb='4'>
-                <BodyMedium color='neutral.100'>{feature.Text}</BodyMedium>
-              </Box>
-            )
-          })
-        }
+          {children}
+
+        {/* Mapping through the features array */}
+        {features.length > 0 && features.map((feature, index) => (
+          <Box key={index} mb='4'>
+            <BodyMedium color='neutral.100'>{feature.Text}</BodyMedium>
+          </Box>
+        ))}
       </Box>
     </Box>
-
-  )
-
+  );
 }
-

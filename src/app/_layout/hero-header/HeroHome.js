@@ -12,7 +12,7 @@ export default function HeroHome({ data, children, cardList }) {
 
   // console.log('HeroGeneral')
   // console.log(process.env.BASE_URL + data.attributes.HeroImage.data.attributes.url)
-  console.log("cardList ", cardList)
+  // console.log("cardList ", cardList)
 
   return (
 

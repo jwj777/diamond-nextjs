@@ -15,14 +15,12 @@ async function getPlans() {
 
     if (!response.ok) {
       const errorText = await response.text(); // Get the response text
-      console.error("Failed to fetch plans, response text:", errorText); // Log the response text
       throw new Error(`Failed to fetch plans, status: ${response.status}`);
     }
 
     const plans = await response.json();
     return plans?.data;
   } catch (error) {
-    console.error("Error fetching plans:", error);
     throw new Error("Failed to fetch plans");
   }
 }
@@ -36,30 +34,32 @@ export default function PricingCards({ data }) {
   const [isAnnual, setIsAnnual] = useState(true);
   const { user, isLoading } = useUser();
 
+
   useEffect(() => {
     async function fetchData() {
       try {
         const productsResponse = await fetch("/api/stripe/products");
-        // console.log("Fetched products:", productsResponse);
-
-        if (!productsResponse.ok) {
-          throw new Error(
-            `Failed to fetch products, status: ${productsResponse.status}`
-          );
-        }
-
         const productsData = await productsResponse.json();
+  
         const plansData = await getPlans();
   
-        // Combine the data
+        // Combine the products with plans and their respective features
         const combinedData = productsData.map((product) => {
-          const plan = plansData.find((plan) => {
-            return plan.attributes.Stripe_ID === product.id;
-          });
+          // Temporary: Manually map correct IDs for testing purposes
+          if (product.name === 'Diamond Club') {
+            product.id = 'prod_QXnGuxYlhBwnRS';
+          }
+        
+          let plan = plansData.find((plan) => plan.attributes.Stripe_ID === product.id);
+        
+          if (!plan) {
+            plan = plansData.find((plan) => plan.attributes.Name === product.name);
+          }
         
           if (plan) {
-            const monthlyPrice = product.prices.find(price => price.recurring.interval === 'month');
-            const yearlyPrice = product.prices.find(price => price.recurring.interval === 'year');
+            const monthlyPrice = product.prices.find(price => price.recurring?.interval === 'month');
+            const yearlyPrice = product.prices.find(price => price.recurring?.interval === 'year');
+        
         
             return {
               ...product,
@@ -70,9 +70,9 @@ export default function PricingCards({ data }) {
               monthlyPriceId: monthlyPrice ? monthlyPrice.id : null,
               yearlyPriceId: yearlyPrice ? yearlyPrice.id : null,
             };
-          } else {
-            return product;
           }
+        
+          return product;
         });
   
         setProducts(combinedData);
@@ -86,6 +86,8 @@ export default function PricingCards({ data }) {
     }
     fetchData();
   }, []);
+  
+  
 
 
   useEffect(() => {
@@ -114,6 +116,7 @@ export default function PricingCards({ data }) {
     }
     fetchSubscriptions();
   }, [user, isLoading]);
+
 
   if (loading) {
     return (
@@ -174,66 +177,63 @@ export default function PricingCards({ data }) {
   return (
 
     <Box>
-
-      <Box display='flex' alignItems='center' mb='8'>
-        <Switch 
-          size='lg' 
-          mr='4'  
+      <Box display="flex" alignItems="center" mb="8">
+        <Switch
+          size="lg"
+          mr="4"
           isChecked={!isAnnual}
           onChange={() => setIsAnnual(!isAnnual)}
         />
-        <BodyLarge color='neutral.90'>Monthly Options Available</BodyLarge>
+        <BodyLarge color="neutral.90">Monthly Options Available</BodyLarge>
       </Box>
-      
-      <Box display="flex" flexWrap="wrap" alignItems="stretch" justifyContent='center' ml="-2" mb="16">
+
+      <Box display="flex" flexWrap="wrap" alignItems="stretch" justifyContent="center" ml="-2" mb="16">
         {products.length > 0 ? (
-          <>
-            {products.map(
-              (product, index) =>
-                product.metadata.service === "membership" && (
-                  <Box key={index} mb='4'>
-                    <PricingCard
-                      title={product.name}
-                      highlight={product.highlight}
-                      isAnnual={isAnnual}
-                      product={product}
-                      price={
-                        isAnnual
-                          ? product.yearlyPrice
-                            ? "$" + product.yearlyPrice
-                            : "Not Available"
-                          : product.monthlyPrice
-                            ? "$" + product.monthlyPrice
-                            : "Not Available"
-                      }
-                      features={product.features}
-                    >
-                      <Box display={"flex"} justifyContent={"center"} mb="8">
-                        {user ? (
-                          <Button
-                            display="block"
-                            onClick={() => handleSubscribe(isAnnual ? product.yearlyPriceId : product.monthlyPriceId)}
-                            disabled={loading}
-                            variant="primaryDark"
-                            size="md"
-                          >
-                            Subscribe to Plan
-                          </Button>
-                        ) : (
-                          <Link href="/api/auth/login" variant="primaryDark">
-                            Sign Up Today
-                          </Link>
-                        )}
-                      </Box>
-                    </PricingCard>
-                  </Box>
-                )
-            )}
-          </>
+  <>
+  {products.map((product, index) => {
+    
+
+    return (
+      product.metadata?.service === "membership" && (
+        <Box key={index} mb="4">
+          <PricingCard
+            key={index}
+            title={product.name}
+            price={isAnnual ? product.yearlyPrice : product.monthlyPrice} // Correctly choose between yearly and monthly price
+            highlight={product.highlight}
+            features={product.features} // Pass features to PricingCard
+            isAnnual={isAnnual}
+            product={product}
+            promotion={product.promotion}
+          >
+            <Box display={"flex"} justifyContent={"center"} mb="8">
+              {user ? (
+                <Button
+                  display="block"
+                  onClick={() => handleSubscribe(isAnnual ? product.yearlyPriceId : product.monthlyPriceId)}
+                  disabled={loading}
+                  variant="primaryDark"
+                  size="md"
+                >
+                  Subscribe to {isAnnual ? 'Annual' : 'Monthly'} Plan
+                </Button>
+              ) : (
+                <Link href="/api/auth/login" variant="primaryDark">
+                  Sign Up Today
+                </Link>
+              )}
+            </Box>
+          </PricingCard>
+        </Box>
+      )
+    );
+  })}
+</>
         ) : (
           <p>No Products found.</p>
         )}
       </Box>
     </Box>
+
   );
 }

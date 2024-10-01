@@ -17,7 +17,7 @@ export default function HeroGeneral({ data, colorScheme, children }) {
 
     <Box 
       display='flex'
-      pt='14' pb='28' 
+      pt='16' pb='36' 
     >
 
       <XlContainer>

@@ -73,7 +73,14 @@ const CardOrderSummary = ({
             mt='3'
           >
             <Stack>
-            {declaredValue < 500 && (
+            {cartCount < 3 && (
+              <Radio value='uspsGround' mr='2' fontSize='0.9rem'>
+                <Box>
+                  <BodyMedium>USPS Ground Advantage</BodyMedium>
+                </Box>
+              </Radio>
+            )}
+            {declaredValue < 1500 && (
               <Radio value='usps' mr='2' fontSize='0.9rem'>
                 <Box>
                   <BodyMedium>USPS Priority</BodyMedium>

@@ -32,6 +32,7 @@ export default function TwoColImgTextEdge({ data }) {
 
           <Box 
             maxW='3xl'
+            mt='-80px'
             pr={{ 
               base: data.Image_Position == 'left' ? '8' : '8',
               lg: data.Image_Position == 'left' ? '24' : '0',

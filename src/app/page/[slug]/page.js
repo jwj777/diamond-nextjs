@@ -1,6 +1,5 @@
 import PricingCards from "@/app/_components/sections/PricingCards";
 import GradeAccordion from "@/app/_components/sections/grading-standards/GradeAccordion";
-import MemberPlans from "@/app/_components/sections/member-plans/MemberPlans";
 import Sections from "@/app/_components/sections/sections-array/Sections";
 import PageContainerGeneral from "@/app/_layout/PageContainerGeneral";
 import XlContainer from "@/app/_layout/containers/XlContainer";
@@ -10,7 +9,6 @@ export default async function Page({ params }) {
 
   const pageBySlug = await getPageBySlug(params);
   const data = pageBySlug?.[0];
-
   const plansData = await getPlans(params);
 
   return (
@@ -91,3 +89,4 @@ async function getPlans() {
     throw new Error("Failed to fetch grade data");
   }
 }
+

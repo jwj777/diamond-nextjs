@@ -27,9 +27,9 @@ const mdText = defineStyle({
 })
 
 const lg = defineStyle({
-  fontSize: '1rem',
+  fontSize: '1.1rem',
   lineHeight: '1rem',
-  fontWeight: '400',
+  fontWeight: '500',
   pt: '0.8rem',
   pr: '1.4rem',
   pb: '0.8rem',
@@ -37,9 +37,9 @@ const lg = defineStyle({
 })
 
 const xl = defineStyle({
-  fontSize: '1rem',
+  fontSize: '1.2rem',
   lineHeight: '1rem',
-  fontWeight: '400',
+  fontWeight: '500',
   pt: '0.8rem',
   pr: '1.4rem',
   pb: '0.8rem',

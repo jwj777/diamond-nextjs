@@ -1,10 +1,6 @@
-import PricingCards from "@/app/_components/sections/PricingCards";
 import Cell from "@/app/_components/table/Cell";
 import Row from "@/app/_components/table/Row";
 import BodyMedium from "@/app/_components/typography/BodyMedium";
-import HeadlineLarge from "@/app/_components/typography/HeadlineLarge";
-import HeadlineMedium from "@/app/_components/typography/HeadlineMedium";
-import HeadlineSmall from "@/app/_components/typography/HeadlineSmall";
 import TitleLarge from "@/app/_components/typography/TitleLarge";
 import TitleSmall from "@/app/_components/typography/TitleSmall";
 import PageContainerGeneral from "@/app/_layout/PageContainerGeneral";
@@ -19,7 +15,7 @@ export default async function ShippingFees({ params }) {
 
   return (
  
-    <PageContainerGeneral data={data}>
+    <PageContainerGeneral data={data} promotions={promotions}>
 
 
       <Box bg='neutral.4' pt='0' pb='24' mt='-8'>
@@ -151,5 +147,3 @@ async function getPageBySlug(params) {
     throw new Error("Failed to fetch data");
   }
 }
-
-

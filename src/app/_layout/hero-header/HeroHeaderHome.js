@@ -3,12 +3,26 @@ import { Box, LinkBox, Text } from "@chakra-ui/react";
 import Header from "./Header";
 import HeroGeneral from "./HeroGeneral";
 import HeroHome from "./HeroHome";
+import HeroHomeFixedPrice from "./HeroHomeFixedPrice";
 
 
-export default function HeroHeaderHome({ data, cardList }) {
+export default function HeroHeaderHome({ data, promotions, cardList }) {
 
   // console.log('HeaderHeroGeneral')
   // console.log(data)
+  // console.log('home promotions  ', promotions)
+
+  let activePromotion
+
+  promotions.map((promotion, index) => {
+    if (promotion.attributes.Promotion_Status === 'Active') {
+      activePromotion = promotion 
+    } else {
+      activePromotion = null
+    }
+  })
+
+  // console.log('Active Promottion ', activePromotion)
 
   return (
 
@@ -23,7 +37,11 @@ export default function HeroHeaderHome({ data, cardList }) {
       </Box>
 
       <Box>
-        <HeroHome data={data} cardList={cardList} />
+        {
+          activePromotion ?
+          <HeroHomeFixedPrice data={data} activePromotion={activePromotion} cardList={cardList} />
+          : <HeroHome data={data} cardList={cardList} />
+        }
       </Box>
 
     </Box>
