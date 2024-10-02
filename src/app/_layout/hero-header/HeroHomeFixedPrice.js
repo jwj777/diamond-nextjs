@@ -4,6 +4,7 @@ import XlContainer from "../containers/XlContainer";
 import BodyLarge from "@/app/_components/typography/BodyLarge";
 import DisplaySuper from "@/app/_components/typography/DisplaySuper";
 import HeadlineMedium from "@/app/_components/typography/HeadlineMedium";
+import TradingCardList from "@/app/_components/sections/card-list/TradingCardList";
 
 
 export default function HeroHomeFixedPrice({ activePromotion, cardList }) {
@@ -15,9 +16,10 @@ export default function HeroHomeFixedPrice({ activePromotion, cardList }) {
 
     <Box 
       display='flex'
-      pt={{ base: '8', md: '16' }} 
-      pb={{ base: '40', sm: '40', md: '48' }} 
+      pt={{ base: '8', md: '16', lg: '24' }} 
+      pb={{ base: '40', sm: '40', md: '52' }} 
       background={'none'}
+      mb={{ base: '0', '2xl': '220px' }}
     >
 
           <XlContainer>
@@ -51,7 +53,7 @@ export default function HeroHomeFixedPrice({ activePromotion, cardList }) {
               position='relative' 
               bottom={{ base: '260px', lg: '300px', xl: '360px', '2xl': '500px' }} 
               left={{ base: '0', lg: '0', xl: '26%', '2xl': '50%' }} 
-              mb={{ base: '-260px', lg: '-280px', xl: '-360px', '2xl': '-480px' }}
+              mb={{ base: '-260px', lg: '-280px', xl: '-360px', '2xl': '-680px' }}
               width='100%'
               ml={{ base: '0', sm: '8', lg: '12', xl: '0', '2xl': '16'}}
               pr={{ base: '16', md: '16', lg: '32', '2xl': '16'}}
@@ -98,6 +100,11 @@ export default function HeroHomeFixedPrice({ activePromotion, cardList }) {
                   />
                 </Box>
               }
+            </Box>
+
+
+            <Box display={{ base: 'none', '2xl': 'block' }} position='relative' top='420px'>
+              <TradingCardList data={cardList[0]} />
             </Box>
 
           </XlContainer>
