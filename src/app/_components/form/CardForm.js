@@ -19,6 +19,7 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
+  Spinner,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
@@ -68,9 +69,6 @@ function CardForm({ data, promotions }) {
   const [isExceedingLimit, setIsExceedingLimit] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
-  useEffect(() => {
-    console.log(activeTab)
-  })
 
   useEffect(() => {
     setLoading(true);
@@ -156,7 +154,6 @@ function CardForm({ data, promotions }) {
         }
       }
     }
-  
     return price.toFixed(2);
   };
 
@@ -481,6 +478,14 @@ const handleShippingOptionChange = (option) => {
   setSelectedShippingOption(option);
   updateShippingCost(option);
 };
+
+if (isLoading) {
+  return (
+    <Box display="flex" justifyContent="center" alignItems="center" height="30vh">
+      <Spinner size="xl" />
+    </Box>
+  );
+}
 
 
   return (

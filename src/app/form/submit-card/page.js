@@ -1,8 +1,6 @@
 // import styles from "./page.module.css";
-import { Box, Image } from "@chakra-ui/react";
-import PageContainer from "@/app/_layout/PageContainer";
+import { Box, Link } from "@chakra-ui/react";
 import PageContainerForm from "@/app/_layout/PageContainerForm";
-import SubmitCardForm from "@/app/_components/form/SubmitCardForm";
 import XlContainer from "@/app/_layout/containers/XlContainer";
 import CardForm from "@/app/_components/form/CardForm";
 import BodyMedium from "@/app/_components/typography/BodyMedium";
@@ -28,6 +26,9 @@ export default async function SubmitCard({ params }) {
           <Box>
             <Box mt='12'>
               <BodyMedium>{`After your payment, you'll receive an email with your order receipt and your invoice. Please send this invoice in with your cards.`}</BodyMedium>
+            </Box>
+            <Box mt='10'>
+              <Link href="/page/services" variant='primaryLight'>Types of Items We Grade</Link>
             </Box>
             <CardForm data={data} promotions={promotions} />
           </Box>
