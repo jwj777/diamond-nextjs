@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import BodyMedium from "../typography/BodyMedium";
 
-export default function Cell({ col, children, width }) {
+export default function Cell({ col, children, width, textAlign }) {
 
   return(
 
@@ -15,7 +15,7 @@ export default function Cell({ col, children, width }) {
       >
 
       </Box>
-      <BodyMedium color='neutral.80'>
+      <BodyMedium color='neutral.80' textAlign={textAlign}>
         {children}
       </BodyMedium>
     </Box>

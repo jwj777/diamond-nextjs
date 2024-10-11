@@ -43,18 +43,18 @@ export default async function ShippingFees({ params }) {
               <Box  >
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
                   <Box><TitleSmall color='neutral.90'>Service</TitleSmall></Box>
-                  <Box align='center'><TitleSmall color='neutral.90'>Number of Items</TitleSmall></Box>
+                  <Box textAlign={'right'} width='190px'><TitleSmall color='neutral.90'>Number of Items</TitleSmall></Box>
                   <Box textAlign={'center'} width='120px'><TitleSmall color='neutral.90'>Price</TitleSmall></Box>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
                   <Cell col='1'>Ground Advantage</Cell>
-                  <Cell>1 - 2</Cell>
-                  <Cell>$15.00</Cell>
+                  <Cell textAlign={'center'} width='160px'>1 - 2</Cell>
+                  <Cell textAlign={'center'} width='120px'>$10.00</Cell>
                 </Box>
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
                   <Cell col='1'>Priority Mail</Cell>
-                  <Cell>1 - 12</Cell>
-                  <Cell>$15.00</Cell>
+                  <Cell textAlign={'center'} width='160px'>1 - 12</Cell>
+                  <Cell textAlign={'center'} width='120px'>$15.00</Cell>
                 </Box>
               </Box>
             </Box>

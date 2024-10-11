@@ -15,8 +15,6 @@ export default async function Page({ params }) {
   const data = pageBySlug?.[0];
   const promotions = await getPromotions();
 
-  console.log('sdkajfhalksdjfhalksdjhf ')
-
   let activePromotion
 
   promotions.map((promotion, index) => {
@@ -36,8 +34,6 @@ export default async function Page({ params }) {
       <Box bg='neutral.4' pt='0'>
           <XlContainer>
 
-            <PricingCards />
-
             {
               activePromotion &&
               <Box 
@@ -50,6 +46,7 @@ export default async function Page({ params }) {
                 p='8'
                 pr='16'
                 mb='20'
+                mt='-16'
               >
                 <Box>
                   <HeadlineMedium color='neutral.100'>{activePromotion.attributes.Promotion_Headline}</HeadlineMedium>
@@ -63,6 +60,8 @@ export default async function Page({ params }) {
                 </Box>
               </Box>
             }
+
+            <PricingCards />
 
             <Box mb='24'>
               <PriceGrids priceGridStandard={priceGridStandard} priceGridBulk={priceGridBulk} />
