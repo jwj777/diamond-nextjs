@@ -3,11 +3,7 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+export const dynamic = 'force-dynamic'; 
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
