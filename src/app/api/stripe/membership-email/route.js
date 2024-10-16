@@ -1,20 +1,20 @@
-import { buffer } from "micro";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export const dynamic = 'force-dynamic'; 
+// Use the new configuration for Next.js App Router
+export const dynamic = 'force-dynamic'; // This replaces the old export const config
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 export const POST = async (req) => {
-  const buf = await buffer(req);
-  const sig = req.headers["stripe-signature"];
+  const sig = req.headers.get("stripe-signature");
 
   let event;
 
   try {
-    event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
+    const body = await req.text(); // Read the raw body as text
+    event = stripe.webhooks.constructEvent(body, sig, webhookSecret); // Construct the Stripe event
   } catch (err) {
     console.error("⚠️ Webhook signature verification failed.", err.message);
     return new Response(`Webhook Error: ${err.message}`, {
@@ -32,9 +32,8 @@ export const POST = async (req) => {
 
     const { line_items } = sessionWithLineItems;
 
-    // Here, you can filter for specific products or services
+    // Filter for membership items
     const membershipItems = line_items.data.filter(item => {
-      // Assuming membership products have specific IDs or names
       return item.price.product === "prod_QXnFIxIXPwSySv" || item.price.product === "prod_QXnGuxYlhBwnRS";
     });
 
