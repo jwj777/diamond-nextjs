@@ -22,34 +22,34 @@ export const POST = async (req) => {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
 
-    // Fetch the subscription to include product details
-    const subscription = await stripe.subscriptions.retrieve(session.subscription, {
-      expand: ['items.data.price.product'], // Expands the product details
-    });
+    try {
+      // Fetch the subscription to include product details
+      const subscription = await stripe.subscriptions.retrieve(session.subscription, {
+        expand: ['items.data.price.product'], // Expands the product details
+      });
 
-    const subscriptionItems = subscription.items.data;
+      const subscriptionItems = subscription.items.data;
 
-    // Log subscription items to check the actual product data
-    console.log("Subscription Items:", JSON.stringify(subscriptionItems, null, 2));
+      // Log subscription items to check the actual product data
+      console.log("Subscription Items:", JSON.stringify(subscriptionItems, null, 2));
 
-    // Optionally, filter the subscriptionItems to target specific membership products
-    // const membershipItems = subscriptionItems.filter(item => {
-    //   return item.price.product === "prod_QXnFIxIXPwSySv" || item.price.product === "prod_QXnGuxYlhBwnRS";
-    // });
-
-    console.log("Sending the following data to Zapier:", membershipItems);
-
-    // Send membership purchase data to Zapier
-    if (membershipItems.length > 0) {
-      await fetch("https://hooks.zapier.com/hooks/catch/8026392/219ausx/", {
+      // Now, send subscription items to Zapier
+      const response = await fetch("https://hooks.zapier.com/hooks/catch/8026392/219ausx/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ membershipItems }),
+        body: JSON.stringify({ subscriptionItems }), // Send subscription items to Zapier
       });
 
-      console.log("Sent membership items to Zapier:", JSON.stringify(membershipItems, null, 2));
+      const zapierResponse = await response.text();
+      console.log("Zapier Response:", zapierResponse);
+
+    } catch (err) {
+      console.error("Error processing subscription or sending to Zapier:", err.message);
+      return new Response(`Processing Error: ${err.message}`, {
+        status: 500,
+      });
     }
   }
 
