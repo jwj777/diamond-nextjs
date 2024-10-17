@@ -22,34 +22,42 @@ export const POST = async (req) => {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
 
-    try {
-      // Fetch the subscription to include product details
-      const subscription = await stripe.subscriptions.retrieve(session.subscription, {
-        expand: ['items.data.price.product'], // Expands the product details
-      });
+    // Fetch the subscription to include product details
+    const subscription = await stripe.subscriptions.retrieve(session.subscription, {
+      expand: ['items.data.price.product'], // Expands the product details
+    });
 
-      const subscriptionItems = subscription.items.data;
+    const subscriptionItems = subscription.items.data;
 
-      // Log subscription items to check the actual product data
-      console.log("Subscription Items:", JSON.stringify(subscriptionItems, null, 2));
+    // Log subscription items to check the actual product data
+    console.log("Subscription Items:", JSON.stringify(subscriptionItems, null, 2));
 
-      // Now, send subscription items to Zapier
-      const response = await fetch("https://hooks.zapier.com/hooks/catch/8026392/219ausx/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ subscriptionItems }), // Send subscription items to Zapier
-      });
+    // Iterate through the subscription items and send to the appropriate Zapier URL
+    for (const item of subscriptionItems) {
+      const productId = item.price.product;
 
-      const zapierResponse = await response.text();
-      console.log("Zapier Response:", zapierResponse);
+      if (productId === 'prod_QXnI7So14My2dN') {
+        // Send the request to the specific Zapier webhook for prod_QXnI7So14My2dN
+        await fetch("https://hooks.zapier.com/hooks/catch/8026392/24dco28/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ subscriptionItems: item }),
+        });
 
-    } catch (err) {
-      console.error("Error processing subscription or sending to Zapier:", err.message);
-      return new Response(`Processing Error: ${err.message}`, {
-        status: 500,
-      });
+      } else {
+        // Send the request to the default Zapier webhook for other product IDs
+        await fetch("https://hooks.zapier.com/hooks/catch/8026392/219ausx/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ subscriptionItems: item }),
+        });
+        console.log("Sent to Zapier webhook for other products:", JSON.stringify(item, null, 2));
+      }
+      
     }
   }
 
