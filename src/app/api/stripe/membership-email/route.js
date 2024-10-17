@@ -1,15 +1,16 @@
-import Stripe from "stripe";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
 export const POST = async (req) => {
   const sig = req.headers.get("stripe-signature");
+
+  // Log the request body and headers to confirm if the webhook is hitting
+  const body = await req.text();
+  console.log("Raw body received from Stripe:", body);
+  console.log("Stripe Signature:", sig);
 
   let event;
 
   try {
-    const body = await req.text(); // Read the raw body as text
-    event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET); // Construct the Stripe event
+    // Process the raw body with Stripe's signature verification
+    event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
     console.error("⚠️ Webhook signature verification failed.", err.message);
     return new Response(`Webhook Error: ${err.message}`, {
@@ -19,7 +20,7 @@ export const POST = async (req) => {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
-
+    
     // Fetch the subscription to include product details
     const subscription = await stripe.subscriptions.retrieve(session.subscription, {
       expand: ['items.data.price.product'], // Expands the product details
@@ -30,26 +31,16 @@ export const POST = async (req) => {
     // Log subscription items to check the actual product data
     console.log("Subscription Items:", JSON.stringify(subscriptionItems, null, 2));
 
-    // Filter for membership products
-    const membershipItems = subscriptionItems.filter(item => {
-      // Use the actual product IDs from the log above
-      return item.price.product === "prod_QXnFIxIXPwSySv" || item.price.product === "prod_QXnGuxYlhBwnRS";
+    // Skip the filtering for now and just send all items to Zapier
+    await fetch("https://hooks.zapier.com/hooks/catch/8026392/219ausx/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ subscriptionItems }),
     });
 
-    // If membership items are found, send them to Zapier
-    if (membershipItems.length > 0) {
-      await fetch("https://hooks.zapier.com/hooks/catch/8026392/219ausx/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ membershipItems }),
-      });
-
-      console.log("Sent membership items to Zapier:", JSON.stringify(membershipItems, null, 2));
-    } else {
-      console.log("No membership items found in the subscription.");
-    }
+    console.log("Sent subscription items to Zapier:", JSON.stringify(subscriptionItems, null, 2));
   }
 
   return new Response("Webhook received and processed", { status: 200 });
