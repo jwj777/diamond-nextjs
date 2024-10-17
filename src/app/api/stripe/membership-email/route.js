@@ -29,12 +29,20 @@ export const POST = async (req) => {
 
     const subscriptionItems = subscription.items.data;
 
+    // Get the customer's email from the session
+    const customerEmail = session.customer_details.email;
+
     // Log subscription items to check the actual product data
     console.log("Subscription Items:", JSON.stringify(subscriptionItems, null, 2));
 
     // Iterate through the subscription items and send to the appropriate Zapier URL
     for (const item of subscriptionItems) {
       const productId = item.price.product;
+
+      const payload = {
+        subscriptionItems: item,
+        customerEmail: customerEmail, // Include the customer's email in the payload
+      };
 
       if (productId === 'prod_QXnI7So14My2dN') {
         // Send the request to the specific Zapier webhook for prod_QXnI7So14My2dN
@@ -43,9 +51,9 @@ export const POST = async (req) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ subscriptionItems: item }),
+          body: JSON.stringify(payload),
         });
-
+        console.log("Sent to Zapier webhook for prod_QXnI7So14My2dN:", JSON.stringify(payload, null, 2));
       } else {
         // Send the request to the default Zapier webhook for other product IDs
         await fetch("https://hooks.zapier.com/hooks/catch/8026392/219ausx/", {
@@ -53,11 +61,10 @@ export const POST = async (req) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ subscriptionItems: item }),
+          body: JSON.stringify(payload),
         });
-        console.log("Sent to Zapier webhook for other products:", JSON.stringify(item, null, 2));
+        console.log("Sent to Zapier webhook for other products:", JSON.stringify(payload, null, 2));
       }
-      
     }
   }
 
