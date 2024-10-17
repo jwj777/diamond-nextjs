@@ -33,10 +33,10 @@ export const POST = async (req) => {
     console.log("Subscription Items:", JSON.stringify(subscriptionItems, null, 2));
 
     // Optionally, filter the subscriptionItems to target specific membership products
-    const membershipItems = subscriptionItems.filter(item => {
-      // Assuming you want to target specific product IDs for memberships
-      return item.price.product === "prod_QXnFIxIXPwSySv" || item.price.product === "prod_QXnGuxYlhBwnRS";
-    });
+    // const membershipItems = subscriptionItems.filter(item => {
+    //   // Assuming you want to target specific product IDs for memberships
+    //   return item.price.product === "prod_QXnFIxIXPwSySv" || item.price.product === "prod_QXnGuxYlhBwnRS";
+    // });
 
     console.log("Sending the following data to Zapier:", membershipItems);
 
