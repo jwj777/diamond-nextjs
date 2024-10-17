@@ -27,13 +27,17 @@ export const POST = async (req) => {
 
     const subscriptionItems = subscription.items.data;
     
+    // Log subscription items to check the actual product data
+    console.log("Subscription Items:", JSON.stringify(subscriptionItems, null, 2));
+
     // Filter for membership products
     const membershipItems = subscriptionItems.filter(item => {
+      // Use the actual product IDs from the log above
       return item.price.product === "prod_QXnFIxIXPwSySv" || item.price.product === "prod_QXnGuxYlhBwnRS";
     });
 
+    // If membership items are found, send them to Zapier
     if (membershipItems.length > 0) {
-      // Send membership purchase data to Zapier
       await fetch("https://hooks.zapier.com/hooks/catch/8026392/219ausx/", {
         method: "POST",
         headers: {
@@ -43,6 +47,8 @@ export const POST = async (req) => {
       });
 
       console.log("Sent membership items to Zapier:", JSON.stringify(membershipItems, null, 2));
+    } else {
+      console.log("No membership items found in the subscription.");
     }
   }
 
