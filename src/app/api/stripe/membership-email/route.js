@@ -8,6 +8,9 @@ export const POST = async (req) => {
 
   let event;
 
+  console.log("STRIPE_SECRET_KEY:", process.env.STRIPE_SECRET_KEY);
+  console.log("STRIPE_WEBHOOK_SECRET:", process.env.STRIPE_WEBHOOK_SECRET);
+
   try {
     const body = await req.text(); // Read the raw body as text
     // Verify the webhook signature using your secret key
