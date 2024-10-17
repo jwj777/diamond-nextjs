@@ -8,9 +8,6 @@ export const POST = async (req) => {
 
   let event;
 
-  console.log("STRIPE_SECRET_KEY:", process.env.STRIPE_SECRET_KEY);
-  console.log("STRIPE_WEBHOOK_SECRET:", process.env.STRIPE_WEBHOOK_SECRET);
-
   try {
     const body = await req.text(); // Read the raw body as text
     // Verify the webhook signature using your secret key
@@ -35,8 +32,26 @@ export const POST = async (req) => {
     // Log subscription items to check the actual product data
     console.log("Subscription Items:", JSON.stringify(subscriptionItems, null, 2));
 
-    // If you have additional logic, like sending data to Zapier, place it here
+    // Optionally, filter the subscriptionItems to target specific membership products
+    const membershipItems = subscriptionItems.filter(item => {
+      // Assuming you want to target specific product IDs for memberships
+      return item.price.product === "prod_QXnFIxIXPwSySv" || item.price.product === "prod_QXnGuxYlhBwnRS";
+    });
 
+    console.log("Sending the following data to Zapier:", membershipItems);
+
+    // Send membership purchase data to Zapier
+    if (membershipItems.length > 0) {
+      await fetch("https://hooks.zapier.com/hooks/catch/8026392/219ausx/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ membershipItems }),
+      });
+
+      console.log("Sent membership items to Zapier:", JSON.stringify(membershipItems, null, 2));
+    }
   }
 
   return new Response("Webhook received and processed", { status: 200 });
