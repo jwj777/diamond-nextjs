@@ -34,7 +34,6 @@ export const POST = async (req) => {
 
     // Optionally, filter the subscriptionItems to target specific membership products
     // const membershipItems = subscriptionItems.filter(item => {
-    //   // Assuming you want to target specific product IDs for memberships
     //   return item.price.product === "prod_QXnFIxIXPwSySv" || item.price.product === "prod_QXnGuxYlhBwnRS";
     // });
 
