@@ -43,11 +43,13 @@ export const POST = async (req) => {
 
         const payload = {
           subscriptionItems: item,
-          customerEmail: customer.email, // Use the customer's email from retrieved customer object
+          productId: productId, // Include the product ID
+          customerEmail: customer.email, // Include the customer's email
         };
 
+        // Check if it's a card order product (assuming product ID 'prod_QXnI7So14My2dN' is for card orders)
         if (productId === 'prod_QXnI7So14My2dN') {
-          // Send the request to the specific Zapier webhook for prod_QXnI7So14My2dN
+          // Send the request to the specific Zapier webhook for card orders
           await fetch("https://hooks.zapier.com/hooks/catch/8026392/24dco28/", {
             method: "POST",
             headers: {
@@ -55,9 +57,9 @@ export const POST = async (req) => {
             },
             body: JSON.stringify(payload),
           });
-          console.log("Sent to Zapier webhook for prod_QXnI7So14My2dN:", JSON.stringify(payload, null, 2));
+          console.log("Sent to Zapier webhook for card orders (prod_QXnI7So14My2dN):", JSON.stringify(payload, null, 2));
         } else {
-          // Send the request to the default Zapier webhook for other product IDs
+          // Send the request to the membership Zapier webhook for other product IDs
           await fetch("https://hooks.zapier.com/hooks/catch/8026392/219ausx/", {
             method: "POST",
             headers: {
@@ -65,20 +67,21 @@ export const POST = async (req) => {
             },
             body: JSON.stringify(payload),
           });
-          console.log("Sent to Zapier webhook for other products:", JSON.stringify(payload, null, 2));
+          console.log("Sent to Zapier webhook for other membership products:", JSON.stringify(payload, null, 2));
         }
       }
     } else {
       // Handle one-time payment checkout session (e.g., card orders)
       const payload = {
         sessionId: session.id,
-        customerEmail: customer.email, // Use the customer's email from retrieved customer object
+        customerEmail: customer.email, // Include the customer's email
         amountTotal: session.amount_total,
         orderDetails: session, // Include the order details for card orders
+        productId: session.metadata.product_id || 'Unknown', // Include product ID, assuming it's in metadata, or default to 'Unknown'
       };
 
-      // Send the card order data to the appropriate Zapier webhook
-      await fetch("https://hooks.zapier.com/hooks/catch/8026392/219ausx/", {
+      // Send the card order data to the card order Zapier webhook
+      await fetch("https://hooks.zapier.com/hooks/catch/8026392/24dco28/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +89,7 @@ export const POST = async (req) => {
         body: JSON.stringify(payload),
       });
 
-      console.log("Sent one-time payment order details to Zapier:", JSON.stringify(payload, null, 2));
+      console.log("Sent one-time payment order details to Zapier for card orders:", JSON.stringify(payload, null, 2));
     }
   }
 
