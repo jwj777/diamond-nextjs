@@ -22,6 +22,9 @@ export const POST = async (req) => {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
 
+    // Retrieve customer details to get the email, as customer_details may be null
+    const customer = await stripe.customers.retrieve(session.customer);
+
     // Check if it's a subscription-based checkout session or a one-time payment session
     if (session.subscription) {
       // Handle subscription-based checkout session
@@ -40,7 +43,7 @@ export const POST = async (req) => {
 
         const payload = {
           subscriptionItems: item,
-          customerEmail: session.customer_details.email, // Include the customer's email
+          customerEmail: customer.email, // Use the customer's email from retrieved customer object
         };
 
         if (productId === 'prod_QXnI7So14My2dN') {
@@ -69,7 +72,7 @@ export const POST = async (req) => {
       // Handle one-time payment checkout session (e.g., card orders)
       const payload = {
         sessionId: session.id,
-        customerEmail: session.customer_details.email, // Include the customer's email
+        customerEmail: customer.email, // Use the customer's email from retrieved customer object
         amountTotal: session.amount_total,
         orderDetails: session, // Include the order details for card orders
       };
