@@ -92,8 +92,6 @@ export default function ProfileClient() {
   };
   
   
-
-
   return (
     <main>
       <PageContainerAccount data={{ user }}>
