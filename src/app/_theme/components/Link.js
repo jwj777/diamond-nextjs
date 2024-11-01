@@ -111,7 +111,18 @@ const primaryDarkText = defineStyle({
   color: 'primary.90',
   textDecoration: 'underline',
     _hover: {
-    color: 'primary.100',
+    color: 'primary.95',
+  }
+})
+
+const neutralLight = defineStyle({
+  bg: 'neutral.80',
+  color: 'neutral.10',
+  borderRadius: '10rem',
+    _hover: {
+      bg: 'neutral.90',
+      color: 'neutral.10',
+      textDecor: 'none',
   }
 })
 
@@ -164,6 +175,7 @@ export const Link = defineStyleConfig({
     primaryLightText,
     primaryDark,
     primaryDarkText,
+    neutralLight,
     neutralDark,
     neutralDarkAlt,
     neutralDarkText,

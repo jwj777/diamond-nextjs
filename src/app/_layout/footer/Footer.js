@@ -1,11 +1,28 @@
 'use client'
-import { Box, Image, Link, Text } from "@chakra-ui/react";
+import { 
+  Box, 
+  Image, 
+  Link,  
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from "@chakra-ui/react";
 import FullContainer from "../containers/FullContainer";
 import NavLinkFooter from "./NavLinkFooter";
 import BodyMedium from "@/app/_components/typography/BodyMedium";
+import BodyLarge from "@/app/_components/typography/BodyLarge";
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 
 export default function Footer({ colorScheme }) {
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { user, error, isLoading } = useUser();
 
   colorScheme = colorScheme ? colorScheme : 'neutralDark';
 
@@ -18,6 +35,29 @@ export default function Footer({ colorScheme }) {
       borderColor={colorScheme + '.outline-dim'}
     >
       <FullContainer>
+
+        <Modal isOpen={isOpen} onClose={onClose} >
+          <ModalOverlay />
+          <ModalContent pb='8' borderRadius='1.5rem' mt='160'>
+            <ModalCloseButton size='xl' mt='4' mr='4' />
+            <ModalBody pt='20' pb='8' px='16'>
+              <Box
+                textAlign='center'
+              >
+                <BodyLarge color='neutral.10'>Login or sign up for a free account to access the newsetter</BodyLarge>
+              </Box>
+            </ModalBody>
+
+            <ModalFooter display='flex' justifyContent={'center'}>
+              <Link href={`/api/auth/login?returnTo=${encodeURIComponent('/account')}`} variant='primaryLight' mr={3}>
+                Sign Up / Login
+              </Link>
+              <Link href='/#' variant='neutralLight' mr={3} onClick={onClose}>
+                Close
+              </Link>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
 
         <Box
           display='flex'
@@ -64,9 +104,15 @@ export default function Footer({ colorScheme }) {
                 <NavLinkFooter href="/page/contact" label='Contact Us' />
               </Box>
             </Box>
-            
           </Box>
+        </Box>
 
+        <Box mt='4' mb='8'>
+        {
+          !user ?
+          <Link href='/#' variant='primaryDarkText' size='mdText' onClick={onOpen}>Subscribe To Our Newsletter</Link>
+          : <Link href='/account' variant='primaryDarkText' size='mdText'>Subscribe To Our Newsletter</Link>
+        }
         </Box>
 
         <Box display='flex' alignItems='center' borderTop='1px' borderColor='neutral.40' mt='6' pt='4' pb='12'>
