@@ -8,10 +8,6 @@ import HeroHomeFixedPrice from "./HeroHomeFixedPrice";
 
 export default function HeroHeaderHome({ data, promotions, cardList }) {
 
-  // console.log('HeaderHeroGeneral')
-  // console.log(data)
-  // console.log('home promotions  ', promotions)
-
   let activePromotion
 
   promotions.map((promotion, index) => {
@@ -21,8 +17,6 @@ export default function HeroHeaderHome({ data, promotions, cardList }) {
       activePromotion = null
     }
   })
-
-  // console.log('Active Promottion ', activePromotion)
 
   return (
 

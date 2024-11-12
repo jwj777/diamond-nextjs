@@ -8,9 +8,8 @@ import { useState, useEffect } from "react";
 import BodyMedium from "../_components/typography/BodyMedium";
 import Footer from "../_layout/footer/Footer";
 import XlContainer from "../_layout/containers/XlContainer";
-import TitleMedium from "../_components/typography/TitleMedium";
 import TitleSmall from "../_components/typography/TitleSmall";
-import LabelSmall from "../_components/typography/LabelSmall";
+
 
 export default function ProfileClient() {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -24,42 +23,99 @@ export default function ProfileClient() {
     }
     if (!user) return;
     setLoading(true);
+
     async function fetchSubscriptions() {
       try {
-        const customerRes = await fetch(
-          `/api/stripe/customer?email=${user.email}`
-        );
+        const customerRes = await fetch(`/api/stripe/customer?email=${user.email}`);
         const customerData = await customerRes.json();
-
-        const response = await fetch(
-          `/api/stripe/subscriptions?customerId=${customerData.id}`
-        );
-        const data = await response.json();
-        setSubscriptions(data);
+    
+        // Fetch all subscriptions for the customer
+        let subscriptionsData = await fetch(`/api/stripe/subscriptions?customerId=${customerData.id}`)
+          .then(res => res.json());
+    
+        // If no subscription exists, assign the default membership
+        if (!subscriptionsData || subscriptionsData.length === 0) {
+          console.log('No existing subscription found; assigning default membership.');
+          await assignDefaultMembership(customerData.id);
+    
+          // Re-fetch subscriptions to get the new default membership
+          subscriptionsData = await fetch(`/api/stripe/subscriptions?customerId=${customerData.id}`)
+            .then(res => res.json());
+        }
+    
+        // Fetch all products at once
+        const productsRes = await fetch(`/api/stripe/products`);
+        const productsData = await productsRes.json();
+    
+        // Map product IDs to product details for quick lookup
+        const productsMap = productsData.reduce((map, product) => {
+          map[product.id] = product;
+          return map;
+        }, {});
+    
+        // Attach product details to each subscription
+        const subscriptionsWithProducts = subscriptionsData.map((subscription) => {
+          const productId = subscription.items.data[0].price.product;
+          return {
+            ...subscription,
+            product: productsMap[productId] || null,
+          };
+        });
+    
+        setSubscriptions(subscriptionsWithProducts);
         setLoading(false);
       } catch (error) {
+        console.error("Error fetching subscriptions or products:", error);
         setLoading(false);
       }
     }
+
+
     fetchSubscriptions();
   }, [user, isLoading]);
 
 
-  useEffect(() => {
-    const fetchSubscriptionStatus = async () => {
-      try {
-        const response = await fetch(`/api/auth/get-metadata?userId=${user.sub}`);
-        const { isSubscribed } = await response.json();
-        setIsSubscribed(isSubscribed);
-      } catch (error) {
-        console.error("Error fetching subscription status:", error);
+  async function assignDefaultMembership(customerId) {
+    try {
+      const response = await fetch("/api/stripe/assign-default-membership", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ customerId, planId: "price_1Pghf8IdisjgE5sAXWeMGsHn" }), 
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to assign default membership.");
       }
-    };
-
-    if (user) {
-      fetchSubscriptionStatus();
+  
+      // Update subscriptions state with the new default membership
+      const defaultSubscription = await response.json();
+      setSubscriptions([defaultSubscription]);
+    } catch (error) {
+      console.error("Error assigning default membership:", error);
     }
-  }, [user]);
+  } 
+
+  console.log('subscriptions B --> ', subscriptions)
+
+
+
+  // useEffect(() => {
+  //   const fetchSubscriptionStatus = async () => {
+  //     try {
+  //       const response = await fetch(`/api/auth/get-metadata?userId=${user.sub}`);
+  //       const { isSubscribed } = await response.json();
+  //       setIsSubscribed(isSubscribed);
+  //     } catch (error) {
+  //       console.error("Error fetching subscription status:", error);
+  //     }
+  //   };
+
+  //   if (user) {
+  //     fetchSubscriptionStatus();
+  //   }
+  // }, [user]);
 
 
   const handleNewsletterToggle = async (event) => {
@@ -128,15 +184,15 @@ export default function ProfileClient() {
                     borderRadius='1rem'
                   >
                     <Box mb='4'>
-                      <TitleSmall mr='1' mb='1' color='neutral.90'>Email</TitleSmall>
+                      <TitleSmall mr='1' mb='1' color='neutral.95'>Email</TitleSmall>
                       <BodyMedium color='neutral.80'>{user.email}</BodyMedium>
                     </Box>
                     <Box mb='4'>
-                      <TitleSmall mr='1' mb='1' color='neutral.90'>Username</TitleSmall>
+                      <TitleSmall mr='1' mb='1' color='neutral.95'>Username</TitleSmall>
                       <BodyMedium color='neutral.80'>{user.nickname}</BodyMedium>
                     </Box>
-                    <Box mt='8'>
-                      <BodyMedium color='neutral.90' >Request Order Status</BodyMedium>
+                    <Box mt='6'>
+                      <BodyMedium color='neutral.95' >Request Order Status</BodyMedium>
                       <Link href="mailto:support@diamondgradecards.com" variant='primaryDarkText' size='mdText'>support@diamondgradecards.com</Link>
                     </Box>
                   </Box>
@@ -150,25 +206,24 @@ export default function ProfileClient() {
                     pr='12'
                     borderRadius='1rem'
                   >
-                    <TitleSmall color='neutral.90'>Membership Details</TitleSmall>
                     {subscriptions.length > 0 ? (
-                      <Box mt='1'>
+                      <Box mt='0'>
                         <Box mb='2'>
                           <BodyMedium color={"white"}>
-                            <Text as='span' fontWeight='600' mr='1' mb='3'>Membership Plan:</Text>
-                            <Text as='span' color='neutral.90'>{subscriptions[0].product.name}</Text>
+                            <Text as='span' color='neutral.95' fontWeight='600' mr='2' mb='3'>Membership Plan:</Text>
+                            <Text as='span' color='neutral.80'>{subscriptions[0]?.product?.name}</Text>
                           </BodyMedium>
                         </Box>
                         <Box mb='2'>
                           <BodyMedium color={"white"}>
-                            <Text as='span' fontWeight='600' mr='1' mb='3'>Yearly Fee: </Text>
-                            <Text as='span' color='neutral.90'>${subscriptions[0].plan.amount / 100}</Text>
+                            <Text as='span' color='neutral.95' fontWeight='600' mr='1' mb='3'>Yearly Fee: </Text>
+                            <Text as='span' color='neutral.80'>${subscriptions[0]?.plan?.amount / 100}</Text>
                           </BodyMedium>
                         </Box>
                           <Box mb='2'>
                           <BodyMedium color={"white"}>
-                          <Text as='span' fontWeight='600' mr='1' mb='3'>Status:{" "}</Text>
-                          <Text as='span' color='neutral.90'>{subscriptions[0].plan.active ? "Active" : "Deactive"}</Text>
+                          <Text as='span' color='neutral.95' fontWeight='600' mr='1' mb='3'>Status:{" "}</Text>
+                          <Text as='span' color='neutral.80'>{subscriptions[0]?.plan?.active ? "Active" : "Deactive"}</Text>
                           </BodyMedium>
                         </Box>
                         <Box mt='4'>

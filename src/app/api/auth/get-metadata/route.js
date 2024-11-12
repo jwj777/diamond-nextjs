@@ -13,4 +13,3 @@ export async function GET(req) {
     return NextResponse.json({ message: "Error fetching user metadata" }, { status: 500 });
   }
 }
-
