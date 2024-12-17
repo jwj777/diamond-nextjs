@@ -19,6 +19,9 @@ function PriceGrids({ priceGridStandard, priceGridBulk }) {
     return (
       <Box mb={8} bg='neutral.10' p='10' borderRadius='1.5rem'>
         <BodySuper color='neutral.95'>{title}</BodySuper>
+        <Box mt='1'>
+          <BodyMedium color='neutral.90'>All prices below are per card prices.</BodyMedium>
+        </Box>
         <Box mt='6' mb='12'>
           <Link href={link_url} variant='neutralDarkText' size='mdText' target='blank'>{link_label}</Link>
         </Box>

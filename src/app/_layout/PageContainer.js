@@ -3,8 +3,6 @@ import { Box, Text } from "@chakra-ui/react";
 import PageContainerGeneral from "./PageContainerGeneral";
 // import Footer from "./footer/Footer";
 
-
-
 export default function PageContainer({ data, children, contentType }) {
 
   contentType = 'general'

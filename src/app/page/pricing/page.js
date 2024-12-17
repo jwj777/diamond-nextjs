@@ -56,7 +56,7 @@ export default async function Page({ params }) {
                   </Box>
                 </Box>
                 <Box width='180px' mt={{ base: '12', xl: '0'}} mb={{ base: '8', xl: '0'}}>
-                  <Link href='' variant='primaryDark' size='xl'>Sign Up Today</Link>
+                  <Link href='/api/auth/login' variant='primaryDark' size='xl'>Sign Up Today</Link>
                 </Box>
               </Box>
             }
