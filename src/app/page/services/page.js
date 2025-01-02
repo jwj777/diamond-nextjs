@@ -56,7 +56,7 @@ export default async function Services({ params }) {
                 <Box display='flex' alignItems='center' justifyContent={'space-between'} borderBottom='1px' borderColor='neutral.30' pb='2' mb='2'>
                   <Cell col='1'>Raw Autographs</Cell>
                   <Cell width='640px'>PERSONAL OR INDEPENDENTLY OBTAINED AUTOGRAPHS</Cell>
-                  <Cell>No</Cell>
+                  <Cell>CONTACT US</Cell>
                 </Box>
               </Box>
             </Box>
