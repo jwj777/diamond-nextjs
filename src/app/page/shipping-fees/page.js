@@ -27,8 +27,9 @@ export default async function ShippingFees({ params }) {
             <BodyMedium color='neutral.90'>Ship all orders to the following address:</BodyMedium>
           </Box>
           <BodyMedium color='neutral.90'>DIAMOND GRADE CARDS LLC.</BodyMedium> 
-          <BodyMedium color='neutral.90'>1040 SW LUTTRELL RD. STE E</BodyMedium>
-          <BodyMedium color='neutral.90'>BLUE SPRINGS, MO 64015</BodyMedium>
+          <BodyMedium color='neutral.90'>P.O. Box 550</BodyMedium>
+          <BodyMedium color='neutral.90'>500 SW South Ave</BodyMedium>
+          <BodyMedium color='neutral.90'>Blue Springs, MO 64014</BodyMedium>
         </Box>
 
           <Box>
