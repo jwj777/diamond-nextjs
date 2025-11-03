@@ -4,6 +4,7 @@ import PageContainerForm from "@/app/_layout/PageContainerForm";
 import XlContainer from "@/app/_layout/containers/XlContainer";
 import CardForm from "@/app/_components/form/CardForm";
 import BodyMedium from "@/app/_components/typography/BodyMedium";
+import TitleLarge from "@/app/_components/typography/TitleLarge";
 
 
 export default async function SubmitCard({ params }) {
