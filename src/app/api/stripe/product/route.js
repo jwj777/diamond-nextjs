@@ -67,7 +67,8 @@ export const POST = async (req) => {
       invoice_creation: {
         enabled: true,
         invoice_data: {
-          description: `Please print out this invoice and send it in with your order to the address listed below:\n\nDiamond Grade Cards LLC\n1040 SW Luttrell Rd\nE-1\nBlue Springs, Missouri 64015\nUnited States`,
+          description: `Please print out this invoice and send it in with your order to the 
+          address listed below:\n\nDiamond Grade Cards LLC\nP.O. Box 550\n500 SW South Ave\nBlue Springs, MO 64014\nUnited States`,
         },
       },
     };

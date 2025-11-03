@@ -226,9 +226,9 @@ export default function ProfileClient() {
                           <Text as='span' color='neutral.80'>{subscriptions[0]?.plan?.active ? "Active" : "Deactive"}</Text>
                           </BodyMedium>
                         </Box>
-                        <Box mt='4'>
+                        {/* <Box mt='4'>
                           <Link href='/page/pricing' variant='primaryDarkText' size='mdText'>Upgrade Plan</Link>
-                        </Box>
+                        </Box> */}
                       </Box>
                     
                     ) : (
