@@ -31,8 +31,10 @@ export default async function SubmitCard({ params }) {
             <Box mt='10'>
               <Link href="/page/services" variant='primaryLight'>Types of Items We Grade</Link>
             </Box>
-            <Box maxW='680px' textAlign={'center'}>
-              <TitleLarge>DiamondGrade Is Not Currently Accepting New Grading Requests</TitleLarge>
+            <Box display='flex' justifyContent={'center'} pt='6rem' pb='8rem'>
+              <Box maxW='680px' textAlign={'center'}>
+                <TitleLarge>DiamondGrade Is Not Currently Accepting New Grading Requests</TitleLarge>
+              </Box>
             </Box>
             {/* <CardForm data={data} promotions={promotions} /> */}
           </Box>
